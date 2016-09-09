@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agenda;
+package lembrete;
  
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -280,7 +280,7 @@ public class Evento extends javax.swing.JInternalFrame {
 
     private void jbRegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegraActionPerformed
         JInternalFrame regra =new Regra();
-        agenda.MenuPrincipal.jdPane.add(regra);
+        lembrete.MenuPrincipal.jdPane.add(regra);
         int lDesk = MenuPrincipal.jdPane.getWidth();
         int aDesk = MenuPrincipal.jdPane.getHeight();
         int lIFrame = regra.getWidth();

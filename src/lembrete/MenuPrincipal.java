@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agenda;
+package lembrete;
 
 import com.sun.glass.ui.Window;
 import java.awt.Dimension;
@@ -57,7 +57,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jdPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jdPane.setOpaque(false);
 
-        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agenda/background.png"))); // NOI18N
+        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lembrete/background.png"))); // NOI18N
 
         jdPane.setLayer(jlLogo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

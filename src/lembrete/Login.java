@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agenda;
+package lembrete;
 
 import javax.swing.JOptionPane;
 
@@ -123,7 +123,7 @@ public class Login extends javax.swing.JInternalFrame {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         if(this.jTxtUsuario.getText().toUpperCase().equals("RAFAEL")){
             if(this.jTxtSenha.getText().toUpperCase().equals("123")){
-                agenda.MenuPrincipal.jMenu1.setEnabled(true);
+                lembrete.MenuPrincipal.jMenu1.setEnabled(true);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null,"Senha inválida!","Atenção",JOptionPane.WARNING_MESSAGE);
