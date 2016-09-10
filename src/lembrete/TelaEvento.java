@@ -18,12 +18,12 @@ import javax.swing.colorchooser.ColorSelectionModel;
  *
  * @author TI
  */
-public class Evento extends javax.swing.JInternalFrame {
+public class TelaEvento extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Usuario
      */
-    public Evento() {
+    public TelaEvento() {
         initComponents();
     }
 
@@ -242,6 +242,8 @@ public class Evento extends javax.swing.JInternalFrame {
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         utilidades.JavaMailApp enviarEmail = new utilidades.JavaMailApp();
+        utilidades.SmsSender enviarSms = new utilidades.SmsSender();
+        
         if(this.jCkEmail.isSelected()){
             if(!this.jTxtEmail.getText().isEmpty()){
                 enviarEmail.setEmailDestino(this.jTxtEmail.getText());
@@ -255,10 +257,29 @@ public class Evento extends javax.swing.JInternalFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Campo e-mail é obrigatório!","Atenção",JOptionPane.WARNING_MESSAGE);
                 this.jTxtEmail.grabFocus();
-            }
+            } 
         }
         
+        if(this.jCkSms.isSelected()){
             
+            if(this.jTxtDdd.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Campo DDD é obrigatório!","Atenção",JOptionPane.INFORMATION_MESSAGE );
+                return;
+            }
+            
+            if(this.jTxtNumero.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Campo número é obrigatório!","Atenção",JOptionPane.INFORMATION_MESSAGE );
+                return;
+            }
+            
+            enviarSms.setTipoEvento(this.jComboBox2.getSelectedItem().toString());
+            enviarSms.setDdd(Integer.parseInt(this.jTxtDdd.getText()));
+            enviarSms.setNumeroCelular(Integer.parseInt(this.jTxtNumero.getText()));
+            enviarSms.SmsSender();
+            JOptionPane.showMessageDialog(null, "SMS enviada com sucesso!","Envio de SMS",JOptionPane.INFORMATION_MESSAGE );
+               
+        }
+  
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
@@ -279,10 +300,10 @@ public class Evento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbColorActionPerformed
 
     private void jbRegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegraActionPerformed
-        JInternalFrame regra =new Regra();
-        lembrete.MenuPrincipal.jdPane.add(regra);
-        int lDesk = MenuPrincipal.jdPane.getWidth();
-        int aDesk = MenuPrincipal.jdPane.getHeight();
+        JInternalFrame regra =new TelaRegra();
+        lembrete.TelaMenuPrincipal.jdPane.add(regra);
+        int lDesk = TelaMenuPrincipal.jdPane.getWidth();
+        int aDesk = TelaMenuPrincipal.jdPane.getHeight();
         int lIFrame = regra.getWidth();
         int aIFrame = regra.getHeight();
         regra.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );

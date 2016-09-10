@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
  *
  * @author TI
  */
-public class Login extends javax.swing.JInternalFrame {
+public class TelaLogin extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Usuario
      */
-    public Login() {
+    public TelaLogin() {
         initComponents();
     }
 
@@ -121,17 +121,17 @@ public class Login extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        if(this.jTxtUsuario.getText().toUpperCase().equals("RAFAEL")){
-            if(this.jTxtSenha.getText().toUpperCase().equals("123")){
-                lembrete.MenuPrincipal.jMenu1.setEnabled(true);
+//        if(this.jTxtUsuario.getText().toUpperCase().equals("RAFAEL")){;;
+//            if(this.jTxtSenha.getText().toUpperCase().equals("123")){
+                lembrete.TelaMenuPrincipal.jMenu1.setEnabled(true);
                 this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(null,"Senha inválida!","Atenção",JOptionPane.WARNING_MESSAGE);
-            }
-                
-        }else{
-            JOptionPane.showMessageDialog(null,"Usuário inválido!","Atenção",JOptionPane.WARNING_MESSAGE);
-        }
+//            }else{
+//                JOptionPane.showMessageDialog(null,"Senha inválida!","Atenção",JOptionPane.WARNING_MESSAGE);
+//            }
+//                
+//        }else{
+//            JOptionPane.showMessageDialog(null,"Usuário inválido!","Atenção",JOptionPane.WARNING_MESSAGE);
+//        }
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed

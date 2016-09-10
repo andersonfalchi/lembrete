@@ -9,12 +9,12 @@ package lembrete;
  *
  * @author TI
  */
-public class Regra extends javax.swing.JInternalFrame {
+public class TelaRegra extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Usuario
      */
-    public Regra() {
+    public TelaRegra() {
         initComponents();
     }
 

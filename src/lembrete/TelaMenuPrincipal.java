@@ -22,12 +22,12 @@ import javax.swing.JLabel;
  *
  * @author TI
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class TelaMenuPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    public MenuPrincipal() {
+    public TelaMenuPrincipal() {
         initComponents();
         
     }
@@ -136,7 +136,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jmCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadUsuarioActionPerformed
-        JInternalFrame jfCadUsuario = new Usuario();
+        JInternalFrame jfCadUsuario = new TelaUsuario();
         this.jdPane.add(jfCadUsuario);
         int lDesk = this.jdPane.getWidth();
         int aDesk = this.jdPane.getHeight();
@@ -147,8 +147,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmCadUsuarioActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    JInternalFrame jfEvento = new Evento();
-    JInternalFrame jfRegra = new Regra();
+    JInternalFrame jfEvento = new TelaEvento();
+    JInternalFrame jfRegra = new TelaRegra();
         this.jdPane.add(jfEvento);
         this.jdPane.add(jfRegra);
 
@@ -182,30 +182,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>  
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MenuPrincipal menu = new MenuPrincipal();
+                TelaMenuPrincipal menu = new TelaMenuPrincipal();
                 menu.setVisible(true);
                 menu.setExtendedState(MAXIMIZED_BOTH);     
                 
-                JInternalFrame jfLogar = new Login();
+                JInternalFrame jfLogar = new TelaLogin();
                 menu.jdPane.add(jfLogar);
                 int lDesk = menu.getWidth();
                 int aDesk = menu.getHeight();
