@@ -13,12 +13,13 @@ import javax.swing.JColorChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.colorchooser.ColorSelectionModel;
+import utilidades.TelaPadrao;
 
 /**
  *
  * @author TI
  */
-public class TelaEvento extends javax.swing.JInternalFrame {
+public class TelaEvento extends TelaPadrao {
 
     /**
      * Creates new form Usuario
