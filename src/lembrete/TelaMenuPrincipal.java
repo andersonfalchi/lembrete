@@ -52,30 +52,26 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jdPane.setBackground(new java.awt.Color(255, 255, 255));
         jdPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jdPane.setOpaque(false);
 
-        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lembrete/background.png"))); // NOI18N
-
-        jdPane.setLayer(jlLogo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jdPaneLayout = new javax.swing.GroupLayout(jdPane);
         jdPane.setLayout(jdPaneLayout);
         jdPaneLayout.setHorizontalGroup(
             jdPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdPaneLayout.createSequentialGroup()
-                .addComponent(jlLogo)
-                .addGap(0, 304, Short.MAX_VALUE))
+            .addGap(0, 1086, Short.MAX_VALUE)
         );
         jdPaneLayout.setVerticalGroup(
             jdPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdPaneLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jlLogo)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addGap(0, 540, Short.MAX_VALUE)
         );
+
+        jlLogo.setBackground(new java.awt.Color(255, 255, 255));
+        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lembrete/logoUnesc.png"))); // NOI18N
+        jlLogo.setPreferredSize(new java.awt.Dimension(621, 493));
 
         jMenu1.setText("Funções");
         jMenu1.setEnabled(false);
@@ -116,15 +112,25 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jdPane)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jdPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 360, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(426, 426, 426)
+                    .addComponent(jlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(427, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jdPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 669, Short.MAX_VALUE))
+                .addGap(0, 139, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(110, 110, 110)
+                    .addComponent(jlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(110, Short.MAX_VALUE)))
         );
 
         pack();
@@ -138,48 +144,43 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private void jmCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadUsuarioActionPerformed
         JInternalFrame jfCadUsuario = new TelaUsuario();
         this.jdPane.add(jfCadUsuario);
-        int lDesk = this.jdPane.getWidth();
-        int aDesk = this.jdPane.getHeight();
-        int lIFrame = jfCadUsuario.getWidth();
-        int aIFrame = jfCadUsuario.getHeight();
-        jfCadUsuario.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        centralizarJIF(jfCadUsuario);
         jfCadUsuario.show();
     }//GEN-LAST:event_jmCadUsuarioActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    JInternalFrame jfEvento = new TelaEvento();
-    JInternalFrame jfRegra = new TelaRegra();
+        JInternalFrame jfEvento = new TelaEvento();
+        JInternalFrame jfRegra = new TelaRegra();
         this.jdPane.add(jfEvento);
         this.jdPane.add(jfRegra);
-
-        int lDesk = this.jdPane.getWidth();
-        int aDesk = this.jdPane.getHeight();
-        int lIFrame = jfEvento.getWidth();
-        int aIFrame = jfEvento.getHeight();
-        jfEvento.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
-        
-        lIFrame = jfRegra.getWidth();
-        aIFrame = jfRegra.getHeight();
-        jfRegra.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
-    
+        centralizarJIF(jfEvento);
+        centralizarJIF(jfRegra);
         jfEvento.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     
-    public void teste(String nomeP){
-       String nome;
-       
-       nome=nomeP;
-    }
-    /**
-     * @param args the command line arguments
-     */
+    public static int centralizarItem(JDesktopPane jdPane, int valorEixoP, String eixo){
+        int valorEixo;
+        int lDesk = jdPane.getWidth();
+        int aDesk = jdPane.getHeight();
 
+        if(eixo.toUpperCase().equals("W")){
+            valorEixo = (jdPane.getWidth() / 2 - valorEixoP / 2);
+        }else{
+            valorEixo = (jdPane.getHeight() / 2 - valorEixoP / 2);
+        }
+        
+        return valorEixo;
+        
+    }
+    
+    public static void centralizarJIF(JInternalFrame fr){  
+        Dimension d = fr.getDesktopPane().getSize();  
+        fr.setLocation((d.width - fr.getSize().width) / 2, (d.height - fr.getSize().height) / 2);     
+    }  
+
+    
     public static void main(String args[]){
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -196,22 +197,27 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>  
-        /* Create and display the form */
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 TelaMenuPrincipal menu = new TelaMenuPrincipal();
                 menu.setVisible(true);
-                menu.setExtendedState(MAXIMIZED_BOTH);     
+                menu.setExtendedState(MAXIMIZED_BOTH);         
+                menu.jdPane.setBounds(menu.getBounds());
+                menu.jdPane.setPreferredSize(menu.getPreferredSize());
+                
+//                menu.jlLogo.setLocation(centralizarTela(jdPane, menu.jlLogo.getWidth(), "W"),
+//                    centralizarTela(jdPane, menu.jlLogo.getWidth(), "H"));
+                
                 
                 JInternalFrame jfLogar = new TelaLogin();
                 menu.jdPane.add(jfLogar);
-                int lDesk = menu.getWidth();
-                int aDesk = menu.getHeight();
-                int lIFrame = jfLogar.getWidth();
-                int aIFrame = jfLogar.getHeight();
-                jfLogar.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+                
+                centralizarJIF(jfLogar);
+                
+//                jfLogar.setLocation(centralizarItem(jdPane, jfLogar.getWidth(), "W"),
+//                    centralizarItem(jdPane, jfLogar.getWidth(), "H"));
+                
                 jfLogar.show();
             }
         });
