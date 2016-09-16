@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import utilidades.Tela;
 
 /**
  *
@@ -58,20 +59,11 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jdPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jdPane.setOpaque(false);
 
-        javax.swing.GroupLayout jdPaneLayout = new javax.swing.GroupLayout(jdPane);
-        jdPane.setLayout(jdPaneLayout);
-        jdPaneLayout.setHorizontalGroup(
-            jdPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1086, Short.MAX_VALUE)
-        );
-        jdPaneLayout.setVerticalGroup(
-            jdPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
-
         jlLogo.setBackground(new java.awt.Color(255, 255, 255));
-        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lembrete/logoUnesc.png"))); // NOI18N
-        jlLogo.setPreferredSize(new java.awt.Dimension(621, 493));
+        jlLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logoUnesc.png"))); // NOI18N
+        jdPane.add(jlLogo);
+        jlLogo.setBounds(350, 80, 570, 440);
 
         jMenu1.setText("Funções");
         jMenu1.setEnabled(false);
@@ -112,25 +104,11 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jdPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 360, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(426, 426, 426)
-                    .addComponent(jlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(427, Short.MAX_VALUE)))
+            .addComponent(jdPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jdPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 139, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(110, 110, 110)
-                    .addComponent(jlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(110, Short.MAX_VALUE)))
+            .addComponent(jdPane)
         );
 
         pack();
@@ -144,7 +122,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private void jmCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadUsuarioActionPerformed
         JInternalFrame jfCadUsuario = new TelaUsuario();
         this.jdPane.add(jfCadUsuario);
-        centralizarJIF(jfCadUsuario);
+        Tela.centralizar(jfCadUsuario);
         jfCadUsuario.show();
     }//GEN-LAST:event_jmCadUsuarioActionPerformed
 
@@ -153,31 +131,10 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         JInternalFrame jfRegra = new TelaRegra();
         this.jdPane.add(jfEvento);
         this.jdPane.add(jfRegra);
-        centralizarJIF(jfEvento);
-        centralizarJIF(jfRegra);
+        Tela.centralizar(jfEvento);
+        Tela.centralizar(jfRegra);
         jfEvento.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-    
-    public static int centralizarItem(JDesktopPane jdPane, int valorEixoP, String eixo){
-        int valorEixo;
-        int lDesk = jdPane.getWidth();
-        int aDesk = jdPane.getHeight();
-
-        if(eixo.toUpperCase().equals("W")){
-            valorEixo = (jdPane.getWidth() / 2 - valorEixoP / 2);
-        }else{
-            valorEixo = (jdPane.getHeight() / 2 - valorEixoP / 2);
-        }
-        
-        return valorEixo;
-        
-    }
-    
-    public static void centralizarJIF(JInternalFrame fr){  
-        Dimension d = fr.getDesktopPane().getSize();  
-        fr.setLocation((d.width - fr.getSize().width) / 2, (d.height - fr.getSize().height) / 2);     
-    }  
-
     
     public static void main(String args[]){
         
@@ -205,19 +162,10 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
                 menu.setExtendedState(MAXIMIZED_BOTH);         
                 menu.jdPane.setBounds(menu.getBounds());
                 menu.jdPane.setPreferredSize(menu.getPreferredSize());
-                
-//                menu.jlLogo.setLocation(centralizarTela(jdPane, menu.jlLogo.getWidth(), "W"),
-//                    centralizarTela(jdPane, menu.jlLogo.getWidth(), "H"));
-                
-                
                 JInternalFrame jfLogar = new TelaLogin();
                 menu.jdPane.add(jfLogar);
-                
-                centralizarJIF(jfLogar);
-                
-//                jfLogar.setLocation(centralizarItem(jdPane, jfLogar.getWidth(), "W"),
-//                    centralizarItem(jdPane, jfLogar.getWidth(), "H"));
-                
+                Tela.centralizar(jfLogar);
+                Tela.centralizar(jlLogo);
                 jfLogar.show();
             }
         });
@@ -231,7 +179,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     public static javax.swing.JDesktopPane jdPane;
-    private javax.swing.JLabel jlLogo;
+    public static javax.swing.JLabel jlLogo;
     private javax.swing.JMenuItem jmCadUsuario;
     // End of variables declaration//GEN-END:variables
 }
