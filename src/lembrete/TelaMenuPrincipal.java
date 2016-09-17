@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import utilidades.Notificacao;
 import utilidades.Tela;
 
 /**
@@ -32,7 +33,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         
     }
-
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,11 +105,11 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdPane)
+            .addComponent(jdPane, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdPane)
+            .addComponent(jdPane, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
         );
 
         pack();
@@ -171,7 +172,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         });
     }
     
-
+    Notificacao notificacao   = new Notificacao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
