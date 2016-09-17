@@ -5,11 +5,13 @@
  */
 package lembrete;
 
+import utilidades.TelaPadrao;
+
 /**
  *
  * @author TI
  */
-public class TelaUsuario extends javax.swing.JInternalFrame {
+public class TelaUsuario extends TelaPadrao {
 
     /**
      * Creates new form Usuario

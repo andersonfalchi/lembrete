@@ -19,6 +19,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import utilidades.Notificacao;
 import utilidades.Tela;
+import utilidades.TelaPadrao;
 
 /**
  *
@@ -109,7 +110,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdPane, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+            .addComponent(jdPane, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
         );
 
         pack();
@@ -141,7 +142,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -166,8 +167,14 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
                 JInternalFrame jfLogar = new TelaLogin();
                 menu.jdPane.add(jfLogar);
                 Tela.centralizar(jfLogar);
-                Tela.centralizar(jlLogo);
                 jfLogar.show();
+
+                Tela.centralizar(jlLogo);
+//                
+//                TelaPadrao telaPadrao = new TelaPadrao();
+//                menu.jdPane.add(telaPadrao);
+//                Tela.centralizar(telaPadrao);
+//                telaPadrao.show();
             }
         });
     }

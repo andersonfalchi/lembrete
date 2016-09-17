@@ -4,12 +4,13 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.MaskFormatter;
+import utilidades.TelaPadrao;
 
 /**
  *
  * @author TI
  */
-public class TelaRegra extends javax.swing.JInternalFrame {
+public class TelaRegra extends TelaPadrao {
     
     /**
      * Creates new form Usuario

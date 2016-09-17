@@ -6,12 +6,13 @@
 package lembrete;
 
 import javax.swing.JOptionPane;
+import utilidades.TelaPadrao;
 
 /**
  *
  * @author TI
  */
-public class TelaLogin extends javax.swing.JInternalFrame {
+public class TelaLogin extends TelaPadrao {
 
     /**
      * Creates new form Usuario
