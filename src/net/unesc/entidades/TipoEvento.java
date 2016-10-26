@@ -1,12 +1,12 @@
-package entidades;
+package net.unesc.entidades;
 
-public enum TipoMovimentacao {
-    ENTRADA("Entrada"),
-    SAIDA("Saida");
+public enum TipoEvento {
+    GASOLINA("Gasolina"),
+    ALMOCO("Almoço");
     
     private String descricao;
 
-    private TipoMovimentacao(String descricao) {
+    private TipoEvento(String descricao) {
         this.descricao = descricao;
     }
 

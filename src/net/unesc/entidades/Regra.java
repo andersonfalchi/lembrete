@@ -1,4 +1,4 @@
-package entidades;
+package net.unesc.entidades;
 
 public class Regra {
     private String nome;

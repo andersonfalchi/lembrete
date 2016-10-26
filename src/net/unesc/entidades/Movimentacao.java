@@ -1,4 +1,4 @@
-package entidades;
+package net.unesc.entidades;
 
 import java.util.Date;
 

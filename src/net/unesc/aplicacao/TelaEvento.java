@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lembrete;
+package net.unesc.aplicacao;
  
 import java.awt.Color;
-import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.io.IOException;
-import javax.mail.MessagingException;
 import javax.swing.JColorChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.colorchooser.ColorSelectionModel;
-import utilidades.TelaPadrao;
+import net.unesc.entidades.Evento;
+import net.unesc.entidades.FormaAlerta;
+import net.unesc.exceptions.LoginException;
+import net.unesc.utilidades.CorUtil;
+import net.unesc.utilidades.JavaMailApp;
+import net.unesc.utilidades.SmsSender;
+import net.unesc.utilidades.TelaPadrao;
 
 /**
  *
@@ -21,9 +23,6 @@ import utilidades.TelaPadrao;
  */
 public class TelaEvento extends TelaPadrao {
 
-    /**
-     * Creates new form Usuario
-     */
     public TelaEvento() {
         initComponents();
     }
@@ -39,13 +38,13 @@ public class TelaEvento extends TelaPadrao {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTxtUsuario1 = new javax.swing.JTextField();
+        jTxtDescricao = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jbTipoEvento = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        jTxtColor = new javax.swing.JTextField();
+        jTxtCor = new javax.swing.JTextField();
         jbColor = new javax.swing.JButton();
         jbRegra = new javax.swing.JButton();
         jCkEmail = new javax.swing.JCheckBox();
@@ -68,21 +67,27 @@ public class TelaEvento extends TelaPadrao {
 
         jLabel15.setText("Descrição:");
 
+        jTxtDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtDescricaoActionPerformed(evt);
+            }
+        });
+
         jCheckBox1.setText("Ativo");
 
         jLabel16.setText("Forma de Alerta:");
 
         jLabel17.setText("Tipo Evento:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almoço", "Gasolina" }));
+        jbTipoEvento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almoço", "Gasolina" }));
 
         jLabel18.setText("Cor Alerta");
 
-        jTxtColor.setEditable(false);
-        jTxtColor.setBackground(new java.awt.Color(102, 102, 255));
-        jTxtColor.addActionListener(new java.awt.event.ActionListener() {
+        jTxtCor.setEditable(false);
+        jTxtCor.setBackground(new java.awt.Color(0, 204, 204));
+        jTxtCor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtColorActionPerformed(evt);
+                jTxtCorActionPerformed(evt);
             }
         });
 
@@ -127,7 +132,7 @@ public class TelaEvento extends TelaPadrao {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTxtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -138,9 +143,9 @@ public class TelaEvento extends TelaPadrao {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jbColor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTxtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTxtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jTxtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jbTipoEvento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel20)
                                 .addGap(4, 4, 4))
@@ -166,7 +171,7 @@ public class TelaEvento extends TelaPadrao {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -187,13 +192,13 @@ public class TelaEvento extends TelaPadrao {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbTipoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18)
                         .addComponent(jbColor))
-                    .addComponent(jTxtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -242,43 +247,58 @@ public class TelaEvento extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        utilidades.JavaMailApp enviarEmail = new utilidades.JavaMailApp();
-        utilidades.SmsSender enviarSms = new utilidades.SmsSender();
+        Evento evento = new Evento();  
         
-        if(this.jCkEmail.isSelected()){
-            if(!this.jTxtEmail.getText().isEmpty()){
-                enviarEmail.setEmailDestino(this.jTxtEmail.getText());
-                enviarEmail.setTipoEvento(this.jComboBox2.getSelectedItem().toString());
-                try{
-                    enviarEmail.EnviarEmail();
-                    JOptionPane.showMessageDialog(null, "E-mail enviado com sucesso!","Envio de e-mail",JOptionPane.INFORMATION_MESSAGE );
-                }catch(Exception e ){
-                    e.printStackTrace(System.out);
+        try
+        {
+            evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
+            evento.setDescricao(jTxtDescricao.getText());
+//            evento.setRegra(regra);
+    //        evento.setTipoEvento(jbTipoEvento.getModel().getSelectedItem().toString());
+            evento.setUsuario(Aplicacao.sessao.usuario());
+
+        
+            if(this.jCkEmail.isSelected()){
+                JavaMailApp enviarEmail = new JavaMailApp();
+                evento.addFormaAlerta(FormaAlerta.EMAIL);
+                if(!this.jTxtEmail.getText().isEmpty()){
+                    enviarEmail.setEmailDestino(this.jTxtEmail.getText());
+                    enviarEmail.setTipoEvento(this.jbTipoEvento.getSelectedItem().toString());
+                    try{
+                        enviarEmail.EnviarEmail();
+                        JOptionPane.showMessageDialog(null, "E-mail enviado com sucesso!","Envio de e-mail",JOptionPane.INFORMATION_MESSAGE );
+                    }catch(Exception e ){
+                        e.printStackTrace(System.out);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Campo e-mail é obrigatório!","Atenção",JOptionPane.WARNING_MESSAGE);
+                    this.jTxtEmail.grabFocus();
+                } 
+            }
+
+            if(this.jCkSms.isSelected()){
+                evento.addFormaAlerta(FormaAlerta.SMS);
+                SmsSender enviarSms = new SmsSender();
+                if(this.jTxtDdd.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Campo DDD é obrigatório!","Atenção",JOptionPane.INFORMATION_MESSAGE );
+                    return;
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Campo e-mail é obrigatório!","Atenção",JOptionPane.WARNING_MESSAGE);
-                this.jTxtEmail.grabFocus();
-            } 
+
+                if(this.jTxtNumero.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Campo número é obrigatório!","Atenção",JOptionPane.INFORMATION_MESSAGE );
+                    return;
+                }
+
+                enviarSms.setTipoEvento(this.jbTipoEvento.getSelectedItem().toString());
+                enviarSms.setDdd(Integer.parseInt(this.jTxtDdd.getText()));
+                enviarSms.setNumeroCelular(Integer.parseInt(this.jTxtNumero.getText()));
+                enviarSms.SmsSender();
+                JOptionPane.showMessageDialog(null, "SMS enviada com sucesso!","Envio de SMS",JOptionPane.INFORMATION_MESSAGE );
+            }
         }
-        
-        if(this.jCkSms.isSelected()){
-            
-            if(this.jTxtDdd.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Campo DDD é obrigatório!","Atenção",JOptionPane.INFORMATION_MESSAGE );
-                return;
-            }
-            
-            if(this.jTxtNumero.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Campo número é obrigatório!","Atenção",JOptionPane.INFORMATION_MESSAGE );
-                return;
-            }
-            
-            enviarSms.setTipoEvento(this.jComboBox2.getSelectedItem().toString());
-            enviarSms.setDdd(Integer.parseInt(this.jTxtDdd.getText()));
-            enviarSms.setNumeroCelular(Integer.parseInt(this.jTxtNumero.getText()));
-            enviarSms.SmsSender();
-            JOptionPane.showMessageDialog(null, "SMS enviada com sucesso!","Envio de SMS",JOptionPane.INFORMATION_MESSAGE );
-               
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
   
     }//GEN-LAST:event_jbGravarActionPerformed
@@ -287,22 +307,19 @@ public class TelaEvento extends TelaPadrao {
 
     }//GEN-LAST:event_jbExcluirActionPerformed
 
-    private void jTxtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtColorActionPerformed
+    private void jTxtCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCorActionPerformed
 
-    }//GEN-LAST:event_jTxtColorActionPerformed
+    }//GEN-LAST:event_jTxtCorActionPerformed
 
-    public  JColorChooser chooser;
-    public Color cor;
-    
     private void jbColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbColorActionPerformed
-        chooser = new JColorChooser();
-        cor = chooser.showDialog(chooser, "SHOW THE COLOR", chooser.getColor());
-        jTxtColor.setBackground(cor);
+        JColorChooser chooser = new JColorChooser();
+        Color cor = chooser.showDialog(chooser, "SHOW THE COLOR", chooser.getColor());
+        jTxtCor.setBackground(cor);
     }//GEN-LAST:event_jbColorActionPerformed
 
     private void jbRegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegraActionPerformed
-        JInternalFrame regra =new TelaRegra();
-        lembrete.TelaMenuPrincipal.jdPane.add(regra);
+        JInternalFrame regra = (JInternalFrame) new TelaRegra();
+        TelaMenuPrincipal.jdPane.add(regra);
         int lDesk = TelaMenuPrincipal.jdPane.getWidth();
         int aDesk = TelaMenuPrincipal.jdPane.getHeight();
         int lIFrame = regra.getWidth();
@@ -311,6 +328,10 @@ public class TelaEvento extends TelaPadrao {
         regra.show();
     }//GEN-LAST:event_jbRegraActionPerformed
 
+    private void jTxtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtDescricaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBox1;
@@ -318,7 +339,6 @@ public class TelaEvento extends TelaPadrao {
     private javax.swing.JCheckBox jCkNotificacao;
     private javax.swing.JCheckBox jCkPopUp;
     private javax.swing.JCheckBox jCkSms;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -326,14 +346,15 @@ public class TelaEvento extends TelaPadrao {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTxtColor;
+    private javax.swing.JTextField jTxtCor;
     private javax.swing.JTextField jTxtDdd;
+    private javax.swing.JTextField jTxtDescricao;
     private javax.swing.JTextField jTxtEmail;
     private javax.swing.JTextField jTxtNumero;
-    private javax.swing.JTextField jTxtUsuario1;
     private javax.swing.JButton jbColor;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbGravar;
     private javax.swing.JButton jbRegra;
+    private javax.swing.JComboBox<String> jbTipoEvento;
     // End of variables declaration//GEN-END:variables
 }

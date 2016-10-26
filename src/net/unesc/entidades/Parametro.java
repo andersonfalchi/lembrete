@@ -1,4 +1,4 @@
-package entidades;
+package net.unesc.entidades;
 
 public class Parametro {
     private String corDoSistema;

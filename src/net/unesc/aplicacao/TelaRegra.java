@@ -1,10 +1,10 @@
-package lembrete;
+package net.unesc.aplicacao;
 
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.MaskFormatter;
-import utilidades.TelaPadrao;
+import net.unesc.utilidades.TelaPadrao;
 
 /**
  *

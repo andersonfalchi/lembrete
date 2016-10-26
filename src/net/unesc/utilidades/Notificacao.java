@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilidades;
+package net.unesc.utilidades;
 
 import java.awt.AWTException;
 import java.awt.Image;
@@ -29,7 +29,7 @@ public class Notificacao {
         if (SystemTray.isSupported()) {
         SystemTray tray = SystemTray.getSystemTray();
         
-        URL url = System.class.getResource("/resources/icon.png");
+        URL url = System.class.getResource("/net/unesc/resources/icon.png");
         Image image = Toolkit.getDefaultToolkit().getImage(url);
             MouseListener mouseListener = new MouseListener() {
 

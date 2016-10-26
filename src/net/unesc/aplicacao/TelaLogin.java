@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package lembrete;
+package net.unesc.aplicacao;
 
 import javax.swing.JOptionPane;
-import utilidades.TelaPadrao;
+import net.unesc.exceptions.LoginException;
+import net.unesc.utilidades.TelaPadrao;
 
-/**
- *
- * @author TI
- */
 public class TelaLogin extends TelaPadrao {
 
     /**
@@ -122,17 +114,16 @@ public class TelaLogin extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-//        if(this.jTxtUsuario.getText().toUpperCase().equals("RAFAEL")){;;
-//            if(this.jTxtSenha.getText().toUpperCase().equals("123")){
-                lembrete.TelaMenuPrincipal.jMenu1.setEnabled(true);
-                this.dispose();
-//            }else{
-//                JOptionPane.showMessageDialog(null,"Senha inválida!","Atenção",JOptionPane.WARNING_MESSAGE);
-//            }
-//                
-//        }else{
-//            JOptionPane.showMessageDialog(null,"Usuário inválido!","Atenção",JOptionPane.WARNING_MESSAGE);
-//        }
+        try
+        {
+            Aplicacao.sessao.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
+            net.unesc.aplicacao.TelaMenuPrincipal.jMenu1.setEnabled(true);
+            this.dispose();
+        }
+        catch(LoginException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed

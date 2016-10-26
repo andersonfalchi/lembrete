@@ -1,9 +1,12 @@
-package entidades;
+package net.unesc.entidades;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Evento {
     private String descricao;
     private String cor;
-    private FormaAlerta formaAlerta;
+    private List<FormaAlerta> formasAlerta;
     private TipoEvento tipoEvento;
     private Regra regra;
     private Usuario usuario;
@@ -24,12 +27,18 @@ public class Evento {
         this.cor = cor;
     }
 
-    public FormaAlerta getFormaAlerta() {
-        return formaAlerta;
+    public List<FormaAlerta> getFormasAlerta() {
+        return formasAlerta;
     }
 
-    public void setFormaAlerta(FormaAlerta formaAlerta) {
-        this.formaAlerta = formaAlerta;
+    public void setFormasAlerta(List<FormaAlerta> formasAlerta) {
+        this.formasAlerta = formasAlerta;
+    }
+    
+    public void addFormaAlerta(FormaAlerta formaAlerta) {
+        if (this.formasAlerta == null)
+            this.formasAlerta = new ArrayList<>();
+        this.formasAlerta.add(formaAlerta);
     }
 
     public TipoEvento getTipoEvento() {

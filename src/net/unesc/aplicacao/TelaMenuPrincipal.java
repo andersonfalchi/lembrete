@@ -3,23 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lembrete;
+package net.unesc.aplicacao;
 
-import com.sun.glass.ui.Window;
-import java.awt.Dimension;
-import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.MalformedURLException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import utilidades.Notificacao;
-import utilidades.Tela;
-import utilidades.TelaPadrao;
+import net.unesc.utilidades.Notificacao;
+import net.unesc.utilidades.Tela;
 
 /**
  *
@@ -63,7 +51,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
 
         jlLogo.setBackground(new java.awt.Color(255, 255, 255));
         jlLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logoUnesc.png"))); // NOI18N
+        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/unesc/resources/logoUnesc.png"))); // NOI18N
         jdPane.add(jlLogo);
         jlLogo.setBounds(350, 80, 570, 440);
 
@@ -124,7 +112,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private void jmCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadUsuarioActionPerformed
         JInternalFrame jfCadUsuario = new TelaUsuario();
         this.jdPane.add(jfCadUsuario);
-        Tela.centralizar(jfCadUsuario);
+//        Tela.centralizar(jfCadUsuario);
         jfCadUsuario.show();
     }//GEN-LAST:event_jmCadUsuarioActionPerformed
 
@@ -138,46 +126,46 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jfEvento.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     
-    public static void main(String args[]){
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaMenuPrincipal menu = new TelaMenuPrincipal();
-                menu.setVisible(true);
-                menu.setExtendedState(MAXIMIZED_BOTH);         
-                menu.jdPane.setBounds(menu.getBounds());
-                menu.jdPane.setPreferredSize(menu.getPreferredSize());
-                JInternalFrame jfLogar = new TelaLogin();
-                menu.jdPane.add(jfLogar);
-                Tela.centralizar(jfLogar);
-                jfLogar.show();
-
-                Tela.centralizar(jlLogo);
-//                
-//                TelaPadrao telaPadrao = new TelaPadrao();
-//                menu.jdPane.add(telaPadrao);
-//                Tela.centralizar(telaPadrao);
-//                telaPadrao.show();
-            }
-        });
-    }
+//    public static void main(String args[]){
+//        
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Metal".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                TelaMenuPrincipal menu = new TelaMenuPrincipal();
+//                menu.setVisible(true);
+//                menu.setExtendedState(MAXIMIZED_BOTH);         
+//                menu.jdPane.setBounds(menu.getBounds());
+//                menu.jdPane.setPreferredSize(menu.getPreferredSize());
+//                JInternalFrame jfLogar = new TelaLogin();
+//                menu.jdPane.add(jfLogar);
+//                Tela.centralizar(jfLogar);
+//                jfLogar.show();
+//
+//                Tela.centralizar(jlLogo);
+////                
+////                TelaPadrao telaPadrao = new TelaPadrao();
+////                menu.jdPane.add(telaPadrao);
+////                Tela.centralizar(telaPadrao);
+////                telaPadrao.show();
+//            }
+//        });
+//    }
     
     Notificacao notificacao   = new Notificacao();
     // Variables declaration - do not modify//GEN-BEGIN:variables

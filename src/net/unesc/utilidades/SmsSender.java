@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilidades;
+package net.unesc.utilidades;
 
 import no.vianett.sms.SmsEventListener;
 import no.vianett.sms.Sms;

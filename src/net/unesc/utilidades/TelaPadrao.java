@@ -1,23 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package utilidades;
+package net.unesc.utilidades;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JInternalFrame;
 
-/**
- *
- * @author comp1
- */
-public class TelaPadrao extends javax.swing.JInternalFrame {
+public class TelaPadrao extends JInternalFrame {
 
     /**
      * Creates new form TelaPadrao
