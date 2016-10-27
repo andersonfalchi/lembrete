@@ -1,18 +1,49 @@
 package net.unesc.aplicacao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import net.unesc.exceptions.LoginException;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaLogin extends TelaPadrao {
 
-    /**
-     * Creates new form Usuario
-     */
+    File arquivo = new File("log_sessao.txt");
+
+    public File getArquivo(){
+        return arquivo;
+    }
+    
     public TelaLogin() {
         initComponents();
+        lerArquivoSessao();
     }
 
+    private void lerArquivoSessao(){
+        try{
+            
+            if (!getArquivo().exists()) {
+                getArquivo().createNewFile();
+            }
+
+            FileReader fr = new FileReader(getArquivo());
+            BufferedReader br = new BufferedReader(fr);
+
+            while (br.ready()) {
+                String linha = br.readLine();
+                this.jTxtUsuario.setText(linha);
+            }
+
+            fr.close();
+            br.close();
+
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,7 +147,7 @@ public class TelaLogin extends TelaPadrao {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try
         {
-            Aplicacao.sessao.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
+            Aplicacao.sessao.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText(), getArquivo());
             net.unesc.aplicacao.TelaMenuPrincipal.jMenu1.setEnabled(true);
             this.dispose();
         }
@@ -129,7 +160,7 @@ public class TelaLogin extends TelaPadrao {
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
         this.jTxtSenha.setText("");
         this.jTxtUsuario.setText("");
-        this.jTxtUsuario.grabFocus();
+        this.jTxtUsuario.requestFocus();
     }//GEN-LAST:event_jbExcluirActionPerformed
 
 
