@@ -251,6 +251,7 @@ public class TelaEvento extends TelaPadrao {
         
         try
         {
+            JOptionPane.showMessageDialog(this, "teste" +jbTipoEvento.getModel());
             evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
             evento.setDescricao(jTxtDescricao.getText());
 //            evento.setRegra(regra);

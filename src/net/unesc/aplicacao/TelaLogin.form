@@ -62,7 +62,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jbGravar" min="-2" pref="69" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jbExcluir" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="jbLimpar" min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -95,7 +95,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jbExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbGravar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -121,12 +121,12 @@
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPasswordField()"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jbExcluir">
+        <Component class="javax.swing.JButton" name="jbLimpar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Limpar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbExcluirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbLimparActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbGravar">
