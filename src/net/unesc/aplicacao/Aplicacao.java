@@ -5,11 +5,11 @@ import javax.swing.JInternalFrame;
 import static net.unesc.aplicacao.TelaMenuPrincipal.jlLogo;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.LoginException;
-import net.unesc.utilidades.Tela;
+import net.unesc.utilidades.*;
 
 public class Aplicacao {
     public static Sessao sessao = new Sessao();
-    
+
     public static void main(String args[]){
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -31,6 +31,7 @@ public class Aplicacao {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 TelaMenuPrincipal menu = new TelaMenuPrincipal();
+                
                 menu.setVisible(true);
                 menu.setExtendedState(MAXIMIZED_BOTH);         
                 menu.jdPane.setBounds(menu.getBounds());
@@ -41,11 +42,7 @@ public class Aplicacao {
                 jfLogar.show();
 
                 Tela.centralizar(jlLogo);
-//                
-//                TelaPadrao telaPadrao = new TelaPadrao();
-//                menu.jdPane.add(telaPadrao);
-//                Tela.centralizar(telaPadrao);
-//                telaPadrao.show();
+
             }
         });
     }

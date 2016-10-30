@@ -9,8 +9,13 @@ public class Usuario implements Serializable {
     
     
     public Usuario(String login, String senha) {
-        this.login = login;
-        this.senha = senha;
+        if (login == null || login.trim().isEmpty())
+            throw new IllegalArgumentException("O login não pode ser vazio");
+        this.login = login.trim();
+        
+        if (senha == null || senha.trim().isEmpty())
+            throw new IllegalArgumentException("A senha não pode ser vazia");
+        this.senha = senha.trim();
     }
 
     public String getLogin() {

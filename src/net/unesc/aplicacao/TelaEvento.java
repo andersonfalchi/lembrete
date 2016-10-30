@@ -25,6 +25,7 @@ public class TelaEvento extends TelaPadrao {
 
     public TelaEvento() {
         initComponents();
+        new InserirLog("Função",Aplicacao.sessao.usuarioLogado.getLogin(),"Abriu a função Cadastro de eventos");
     }
 
     /**
@@ -248,14 +249,11 @@ public class TelaEvento extends TelaPadrao {
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         Evento evento = new Evento();  
-        
         try
         {
             JOptionPane.showMessageDialog(this, "teste" +jbTipoEvento.getModel());
             evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
             evento.setDescricao(jTxtDescricao.getText());
-//            evento.setRegra(regra);
-    //        evento.setTipoEvento(jbTipoEvento.getModel().getSelectedItem().toString());
             evento.setUsuario(Aplicacao.sessao.usuario());
 
         
@@ -301,11 +299,12 @@ public class TelaEvento extends TelaPadrao {
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-  
+        
+        new InserirLog("Inclusão",Aplicacao.sessao.usuarioLogado.getLogin(),"Gravou um novo Cadastro de eventos");
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-
+        new InserirLog("Exclusão",Aplicacao.sessao.usuarioLogado.getLogin(),"Excluiu um Cadastro de eventos");
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jTxtCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCorActionPerformed

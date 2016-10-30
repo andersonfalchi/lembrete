@@ -9,6 +9,8 @@ public class TelaUsuario extends TelaPadrao {
      */
     public TelaUsuario() {
         initComponents();
+        new InserirLog("Função",Aplicacao.sessao.usuarioLogado.getLogin(),"Abriu a função Cadastro de usuários");
+
     }
 
     /**
@@ -33,7 +35,7 @@ public class TelaUsuario extends TelaPadrao {
 
         setClosable(true);
         setForeground(java.awt.Color.white);
-        setTitle("Cadastro de Usuário");
+        setTitle("Cadastro de Usuários");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -136,11 +138,11 @@ public class TelaUsuario extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        // TODO add your handling code here:
+        new InserirLog("Inclusão",Aplicacao.sessao.usuarioLogado.getLogin(),"Gravou um novo Cadastro de usuário");
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-
+        new InserirLog("Exclusão",Aplicacao.sessao.usuarioLogado.getLogin(),"Excluiu um Cadastro de usuário");
     }//GEN-LAST:event_jbExcluirActionPerformed
 
 

@@ -5,61 +5,38 @@ import java.io.FileWriter;
 import java.io.IOException;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.LoginException;
-import net.unesc.aplicacao.TelaLogin;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Sessao {
     private static final String ROOT_FOLDER = "./build";
-    private static final String SESSAO_FILE = ROOT_FOLDER+"/sessao.ser";
-    private static final String LOG_FILE = ROOT_FOLDER+"/log.txt";
-
-    private Usuario usuarioLogado;
-    private Map<String, Usuario> usuariosRegistrados = new HashMap<>();
+    private static final String LOG_FILE = ROOT_FOLDER+"/log_sessao.txt";
+    private String ultimoLogin="";
+    public Usuario usuarioLogado;
+    
+    private File arquivo = new File(LOG_FILE);
+    
     public Sessao() {
-        lerArquivoSessao();
-        lerAquivoLogs();
+        lerLogSessao();  
     }
     
-//    File arquivo = new File("log_sessao.txt");
-//    public File getArquivo(){
-//        return arquivo;
-//    }
-    
-    
-    private void lerArquivoSessao()  {
-        try
-        {            
-            FileInputStream fileIn = new FileInputStream(SESSAO_FILE);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            usuariosRegistrados = (Map<String, Usuario>) in.readObject();
-            in.close();
-            fileIn.close();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+    public String getUltimoLogin(){
+        return ultimoLogin.trim().toUpperCase();
     }
-    private void lerAquivoLogs() {
+
+    private void lerLogSessao() {
         try{
-            File arquivo = new File(LOG_FILE);
-            if (arquivo.exists()) {
+            if (!arquivo.exists()) {
                 arquivo.createNewFile();
             }
-
+             
             FileReader fr = new FileReader(arquivo);
             BufferedReader br = new BufferedReader(fr);
-
+     
             while (br.ready()) {
-                String linha = br.readLine();
+                ultimoLogin = br.readLine();
             }
+            
             fr.close();
             br.close();
         }catch(IOException e){
@@ -72,51 +49,26 @@ public class Sessao {
             throw new LoginException();
         return usuarioLogado;
     }
+    
     public void entrar(String login, String senha) throws LoginException {
-        Usuario usuarioTemporario = new Usuario(login, senha);
-//        if(usuarioTemporario.getLogin().isEmpty()){
-//            throw new LoginException("Usuário inválido!");
-//        }
-        System.out.println("usuariosRegistrados = " + usuariosRegistrados.size());
-        Usuario usuarioRegistrado = usuariosRegistrados.get(usuarioTemporario.getLogin());
-        System.out.println("usuarioRegistrado = " + usuarioRegistrado);
-        System.out.println("usuarioTemporario = " + usuarioTemporario);  
-        if(!usuarioTemporario.getSenha().equals(usuarioRegistrado.getSenha())){
+       
+        if(login.trim().isEmpty()){
+            throw new LoginException("Usuário inválido!");
+        }
+        
+        if(senha.trim().isEmpty()){
             throw new LoginException("Senha inválida!");
-        }
+         }
         
-        //usuário logou
-        this.usuarioLogado = usuarioTemporario;
-        //salvar usuário no .ser caso nao exista
-        if (usuariosRegistrados != null)
-        {
-            try
-            {
-                usuariosRegistrados.put(usuarioLogado.getLogin(), usuarioLogado);
-                FileOutputStream fileOut = new FileOutputStream(SESSAO_FILE);
-                ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(usuariosRegistrados);
-                out.close();
-                fileOut.close();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-                throw new LoginException("Erro ao salvar informações de sessão de usuário");
-            }
-        }
-        
-        //salva log de usuário
         try{
-            File arquivo = new File(LOG_FILE);
             FileWriter arq = new FileWriter(arquivo);
             arq.write(login.trim().toUpperCase());
             arq.close();
         }catch(IOException e){
             e.printStackTrace();
         }
-
+        
+        this.usuarioLogado = new Usuario(login, senha);
+        new InserirLog("Login",usuarioLogado.getLogin(),"Logou no sistema");        
     }
-    
-    
 }
