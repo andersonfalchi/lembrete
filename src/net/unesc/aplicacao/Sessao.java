@@ -1,5 +1,6 @@
 package net.unesc.aplicacao;
 
+import net.unesc.log.LogSistema;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.LoginException;
 import java.io.File;
 import java.io.FileReader;
+import net.unesc.log.TipoLog;
 
 public class Sessao {
     private static final String ROOT_FOLDER = "./build";
@@ -69,6 +71,6 @@ public class Sessao {
         }
         
         this.usuarioLogado = new Usuario(login, senha);
-        new InserirLog("Login",usuarioLogado.getLogin(),"Logou no sistema");        
+        LogSistema.inserir(TipoLog.LOGIN, "Logou no sistema");        
     }
 }

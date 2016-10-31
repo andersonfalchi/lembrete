@@ -18,7 +18,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 import net.unesc.aplicacao.Aplicacao;
-import net.unesc.aplicacao.InserirLog;
+import net.unesc.log.LogSistema;
+import net.unesc.log.TipoLog;
 
 /**
  *
@@ -60,7 +61,7 @@ public class Notificacao {
             public void actionPerformed(ActionEvent e)throws NullPointerException {
                 try{
                     if(!Aplicacao.sessao.usuarioLogado.getLogin().trim().isEmpty())
-                        new InserirLog("Logoff",Aplicacao.sessao.usuarioLogado.getLogin(),"Logoff no sistema");
+                        LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
 
                 }catch(NullPointerException f){
                     throw new NullPointerException("Não existe usuário logado!");

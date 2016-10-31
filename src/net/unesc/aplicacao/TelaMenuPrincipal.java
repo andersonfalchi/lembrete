@@ -5,10 +5,12 @@
  */
 package net.unesc.aplicacao;
 
+import net.unesc.log.LogSistema;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import net.unesc.log.TipoLog;
 import net.unesc.utilidades.Notificacao;
 import net.unesc.utilidades.Tela;
 
@@ -31,7 +33,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
                     
                     try{
                         if(!Aplicacao.sessao.usuarioLogado.getLogin().trim().isEmpty())
-                            new InserirLog("Logoff",Aplicacao.sessao.usuarioLogado.getLogin(),"Logoff no sistema");
+                            LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
                 
                     }catch(NullPointerException e){
                         throw new NullPointerException("Não existe usuário logado!");
