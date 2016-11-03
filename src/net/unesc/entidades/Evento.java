@@ -2,6 +2,10 @@ package net.unesc.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.unesc.exceptions.CampoObrigatorioException;
+import net.unesc.exceptions.FormaAlertaException;
+import net.unesc.log.LogSistema;
+import net.unesc.log.TipoLog;
 
 public class Evento {
     private String descricao;
@@ -15,7 +19,9 @@ public class Evento {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao) throws CampoObrigatorioException {
+        if (descricao == null)
+            throw new CampoObrigatorioException("A descrição é obrigatória");
         this.descricao = descricao;
     }
 
@@ -23,7 +29,9 @@ public class Evento {
         return cor;
     }
 
-    public void setCor(String cor) {
+    public void setCor(String cor) throws CampoObrigatorioException {
+        if (cor == null)
+            throw new CampoObrigatorioException("A cor é obrigatória");
         this.cor = cor;
     }
 
@@ -45,7 +53,9 @@ public class Evento {
         return tipoEvento;
     }
 
-    public void setTipoEvento(TipoEvento tipoEvento) {
+    public void setTipoEvento(TipoEvento tipoEvento) throws CampoObrigatorioException {
+        if (tipoEvento == null)
+            throw new CampoObrigatorioException("O tipo de evento é obrigatório");
         this.tipoEvento = tipoEvento;
     }
 
@@ -53,7 +63,9 @@ public class Evento {
         return regra;
     }
 
-    public void setRegra(Regra regra) {
+    public void setRegra(Regra regra) throws CampoObrigatorioException {
+        if (regra == null)
+            throw new CampoObrigatorioException("A regra é obrigatória");
         this.regra = regra;
     }
 
@@ -65,5 +77,13 @@ public class Evento {
         this.usuario = usuario;
     }
     
+    
+    public void salvar() throws FormaAlertaException {
+        if (this.formasAlerta.size() < 1)
+        {
+            throw new FormaAlertaException("Selecione ao menos uma forma de alerta");
+        }
+        LogSistema.inserir(TipoLog.INCLUSAO,"Gravou um novo Cadastro de eventos");
+    }
     
 }

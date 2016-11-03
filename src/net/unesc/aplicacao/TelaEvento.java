@@ -7,12 +7,15 @@ package net.unesc.aplicacao;
  
 import net.unesc.log.LogSistema;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.unesc.entidades.Evento;
 import net.unesc.entidades.FormaAlerta;
-import net.unesc.exceptions.LoginException;
+import net.unesc.entidades.Regra;
+import net.unesc.entidades.TipoEvento;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.CorUtil;
 import net.unesc.utilidades.JavaMailApp;
@@ -25,9 +28,14 @@ import net.unesc.utilidades.TelaPadrao;
  */
 public class TelaEvento extends TelaPadrao {
 
+    private Regra regra = null;
+    
     public TelaEvento() {
         initComponents();
         LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Cadastro de eventos");
+//        this.jbTipoEvento.setModel(new DefaultComboBoxModel<>(TipoEvento.valores()));
+//        JComboBox<Mood> comboBox = new JComboBox<>();
+        jbTipoEvento.setModel(new DefaultComboBoxModel(TipoEvento.values()));
     }
 
     /**
@@ -82,7 +90,11 @@ public class TelaEvento extends TelaPadrao {
 
         jLabel17.setText("Tipo Evento:");
 
-        jbTipoEvento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almoço", "Gasolina" }));
+        jbTipoEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTipoEventoActionPerformed(evt);
+            }
+        });
 
         jLabel18.setText("Cor Alerta");
 
@@ -253,11 +265,11 @@ public class TelaEvento extends TelaPadrao {
         Evento evento = new Evento();  
         try
         {
-            JOptionPane.showMessageDialog(this, "teste" +jbTipoEvento.getModel());
             evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
             evento.setDescricao(jTxtDescricao.getText());
             evento.setUsuario(Aplicacao.sessao.usuario());
-
+            evento.setRegra(regra);
+            evento.setTipoEvento((TipoEvento) this.jbTipoEvento.getSelectedItem());
         
             if(this.jCkEmail.isSelected()){
                 JavaMailApp enviarEmail = new JavaMailApp();
@@ -296,7 +308,7 @@ public class TelaEvento extends TelaPadrao {
                 enviarSms.SmsSender();
                 JOptionPane.showMessageDialog(null, "SMS enviada com sucesso!","Envio de SMS",JOptionPane.INFORMATION_MESSAGE );
             }
-            LogSistema.inserir(TipoLog.INCLUSAO,"Gravou um novo Cadastro de eventos");
+            evento.salvar();
         }
         catch(Exception e)
         {
@@ -333,6 +345,10 @@ public class TelaEvento extends TelaPadrao {
     private void jTxtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxtDescricaoActionPerformed
+
+    private void jbTipoEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTipoEventoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbTipoEventoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
