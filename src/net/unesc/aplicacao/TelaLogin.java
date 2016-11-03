@@ -1,9 +1,5 @@
 package net.unesc.aplicacao;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import net.unesc.exceptions.LoginException;
 import net.unesc.utilidades.TelaPadrao;
@@ -11,8 +7,9 @@ import net.unesc.utilidades.TelaPadrao;
 public class TelaLogin extends TelaPadrao {
 
     public TelaLogin() {
+        
         initComponents();
-        this.jTxtUsuario.setText(Aplicacao.sessao.lerAquivoLogs());
+        jTxtUsuario.setText(Aplicacao.sessao.getUltimoLogin().trim());
     }
     
     /**
@@ -29,7 +26,7 @@ public class TelaLogin extends TelaPadrao {
         jLabel14 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTxtSenha = new javax.swing.JPasswordField();
-        jbExcluir = new javax.swing.JButton();
+        jbLimpar = new javax.swing.JButton();
         jbGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -42,10 +39,10 @@ public class TelaLogin extends TelaPadrao {
 
         jLabel12.setText("Senha");
 
-        jbExcluir.setText("Limpar");
-        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jbLimpar.setText("Limpar");
+        jbLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbExcluirActionPerformed(evt);
+                jbLimparActionPerformed(evt);
             }
         });
 
@@ -66,7 +63,7 @@ public class TelaLogin extends TelaPadrao {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel12)
@@ -90,7 +87,7 @@ public class TelaLogin extends TelaPadrao {
                     .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbExcluir)
+                    .addComponent(jbLimpar)
                     .addComponent(jbGravar))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -125,14 +122,21 @@ public class TelaLogin extends TelaPadrao {
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+            
+            if(jTxtUsuario.getText().trim().isEmpty()){
+                jTxtUsuario.requestFocus();
+            }else{    
+                if(jTxtSenha.getText().trim().isEmpty())
+                    jTxtSenha.requestFocus();
+            }
         }
     }//GEN-LAST:event_jbGravarActionPerformed
 
-    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+    private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
         this.jTxtSenha.setText("");
         this.jTxtUsuario.setText("");
         this.jTxtUsuario.requestFocus();
-    }//GEN-LAST:event_jbExcluirActionPerformed
+    }//GEN-LAST:event_jbLimparActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -141,7 +145,7 @@ public class TelaLogin extends TelaPadrao {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTxtSenha;
     private javax.swing.JTextField jTxtUsuario;
-    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbGravar;
+    private javax.swing.JButton jbLimpar;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,48 +1,49 @@
 package net.unesc.aplicacao;
 
+import net.unesc.log.LogSistema;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.LoginException;
-import net.unesc.aplicacao.TelaLogin;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import net.unesc.log.TipoLog;
 
 public class Sessao {
     private static final String ROOT_FOLDER = "./build";
-    private static final String SESSAO_FILE = ROOT_FOLDER+"/sessao.ser";
-    private static final String LOG_FILE = ROOT_FOLDER+"/log.txt";
+    private static final String LOG_FILE = ROOT_FOLDER+"/log_sessao.txt";
+    private String ultimoLogin = "";
+    public Usuario usuarioLogado;
+    
+    private File arquivo = new File(LOG_FILE);
+    
+    public Sessao() {
+        lerLogSessao();  
+    }
+    
+    public String getUltimoLogin(){
+        return ultimoLogin.trim().toUpperCase();
+    }
 
-    private Usuario usuarioLogado;
-
-    public String lerAquivoLogs() {
+    private void lerLogSessao() {
         try{
-            File arquivo = new File(LOG_FILE);
-            if (arquivo.exists()) {
+            if (!arquivo.exists()) {
                 arquivo.createNewFile();
             }
-
+             
             FileReader fr = new FileReader(arquivo);
             BufferedReader br = new BufferedReader(fr);
-
-            String linha = "";
+     
             while (br.ready()) {
-                linha = br.readLine();
+                ultimoLogin = br.readLine();
             }
+            
             fr.close();
             br.close();
-            return linha;
         }catch(IOException e){
             e.printStackTrace();
         }
-        return "";
     }
     
     public Usuario usuario() throws LoginException {
@@ -50,19 +51,19 @@ public class Sessao {
             throw new LoginException();
         return usuarioLogado;
     }
+    
     public void entrar(String login, String senha) throws LoginException {
         this.usuarioLogado = new Usuario(login, senha);
         //salva log de usuário
         try{
-            File arquivo = new File(LOG_FILE);
             FileWriter arq = new FileWriter(arquivo);
             arq.write(login.trim().toUpperCase());
             arq.close();
         }catch(IOException e){
             e.printStackTrace();
         }
-
+        
+        this.usuarioLogado = new Usuario(login, senha);
+        LogSistema.inserir(TipoLog.LOGIN, "Logou no sistema");        
     }
-    
-    
 }

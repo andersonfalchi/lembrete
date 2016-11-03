@@ -5,7 +5,12 @@
  */
 package net.unesc.aplicacao;
 
+import net.unesc.log.LogSistema;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import net.unesc.log.TipoLog;
 import net.unesc.utilidades.Notificacao;
 import net.unesc.utilidades.Tela;
 
@@ -21,9 +26,28 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     public TelaMenuPrincipal() {
         initComponents();
         
+        addWindowListener(new WindowAdapter() {
+          
+            public void windowClosing(WindowEvent evt)throws NullPointerException{
+                if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){
+                    
+                    try{
+                        if(!Aplicacao.sessao.usuarioLogado.getLogin().trim().isEmpty())
+                            LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
+                
+                    }catch(NullPointerException e){
+                        throw new NullPointerException("Não existe usuário logado!");
+                    }finally{
+                        System.exit(0);
+                    }
+                    
+                }
+            }
+        });
+        
     }
     
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +66,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jdPane.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,7 +136,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private void jmCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadUsuarioActionPerformed
         JInternalFrame jfCadUsuario = new TelaUsuario();
         this.jdPane.add(jfCadUsuario);
-//        Tela.centralizar(jfCadUsuario);
         jfCadUsuario.show();
     }//GEN-LAST:event_jmCadUsuarioActionPerformed
 
@@ -126,48 +149,9 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jfEvento.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     
-//    public static void main(String args[]){
-//        
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Metal".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                TelaMenuPrincipal menu = new TelaMenuPrincipal();
-//                menu.setVisible(true);
-//                menu.setExtendedState(MAXIMIZED_BOTH);         
-//                menu.jdPane.setBounds(menu.getBounds());
-//                menu.jdPane.setPreferredSize(menu.getPreferredSize());
-//                JInternalFrame jfLogar = new TelaLogin();
-//                menu.jdPane.add(jfLogar);
-//                Tela.centralizar(jfLogar);
-//                jfLogar.show();
-//
-//                Tela.centralizar(jlLogo);
-////                
-////                TelaPadrao telaPadrao = new TelaPadrao();
-////                menu.jdPane.add(telaPadrao);
-////                Tela.centralizar(telaPadrao);
-////                telaPadrao.show();
-//            }
-//        });
-//    }
-    
     Notificacao notificacao   = new Notificacao();
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

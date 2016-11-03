@@ -17,6 +17,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import net.unesc.aplicacao.Aplicacao;
+import net.unesc.log.LogSistema;
+import net.unesc.log.TipoLog;
 
 /**
  *
@@ -55,9 +58,16 @@ public class Notificacao {
         };
 
             ActionListener exitListener = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Exiting...");
-                System.exit(0);
+            public void actionPerformed(ActionEvent e)throws NullPointerException {
+                try{
+                    if(!Aplicacao.sessao.usuarioLogado.getLogin().trim().isEmpty())
+                        LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
+
+                }catch(NullPointerException f){
+                    throw new NullPointerException("Não existe usuário logado!");
+                }finally{
+                    System.exit(0);
+                }
             }
         };
 
@@ -70,8 +80,8 @@ public class Notificacao {
 
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                trayIcon.displayMessage("sei la", 
-                    "opaaaa",
+                trayIcon.displayMessage("teste", 
+                    "teste",
                     TrayIcon.MessageType.INFO);
             }
         };

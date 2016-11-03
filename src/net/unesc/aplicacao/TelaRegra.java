@@ -1,9 +1,11 @@
 package net.unesc.aplicacao;
 
+import net.unesc.log.LogSistema;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.MaskFormatter;
+import net.unesc.log.TipoLog;
 import net.unesc.utilidades.TelaPadrao;
 
 /**
@@ -18,6 +20,8 @@ public class TelaRegra extends TelaPadrao {
     public TelaRegra() {
    
         initComponents();
+        LogSistema.inserir(TipoLog.FUNCAO,"Abriu a função Regra do Evento");
+
         
         MaskFormatter TextField2 = new MaskFormatter();
         MaskFormatter TextField7 = new MaskFormatter();
@@ -70,7 +74,7 @@ public class TelaRegra extends TelaPadrao {
 
         setClosable(true);
         setForeground(java.awt.Color.white);
-        setTitle("Cadastro de Usuário");
+        setTitle("Regra do Evento");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Definições da Regra"));
 
@@ -371,11 +375,11 @@ public class TelaRegra extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        // TODO add your handling code here:
+        LogSistema.inserir(TipoLog.INCLUSAO, "Gravou uma nova Regra do Evento");
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-
+        LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu uma Regra do Evento");
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jRadioHoraFixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioHoraFixoActionPerformed

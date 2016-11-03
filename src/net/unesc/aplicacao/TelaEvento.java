@@ -5,6 +5,7 @@
  */
 package net.unesc.aplicacao;
  
+import net.unesc.log.LogSistema;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.JInternalFrame;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 import net.unesc.entidades.Evento;
 import net.unesc.entidades.FormaAlerta;
 import net.unesc.exceptions.LoginException;
+import net.unesc.log.TipoLog;
 import net.unesc.utilidades.CorUtil;
 import net.unesc.utilidades.JavaMailApp;
 import net.unesc.utilidades.SmsSender;
@@ -25,6 +27,7 @@ public class TelaEvento extends TelaPadrao {
 
     public TelaEvento() {
         initComponents();
+        LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Cadastro de eventos");
     }
 
     /**
@@ -248,14 +251,11 @@ public class TelaEvento extends TelaPadrao {
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         Evento evento = new Evento();  
-        
         try
         {
             JOptionPane.showMessageDialog(this, "teste" +jbTipoEvento.getModel());
             evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
             evento.setDescricao(jTxtDescricao.getText());
-//            evento.setRegra(regra);
-    //        evento.setTipoEvento(jbTipoEvento.getModel().getSelectedItem().toString());
             evento.setUsuario(Aplicacao.sessao.usuario());
 
         
@@ -296,16 +296,17 @@ public class TelaEvento extends TelaPadrao {
                 enviarSms.SmsSender();
                 JOptionPane.showMessageDialog(null, "SMS enviada com sucesso!","Envio de SMS",JOptionPane.INFORMATION_MESSAGE );
             }
+            LogSistema.inserir(TipoLog.INCLUSAO,"Gravou um novo Cadastro de eventos");
         }
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-  
+        
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-
+        LogSistema.inserir(TipoLog.EXCLUSAO,"Excluiu um Cadastro de eventos");
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jTxtCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCorActionPerformed
