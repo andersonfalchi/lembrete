@@ -12,6 +12,7 @@ public class TelaLogin extends TelaPadrao {
 
     public TelaLogin() {
         initComponents();
+        this.jTxtUsuario.setText(Aplicacao.sessao.lerAquivoLogs());
     }
     
     /**
@@ -121,7 +122,7 @@ public class TelaLogin extends TelaPadrao {
             net.unesc.aplicacao.TelaMenuPrincipal.jMenu1.setEnabled(true);
             this.dispose();
         }
-        catch(LoginException e)
+        catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
         }
