@@ -74,17 +74,10 @@ public class Sessao {
     }
     public void entrar(String login, String senha) throws LoginException {
         Usuario usuarioTemporario = new Usuario(login, senha);
-//        if(usuarioTemporario.getLogin().isEmpty()){
-//            throw new LoginException("Usuário inválido!");
-//        }
-        System.out.println("usuariosRegistrados = " + usuariosRegistrados.size());
         Usuario usuarioRegistrado = usuariosRegistrados.get(usuarioTemporario.getLogin());
-        System.out.println("usuarioRegistrado = " + usuarioRegistrado);
-        System.out.println("usuarioTemporario = " + usuarioTemporario);  
         if(!usuarioTemporario.getSenha().equals(usuarioRegistrado.getSenha())){
             throw new LoginException("Senha inválida!");
         }
-        
         //usuário logou
         this.usuarioLogado = usuarioTemporario;
         //salvar usuário no .ser caso nao exista
