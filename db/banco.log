@@ -1,0 +1,7 @@
+CREATE USER SA PASSWORD "" ADMIN
+/*C1*/SET SCHEMA PUBLIC
+CONNECT USER SA
+create table produto (\u000acodigo integer,\u000adescracricao varchar(100)\u000a)
+drop table produto
+\u000a\u000acreate table produto (\u000acodigo integer,\u000adescricao varchar(100)\u000a)
+DISCONNECT
