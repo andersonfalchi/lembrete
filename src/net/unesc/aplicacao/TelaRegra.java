@@ -4,37 +4,28 @@ import net.unesc.log.LogSistema;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import net.unesc.entidades.Regra;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.TelaPadrao;
 
-/**
- *
- * @author TI
- */
 public class TelaRegra extends TelaPadrao {
-    
-    /**
-     * Creates new form Usuario
-     */
+ 
     public TelaRegra() {
-   
         initComponents();
-        LogSistema.inserir(TipoLog.FUNCAO,"Abriu a função Regra do Evento");
-
-        
-        MaskFormatter TextField2 = new MaskFormatter();
-        MaskFormatter TextField7 = new MaskFormatter();
-        
+        LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Regra do Evento");
+        MaskFormatter dataMaskInicio = new MaskFormatter();
+        MaskFormatter dataMaskFim = new MaskFormatter();
         try {
-            TextField2.setMask("##/##/####");
-            TextField7.setMask("##/##/####");
-        } catch (ParseException ex) {
-            Logger.getLogger(TelaRegra.class.getName()).log(Level.SEVERE, null, ex);
+            dataMaskInicio.setMask("##/##/####");
+            dataMaskFim.setMask("##/##/####");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
      
-        TextField2.install(jFormattedTextField2);
-        TextField7.install(jFormattedTextField7);
+        dataMaskInicio.install(jTxtInicioVigencia);
+        dataMaskFim.install(jTxtFimVigencia);
     }
 
     @SuppressWarnings("unchecked")
@@ -43,12 +34,12 @@ public class TelaRegra extends TelaPadrao {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTxtUsuario1 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jTxtDescricao = new javax.swing.JTextField();
+        jCbAtivo = new javax.swing.JCheckBox();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jFormattedTextField7 = new javax.swing.JFormattedTextField();
+        jTxtFimVigencia = new javax.swing.JFormattedTextField();
+        jTxtInicioVigencia = new javax.swing.JFormattedTextField();
         jbExcluir = new javax.swing.JButton();
         jbGravar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -63,14 +54,14 @@ public class TelaRegra extends TelaPadrao {
         jPanel3 = new javax.swing.JPanel();
         jRadioHoraFixo = new javax.swing.JRadioButton();
         jRadioCaraHora = new javax.swing.JRadioButton();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jTxtHoras = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        jTxtMinutos = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
-        jFormattedTextField5 = new javax.swing.JFormattedTextField();
-        jFormattedTextField6 = new javax.swing.JFormattedTextField();
+        jTxtSegundos = new javax.swing.JFormattedTextField();
+        jTxtMilesimos = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -80,7 +71,7 @@ public class TelaRegra extends TelaPadrao {
 
         jLabel15.setText("Descrição");
 
-        jCheckBox1.setText("Ativo");
+        jCbAtivo.setText("Ativo");
 
         jLabel16.setText("Inicio Vigência");
 
@@ -101,14 +92,14 @@ public class TelaRegra extends TelaPadrao {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTxtInicioVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTxtUsuario1))
+                        .addComponent(jTxtFimVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtDescricao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(jCbAtivo)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,14 +108,14 @@ public class TelaRegra extends TelaPadrao {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTxtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCbAtivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel17)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtFimVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtInicioVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -145,7 +136,7 @@ public class TelaRegra extends TelaPadrao {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Frequência - Semana"));
 
         jCkDomingo.setSelected(true);
-        jCkDomingo.setText("Domingo");
+        jCkDomingo.setLabel("Domingo");
         jCkDomingo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCkDomingoActionPerformed(evt);
@@ -294,22 +285,22 @@ public class TelaRegra extends TelaPadrao {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTxtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTxtSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTxtMilesimos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTxtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -322,15 +313,15 @@ public class TelaRegra extends TelaPadrao {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
-                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
-                    .addComponent(jFormattedTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtMilesimos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -375,7 +366,35 @@ public class TelaRegra extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        LogSistema.inserir(TipoLog.INCLUSAO, "Gravou uma nova Regra do Evento");
+        try
+        {
+            System.out.println("this.jCkDomingo.getText() = " + this.jCkDomingo.isSelected());
+            Regra regra = new Regra();
+            regra.setNome(jTxtDescricao.getText());
+            
+            regra.setDiaSemana(0, this.jCkDomingo.isSelected());
+            regra.setDiaSemana(1, this.jCkSegunda.isSelected());
+            regra.setDiaSemana(2, this.jCkTerca.isSelected());
+            regra.setDiaSemana(3, this.jCkQuarta.isSelected());
+            regra.setDiaSemana(4, this.jCkQuinta.isSelected());
+            regra.setDiaSemana(5, this.jCkSexta.isSelected());
+            regra.setDiaSemana(6, this.jCkSabado.isSelected());
+            
+            regra.setHora(jTxtHoras.getText());
+            regra.setMinuto(jTxtMinutos.getText());
+            regra.setSegundo(jTxtSegundos.getText());
+            regra.setMilesimos(jTxtMilesimos.getText());
+            
+            regra.setInicioVigencia(jTxtInicioVigencia.getText());
+            regra.setFimVigencia(jTxtFimVigencia.getText());
+           
+            regra.salvar();
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
@@ -549,7 +568,7 @@ public class TelaRegra extends TelaPadrao {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCbAtivo;
     private javax.swing.JCheckBox jCkDomingo;
     private javax.swing.JCheckBox jCkQuarta;
     private javax.swing.JCheckBox jCkQuinta;
@@ -558,12 +577,6 @@ public class TelaRegra extends TelaPadrao {
     private javax.swing.JCheckBox jCkSexta;
     private javax.swing.JCheckBox jCkTerca;
     private javax.swing.JCheckBox jCkTodos;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
-    private javax.swing.JFormattedTextField jFormattedTextField5;
-    private javax.swing.JFormattedTextField jFormattedTextField6;
-    private javax.swing.JFormattedTextField jFormattedTextField7;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -576,7 +589,13 @@ public class TelaRegra extends TelaPadrao {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioCaraHora;
     private javax.swing.JRadioButton jRadioHoraFixo;
-    private javax.swing.JTextField jTxtUsuario1;
+    private javax.swing.JTextField jTxtDescricao;
+    private javax.swing.JFormattedTextField jTxtFimVigencia;
+    private javax.swing.JFormattedTextField jTxtHoras;
+    private javax.swing.JFormattedTextField jTxtInicioVigencia;
+    private javax.swing.JFormattedTextField jTxtMilesimos;
+    private javax.swing.JFormattedTextField jTxtMinutos;
+    private javax.swing.JFormattedTextField jTxtSegundos;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbGravar;
     // End of variables declaration//GEN-END:variables
