@@ -5,9 +5,17 @@
  */
 package net.unesc.aplicacao;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import net.unesc.log.LogSistema;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.unesc.log.TipoLog;
@@ -25,6 +33,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
      */
     public TelaMenuPrincipal() {
         initComponents();
+        configuraIcone();
         
         addWindowListener(new WindowAdapter() {
           
@@ -45,6 +54,15 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
             }
         });
         
+    }
+    
+    private void configuraIcone() {
+        try {
+            Image i = ImageIO.read(getClass().getResource("/net/unesc/resources/icon.png"));
+            setIconImage(i);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 

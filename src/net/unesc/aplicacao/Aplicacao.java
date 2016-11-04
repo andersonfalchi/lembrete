@@ -42,7 +42,6 @@ public class Aplicacao {
                 jfLogar.show();
 
                 Tela.centralizar(jlLogo);
-
             }
         });
     }

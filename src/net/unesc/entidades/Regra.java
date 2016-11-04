@@ -77,6 +77,7 @@ public class Regra {
         catch(ParseException e)
         {
             e.printStackTrace();
+            throw new FormatoDataException("A data de início da vigência é inválida");
         }
     }
 
@@ -92,6 +93,7 @@ public class Regra {
         catch(ParseException e)
         {
             e.printStackTrace();
+            throw new FormatoDataException("A data de fim da vigência é inválida");
         }
     }
 
