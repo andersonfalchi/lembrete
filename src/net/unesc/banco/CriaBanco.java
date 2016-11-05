@@ -1,7 +1,10 @@
 package net.unesc.banco;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 public class CriaBanco {
-    
+        
     public void CriaTabelas(){
         String usuario;
         usuario="create table usuario (nm_usuario varchar(50), "
@@ -11,12 +14,5 @@ public class CriaBanco {
         
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
+     
 }

@@ -149,12 +149,19 @@ public class TelaUsuario extends TelaPadrao {
             usuario.setNome(this.jTxtNome.getText());
             usuario.setSituacao(this.jCBSituacao.isSelected()? "A" : "I");
             usuario.salvar();
+            limpar();
         }catch(Exception e)
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jbGravarActionPerformed
-
+    
+    public void limpar(){
+        this.jTxtNome.setText("");
+        this.jTxtUsuario.setText("");
+        this.jTxtSenha.setText("");
+    }
+    
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
         LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu um Cadastro de usuário");
     }//GEN-LAST:event_jbExcluirActionPerformed

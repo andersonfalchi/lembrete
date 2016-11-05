@@ -2,6 +2,7 @@ package net.unesc.entidades;
 
 import java.io.Serializable;
 import net.unesc.dao.UsuarioDao;
+import net.unesc.exceptions.BancoException;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 
@@ -57,7 +58,7 @@ public class Usuario implements Serializable {
         this.situacao = situacao;
     }
 
-    public void salvar() {
+    public void salvar() throws BancoException {
         UsuarioDao.insert(this);
         LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de usuário");
     }

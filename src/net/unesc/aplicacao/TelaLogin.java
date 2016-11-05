@@ -1,6 +1,14 @@
 package net.unesc.aplicacao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import net.unesc.banco.Conexao;
+import net.unesc.banco.CriaBanco;
+import net.unesc.entidades.Usuario;
+import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.LoginException;
 import net.unesc.utilidades.TelaPadrao;
 
@@ -111,7 +119,7 @@ public class TelaLogin extends TelaPadrao {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try
         {
