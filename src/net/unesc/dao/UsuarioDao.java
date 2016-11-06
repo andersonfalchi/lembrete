@@ -28,13 +28,13 @@ public class UsuarioDao {
             
         } catch(SQLException e) {
 
-            JOptionPane.showMessageDialog(null, e.getMessage(),"Cadastro de usuário",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
                     
             if(conn != null){
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    System.out.println("ERRO: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -43,14 +43,14 @@ public class UsuarioDao {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    System.out.println("ERRO: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
                 }
             }
             if(conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.out.println("ERRO: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

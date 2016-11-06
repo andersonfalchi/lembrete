@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import net.unesc.dao.RegraEventoDao;
+import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.CampoObrigatorioException;
 import net.unesc.exceptions.DataException;
 import net.unesc.exceptions.FormatoDataException;
@@ -19,9 +21,28 @@ public class Regra {
     private String milesimos;
     private Date inicioVigencia;
     private Date fimVigencia;
+    private Usuario usuario;
+    private String tipoHorario;
+    private String situacao;
 
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+    
     private String[] diasSemana = new String[7];
 
+    public String getTipoHorario() {
+        return tipoHorario;
+    }
+
+    public void setTipoHorario(String tipoHorario) {
+        this.tipoHorario = tipoHorario;
+    }
+       
     public String getNome() {
         return nome;
     }
@@ -32,6 +53,22 @@ public class Regra {
         this.nome = nome;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String[] getDiasSemana() {
+        return diasSemana;
+    }
+
+    public void setDiasSemana(String[] diasSemana) {
+        this.diasSemana = diasSemana;
+    }
+    
     public String getMinuto() {
         return minuto;
     }
@@ -128,7 +165,8 @@ public class Regra {
         this.milesimos = milesimos;
     }
     
-    public void salvar() {
+    public void salvar() throws BancoException {
+        RegraEventoDao.insert(this);
         LogSistema.inserir(TipoLog.INCLUSAO, "Gravou uma nova Regra do Evento");
     }
     

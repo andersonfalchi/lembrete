@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import net.unesc.banco.Conexao;
 import net.unesc.banco.CriaBanco;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.LoginException;
+import net.unesc.utilidades.DiaHora;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaLogin extends TelaPadrao {
@@ -18,6 +21,7 @@ public class TelaLogin extends TelaPadrao {
         
         initComponents();
         jTxtUsuario.setText(Aplicacao.sessao.getUltimoLogin().trim());
+        
     }
     
     /**

@@ -2,8 +2,6 @@ package net.unesc.aplicacao;
 
 import net.unesc.log.LogSistema;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import net.unesc.entidades.Regra;
@@ -35,7 +33,7 @@ public class TelaRegra extends TelaPadrao {
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jTxtDescricao = new javax.swing.JTextField();
-        jCbAtivo = new javax.swing.JCheckBox();
+        jCkSituacao = new javax.swing.JCheckBox();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTxtFimVigencia = new javax.swing.JFormattedTextField();
@@ -53,7 +51,7 @@ public class TelaRegra extends TelaPadrao {
         jCkTodos = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jRadioHoraFixo = new javax.swing.JRadioButton();
-        jRadioCaraHora = new javax.swing.JRadioButton();
+        jRadioCadaHora = new javax.swing.JRadioButton();
         jTxtHoras = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -71,7 +69,7 @@ public class TelaRegra extends TelaPadrao {
 
         jLabel15.setText("Descrição");
 
-        jCbAtivo.setText("Ativo");
+        jCkSituacao.setText("Ativo");
 
         jLabel16.setText("Inicio Vigência");
 
@@ -99,7 +97,7 @@ public class TelaRegra extends TelaPadrao {
                         .addComponent(jTxtFimVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTxtDescricao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCbAtivo)
+                .addComponent(jCkSituacao)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,7 +107,7 @@ public class TelaRegra extends TelaPadrao {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCbAtivo))
+                    .addComponent(jCkSituacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
@@ -254,10 +252,10 @@ public class TelaRegra extends TelaPadrao {
             }
         });
 
-        jRadioCaraHora.setText("A cada horário");
-        jRadioCaraHora.addActionListener(new java.awt.event.ActionListener() {
+        jRadioCadaHora.setText("A cada horário");
+        jRadioCadaHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioCaraHoraActionPerformed(evt);
+                jRadioCadaHoraActionPerformed(evt);
             }
         });
 
@@ -277,7 +275,7 @@ public class TelaRegra extends TelaPadrao {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jRadioCaraHora)
+                        .addComponent(jRadioCadaHora)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioHoraFixo))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -308,7 +306,7 @@ public class TelaRegra extends TelaPadrao {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioCaraHora)
+                    .addComponent(jRadioCadaHora)
                     .addComponent(jRadioHoraFixo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -340,8 +338,8 @@ public class TelaRegra extends TelaPadrao {
                                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(179, 179, 179)
+                        .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -359,7 +357,7 @@ public class TelaRegra extends TelaPadrao {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGravar)
                     .addComponent(jbExcluir))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -368,10 +366,9 @@ public class TelaRegra extends TelaPadrao {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try
         {
-            System.out.println("this.jCkDomingo.getText() = " + this.jCkDomingo.isSelected());
             Regra regra = new Regra();
             regra.setNome(jTxtDescricao.getText());
-            
+            regra.setUsuario(Aplicacao.sessao.usuario());
             regra.setDiaSemana(0, this.jCkDomingo.isSelected());
             regra.setDiaSemana(1, this.jCkSegunda.isSelected());
             regra.setDiaSemana(2, this.jCkTerca.isSelected());
@@ -379,15 +376,15 @@ public class TelaRegra extends TelaPadrao {
             regra.setDiaSemana(4, this.jCkQuinta.isSelected());
             regra.setDiaSemana(5, this.jCkSexta.isSelected());
             regra.setDiaSemana(6, this.jCkSabado.isSelected());
-            
             regra.setHora(jTxtHoras.getText());
             regra.setMinuto(jTxtMinutos.getText());
             regra.setSegundo(jTxtSegundos.getText());
             regra.setMilesimos(jTxtMilesimos.getText());
-            
             regra.setInicioVigencia(jTxtInicioVigencia.getText());
             regra.setFimVigencia(jTxtFimVigencia.getText());
-           
+            regra.setTipoHorario(jRadioCadaHora.isSelected() ? "CH" : "HF");
+            regra.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
+            
             regra.salvar();
         }
         catch(Exception e)
@@ -402,7 +399,7 @@ public class TelaRegra extends TelaPadrao {
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jRadioHoraFixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioHoraFixoActionPerformed
-        this.jRadioCaraHora.setSelected(false);
+        this.jRadioCadaHora.setSelected(false);
         this.jRadioHoraFixo.setSelected(true);
         
         this.jCkDomingo.setEnabled(true);
@@ -416,9 +413,9 @@ public class TelaRegra extends TelaPadrao {
         
     }//GEN-LAST:event_jRadioHoraFixoActionPerformed
 
-    private void jRadioCaraHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioCaraHoraActionPerformed
+    private void jRadioCadaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioCadaHoraActionPerformed
         this.jRadioHoraFixo.setSelected(false);
-        this.jRadioCaraHora.setSelected(true);
+        this.jRadioCadaHora.setSelected(true);
         
         this.jCkDomingo.setSelected(false);
         this.jCkSegunda.setSelected(false);
@@ -439,7 +436,7 @@ public class TelaRegra extends TelaPadrao {
         this.jCkTodos.setEnabled(false);
 
             
-    }//GEN-LAST:event_jRadioCaraHoraActionPerformed
+    }//GEN-LAST:event_jRadioCadaHoraActionPerformed
 
     private void jCkTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCkTodosActionPerformed
         if (this.jCkTodos.isSelected()){
@@ -568,13 +565,13 @@ public class TelaRegra extends TelaPadrao {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCbAtivo;
     private javax.swing.JCheckBox jCkDomingo;
     private javax.swing.JCheckBox jCkQuarta;
     private javax.swing.JCheckBox jCkQuinta;
     private javax.swing.JCheckBox jCkSabado;
     private javax.swing.JCheckBox jCkSegunda;
     private javax.swing.JCheckBox jCkSexta;
+    private javax.swing.JCheckBox jCkSituacao;
     private javax.swing.JCheckBox jCkTerca;
     private javax.swing.JCheckBox jCkTodos;
     private javax.swing.JLabel jLabel15;
@@ -587,7 +584,7 @@ public class TelaRegra extends TelaPadrao {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioCaraHora;
+    private javax.swing.JRadioButton jRadioCadaHora;
     private javax.swing.JRadioButton jRadioHoraFixo;
     private javax.swing.JTextField jTxtDescricao;
     private javax.swing.JFormattedTextField jTxtFimVigencia;

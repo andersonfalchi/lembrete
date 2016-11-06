@@ -2,6 +2,8 @@ package net.unesc.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.unesc.dao.EventoDao;
+import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.CampoObrigatorioException;
 import net.unesc.exceptions.FormaAlertaException;
 import net.unesc.log.LogSistema;
@@ -14,7 +16,19 @@ public class Evento {
     private TipoEvento tipoEvento;
     private Regra regra;
     private Usuario usuario;
+    private String email;
+    private String ddd;
+    private String celular;
+    private String situacao;
 
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
@@ -28,13 +42,13 @@ public class Evento {
     public String getCor() {
         return cor;
     }
-
+    
     public void setCor(String cor) throws CampoObrigatorioException {
         if (cor == null)
             throw new CampoObrigatorioException("A cor é obrigatória");
         this.cor = cor;
     }
-
+    
     public List<FormaAlerta> getFormasAlerta() {
         return formasAlerta;
     }
@@ -53,6 +67,31 @@ public class Evento {
         return tipoEvento;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+    
+    
     public void setTipoEvento(TipoEvento tipoEvento) throws CampoObrigatorioException {
         if (tipoEvento == null)
             throw new CampoObrigatorioException("O tipo de evento é obrigatório");
@@ -78,11 +117,13 @@ public class Evento {
     }
     
     
-    public void salvar() throws FormaAlertaException {
-        if (this.formasAlerta.size() < 1)
-        {
-            throw new FormaAlertaException("Selecione ao menos uma forma de alerta");
-        }
+    public void salvar() throws BancoException,FormaAlertaException {
+//        if (this.formasAlerta.size() < 1)
+//        { 
+//            throw new FormaAlertaException("Selecione ao menos uma forma de alerta");
+//        }
+        
+        EventoDao.insert(this);
         LogSistema.inserir(TipoLog.INCLUSAO,"Gravou um novo Cadastro de eventos");
     }
     

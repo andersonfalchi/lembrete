@@ -40,8 +40,8 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
-                      <Component id="jbGravar" min="-2" pref="69" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
+                      <Component id="jbGravar" min="-2" pref="74" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbExcluir" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
@@ -65,7 +65,7 @@
                   <Component id="jbGravar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,7 +106,7 @@
                       <Component id="jTxtDescricao" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jCbAtivo" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCkSituacao" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -118,7 +118,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTxtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCbAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCkSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -140,7 +140,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTxtDescricao">
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCbAtivo">
+        <Component class="javax.swing.JCheckBox" name="jCkSituacao">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ativo"/>
           </Properties>
@@ -334,7 +334,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jRadioCaraHora" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioCadaHora" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jRadioHoraFixo" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -376,7 +376,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jRadioCaraHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioCadaHora" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jRadioHoraFixo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -408,12 +408,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioHoraFixoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioCaraHora">
+        <Component class="javax.swing.JRadioButton" name="jRadioCadaHora">
           <Properties>
             <Property name="text" type="java.lang.String" value="A cada hor&#xe1;rio"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioCaraHoraActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioCadaHoraActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jTxtHoras">
