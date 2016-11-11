@@ -18,7 +18,7 @@ public class EventoDao {
         
         try {
             conn = Conexao.getConnection();
-            Integer proxSequencia = Funcoes.ObterSequencia("evento");   
+            Integer proxSequencia = Funcoes.obterSequencia("evento");   
               
             String sql = "insert into evento (nr_sequencia, nm_usuario, dt_inclusao, "
                     + "ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, "

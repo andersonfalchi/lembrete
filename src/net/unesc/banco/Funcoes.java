@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Funcoes {
     
-    public static Integer ObterSequencia(String tabela){
+    public static Integer obterSequencia(String tabela){
         Integer sequencia=1;
         
         try{

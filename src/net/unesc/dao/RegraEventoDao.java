@@ -16,7 +16,7 @@ public class RegraEventoDao{
         
         try {
             conn = Conexao.getConnection();
-            Integer proxSequencia = Funcoes.ObterSequencia("regra_evento");
+            Integer proxSequencia = Funcoes.obterSequencia("regra_evento");
             
             String sql = "insert into regra_evento (nr_sequencia, nm_usuario, dt_inclusao, "
                     + "ds_regra, dt_inicio_vigencia, dt_fim_vigencia, ie_situacao, ie_tipo_horario, "
