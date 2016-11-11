@@ -1,0 +1,230 @@
+/*C1*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C2*/SET SCHEMA PUBLIC
+CONNECT USER SA
+drop table produtos
+drop table usuario
+create table usuario (nm_usuario varchar(50), \u000a                ds_login varchar(50) not null, ds_senha varchar(50) ,\u000a                  ie_situacao char(1), PRIMARY KEY (ds_login))
+create table evento (nr_sequencia integer not null, nm_usuario varchar(50), dt_inclusao timestamp, ds_evento varchar(255),\u000a ie_email char(1), ie_sms char(1), ie_popup char(1), ie_notificacao char(1), ds_email varchar(255), nr_ddd_celular char(3), \u000anr_celular varchar(9), ie_tipo_evento char(3), cor varchar(15), primary key(nr_sequencia))
+/*C3*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C5*/SET SCHEMA PUBLIC
+CONNECT USER SA
+INSERT INTO EVENTO VALUES(1,'Usuario{login=RAFAEL, senha=123}','2016-11-06 14:33:24.000000000','teet',NULL,NULL,NULL,NULL,'et','334','34324324','Gasolina','#00cccc')
+DISCONNECT
+/*C6*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C7*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C2*/DISCONNECT
+/*C7*/DISCONNECT
+/*C8*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C9*/SET SCHEMA PUBLIC
+CONNECT USER SA
+INSERT INTO EVENTO VALUES(2,'RAFAEL','2016-11-06 14:36:02.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','99232367','Gasolina','#000000')
+DISCONNECT
+/*C10*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C11*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C12*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+CONNECT USER SA
+INSERT INTO EVENTO VALUES(3,'RAFAEL','2016-11-06 15:03:43.000000000','sars',NULL,NULL,NULL,NULL,'arr','33','33333','Gasolina','#00cccc')
+DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C22*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C8*/DELETE FROM EVENTO WHERE NR_SEQUENCIA=1
+DELETE FROM EVENTO WHERE NR_SEQUENCIA=2
+DELETE FROM EVENTO WHERE NR_SEQUENCIA=3
+/*C23*/SET SCHEMA PUBLIC
+CONNECT USER SA
+INSERT INTO EVENTO VALUES(1,'RAFAEL','2016-11-06 15:14:19.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','99232367','Almo\u00e7o','#00cccc')
+DISCONNECT
+/*C24*/SET SCHEMA PUBLIC
+CONNECT USER SA
+INSERT INTO EVENTO VALUES(2,'RAFAEL','2016-11-06 15:14:27.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','99232367','Almo\u00e7o','#00cccc')
+DISCONNECT
+/*C25*/SET SCHEMA PUBLIC
+CONNECT USER SA
+INSERT INTO EVENTO VALUES(3,'RAFAEL','2016-11-06 15:14:29.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','99232367','Almo\u00e7o','#00cccc')
+DISCONNECT
+/*C8*/alter table evento add ie_situacao char(1)
+/*C26*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C27*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C8*/create table regra_evento (nr_sequencia integer, ds_regra varchar(255), dt_inicio_vigencia timestamp, \u000adt_fim_vigencia timestamp, is_situacao char(1), ie_tipo_horario char(1), qt_hh integer, qt_mm integer, \u000aqt_ss integer, qt_ml integer, dia_dom bit, dia_seg bit, dia_ter bit, dia_qua bit, dia_qui bit, \u000adia_sex bit, dia_sab bit, primary key(nr_sequencia))
+drop table regra_evento
+create table regra_evento (nr_sequencia integer, nm_usuario varchar(50), dt_inclusao timestamp, ds_regra varchar(255), \u000a                dt_inicio_vigencia timestamp, dt_fim_vigencia timestamp, is_situacao char(1),\u000a                ie_tipo_horario char(1), qt_hh integer, qt_mm integer, t_ss integer, qt_ml integer,\u000a                dia_dom bit, dia_seg bit, dia_ter bit, dia_qua bit, dia_qui bit, dia_sex bit, \u000a                dia_sab bit, primary key(nr_sequencia))
+drop table regra_evento
+create table regra_evento (nr_sequencia integer, nm_usuario varchar(50), dt_inclusao timestamp, ds_regra varchar(255), \u000a                dt_inicio_vigencia timestamp, dt_fim_vigencia timestamp, is_situacao char(1),\u000a                ie_tipo_horario char(1), qt_hh integer, qt_mm integer, qt_ss integer, qt_ml integer,\u000a                dia_dom bit, dia_seg bit, dia_ter bit, dia_qua bit, dia_qui bit, dia_sex bit, \u000a                dia_sab bit, primary key(nr_sequencia))
+drop table regra_evento
+create table regra_evento (nr_sequencia integer, nm_usuario varchar(50), dt_inclusao timestamp, ds_regra varchar(255), \u000a                dt_inicio_vigencia timestamp, dt_fim_vigencia timestamp, ie_situacao char(1),\u000a                ie_tipo_horario char(1), qt_hh integer, qt_mm integer, qt_ss integer, qt_ml integer,\u000a                dia_dom bit, dia_seg bit, dia_ter bit, dia_qua bit, dia_qui bit, dia_sex bit, \u000a                dia_sab bit, primary key(nr_sequencia))
+DELETE FROM EVENTO WHERE NR_SEQUENCIA=1
+DELETE FROM EVENTO WHERE NR_SEQUENCIA=2
+DELETE FROM EVENTO WHERE NR_SEQUENCIA=3
+/*C28*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C29*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C28*/DISCONNECT
+/*C30*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C31*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C30*/DISCONNECT
+/*C31*/DISCONNECT
+/*C29*/DISCONNECT
+/*C32*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C33*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C32*/INSERT INTO EVENTO VALUES(1,'RAFAEL','2016-11-06 16:44:42.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','99232367','Gasolina','#00cccc',NULL)
+DISCONNECT
+/*C34*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C35*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C34*/INSERT INTO EVENTO VALUES(2,'RAFAEL','2016-11-06 16:45:01.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','99232367','Gasolina','#00cccc',NULL)
+DISCONNECT
+/*C36*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C37*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C36*/DISCONNECT
+/*C35*/DISCONNECT
+/*C33*/DISCONNECT
+/*C37*/DISCONNECT
+/*C8*/DELETE FROM EVENTO WHERE NR_SEQUENCIA=1
+DELETE FROM EVENTO WHERE NR_SEQUENCIA=2
+/*C38*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C39*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C38*/INSERT INTO EVENTO VALUES(1,'RAFAEL','2016-11-06 16:48:25.000000000','teste',NULL,NULL,NULL,NULL,'rafael.santos@ssjose.com.br','48','9992323267','Almo\u00e7o','#cc6600',NULL)
+DISCONNECT
+/*C40*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C41*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C40*/DISCONNECT
+/*C41*/DISCONNECT
+/*C39*/DISCONNECT
+/*C42*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C43*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C42*/INSERT INTO EVENTO VALUES(2,'RAFAEL','2016-11-06 17:08:52.000000000','rete',NULL,NULL,NULL,NULL,'teste','6165','1561616','Gasolina','#00cccc',NULL)
+DISCONNECT
+/*C44*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C45*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C44*/INSERT INTO EVENTO VALUES(3,'RAFAEL','2016-11-06 17:09:02.000000000','rete',NULL,NULL,NULL,NULL,'teste','6165','1561616','Gasolina','#00cccc',NULL)
+DISCONNECT
+/*C46*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C47*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C46*/DISCONNECT
+/*C47*/DISCONNECT
+/*C43*/DISCONNECT
+/*C45*/DISCONNECT
+/*C8*/drop table evento
+create table evento (nr_sequencia integer not null, \u000a                nm_usuario varchar(50), dt_inclusao timestamp, \u000a                ds_evento varchar(255), ie_email char(1), ie_sms char(1),\u000a                ie_popup char(1), ie_notificacao char(1), ds_email varchar(255),\u000a                 nr_ddd_celular char(3), nr_celular varchar(9), ie_tipo_evento char(3),\u000a                 cor varchar(15), ie_situacao char(1), primary key(nr_sequencia))
+/*C48*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C49*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C48*/INSERT INTO EVENTO VALUES(1,'RAFAEL','2016-11-06 17:13:38.000000000','teste',NULL,NULL,NULL,NULL,'teste','12','45678949','Almo\u00e7o','#006666','I')
+DISCONNECT
+/*C50*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C51*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C50*/INSERT INTO EVENTO VALUES(2,'RAFAEL','2016-11-06 17:13:50.000000000','teste',NULL,NULL,NULL,NULL,'teste','12','45678949','Almo\u00e7o','#006666','I')
+DISCONNECT
+/*C52*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C53*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C52*/INSERT INTO EVENTO VALUES(3,'RAFAEL','2016-11-06 17:14:00.000000000','teste',NULL,NULL,NULL,NULL,'teste','12','45678949','Almo\u00e7o','#006666','A')
+DISCONNECT
+/*C54*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C55*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C54*/INSERT INTO REGRA_EVENTO VALUES(1,'RAFAEL','2016-11-06 17:14:19.000000000','teste','2016-10-01 00:00:00.000000000','2016-10-31 00:00:00.000000000','A','HF',10,20,30,40,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+DISCONNECT
+/*C56*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C57*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C56*/INSERT INTO REGRA_EVENTO VALUES(2,'RAFAEL','2016-11-06 17:14:43.000000000','teste','2016-10-01 00:00:00.000000000','2016-10-31 00:00:00.000000000','I','HF',10,20,30,40,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+DISCONNECT
+/*C58*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C59*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C58*/INSERT INTO REGRA_EVENTO VALUES(3,'RAFAEL','2016-11-06 17:15:21.000000000','teste','2016-10-01 00:00:00.000000000','2016-10-31 00:00:00.000000000','I','CH',10,20,30,40,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+/*C49*/DISCONNECT
+/*C59*/DISCONNECT
+/*C57*/DISCONNECT
+/*C55*/DISCONNECT
+/*C53*/DISCONNECT
+/*C51*/DISCONNECT
+/*C58*/DISCONNECT
+/*C60*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C61*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C60*/INSERT INTO REGRA_EVENTO VALUES(4,'RAFAEL','2016-11-06 17:15:41.000000000','teste','0201-10-01 00:00:00.000000000','2016-10-31 00:00:00.000000000','I','CH',10,20,30,40,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+DISCONNECT
+/*C62*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C63*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C62*/INSERT INTO REGRA_EVENTO VALUES(5,'RAFAEL','2016-11-06 17:16:12.000000000','teste','2017-02-01 00:00:00.000000000','2017-03-31 00:00:00.000000000','I','CH',10,20,30,40,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+DISCONNECT
+/*C61*/DISCONNECT
+/*C63*/DISCONNECT
+/*C8*/DISCONNECT

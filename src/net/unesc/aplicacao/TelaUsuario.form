@@ -32,9 +32,9 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="96" max="32767" attributes="0"/>
-              <Component id="jbGravar" min="-2" pref="69" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jbGravar" min="-2" pref="77" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jbExcluir" min="-2" pref="79" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
           </Group>
@@ -94,7 +94,7 @@
                               </Group>
                               <Component id="jTxtSenha" min="-2" pref="155" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -120,7 +120,7 @@
                       <Component id="jTxtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
