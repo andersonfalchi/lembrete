@@ -15,10 +15,10 @@ import net.unesc.log.TipoLog;
 public class Regra {
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
     private String nome;
-    private String minuto;
-    private String hora;
-    private String segundo;
-    private String milesimos;
+    private Integer minuto;
+    private Integer hora;
+    private Integer segundo;
+    private Integer milesimos;
     private Date inicioVigencia;
     private Date fimVigencia;
     private Usuario usuario;
@@ -67,22 +67,6 @@ public class Regra {
 
     public void setDiasSemana(String[] diasSemana) {
         this.diasSemana = diasSemana;
-    }
-    
-    public String getMinuto() {
-        return minuto;
-    }
-
-    public void setMinuto(String minuto) {
-        this.minuto = minuto;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
     }
 
     public Date getInicioVigencia() {
@@ -144,25 +128,85 @@ public class Regra {
     public String getDiaSemana() {
         return String.join(",", diasSemana);
     }
+    
+    public boolean getDiaSemana(int dia) {
+        return "1".equals(diasSemana[dia]);
+    }
 
     public void setDiaSemana(int dia, boolean diaSemana) {
         diasSemana[dia] = diaSemana ? "1" : "0";
     }
 
-    public String getSegundo() {
+    public Integer getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(Integer minuto) {
+        this.minuto = minuto;
+    }
+
+    public Integer getHora() {
+        return hora;
+    }
+
+    public void setHora(Integer hora) {
+        this.hora = hora;
+    }
+
+    public Integer getSegundo() {
         return segundo;
     }
 
-    public void setSegundo(String segundo) {
+    public void setSegundo(Integer segundo) {
         this.segundo = segundo;
     }
 
-    public String getMilesimos() {
+    public Integer getMilesimos() {
         return milesimos;
     }
 
-    public void setMilesimos(String milesimos) {
+    public void setMilesimos(Integer milesimos) {
         this.milesimos = milesimos;
+    }
+
+    public void setMinuto(String minuto) throws NumberFormatException {
+        try
+        {
+            this.minuto = Integer.parseInt(minuto);
+        }
+        catch(NumberFormatException e) {
+            throw new NumberFormatException("Minuto inválido");
+        }
+    }
+    
+    public void setHora(String hora) throws NumberFormatException  {
+        try
+        {
+            this.hora = Integer.parseInt(hora);
+        }
+        catch(NumberFormatException e) {
+            throw new NumberFormatException("Hora inválida");
+        }
+    }
+
+    public void setSegundo(String segundo) throws NumberFormatException  {
+        try
+        {
+            this.segundo = Integer.parseInt(segundo);
+        }
+        catch(NumberFormatException e) {
+            throw new NumberFormatException("Segundo inválido");
+        }
+    }
+    
+    public void setMilesimos(String milesimos) throws NumberFormatException  {
+        try
+        {
+            this.milesimos = Integer.parseInt(milesimos);
+        }
+        catch(NumberFormatException e) {
+            throw new NumberFormatException("Milésimo inválido");
+        }
     }
     
     public void salvar() throws BancoException {

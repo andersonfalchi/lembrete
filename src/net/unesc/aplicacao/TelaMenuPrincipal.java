@@ -154,6 +154,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private void jmCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadUsuarioActionPerformed
         JInternalFrame jfCadUsuario = new TelaUsuario();
         this.jdPane.add(jfCadUsuario);
+        Tela.centralizar(jfCadUsuario);
         jfCadUsuario.show();
     }//GEN-LAST:event_jmCadUsuarioActionPerformed
 

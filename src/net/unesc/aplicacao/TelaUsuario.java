@@ -49,6 +49,7 @@ public class TelaUsuario extends TelaPadrao {
 
         jLabel15.setText("Nome");
 
+        jCBSituacao.setSelected(true);
         jCBSituacao.setText("Ativo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -97,7 +98,7 @@ public class TelaUsuario extends TelaPadrao {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jbExcluir.setText("Excluir");
+        jbExcluir.setText("Limpar");
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbExcluirActionPerformed(evt);

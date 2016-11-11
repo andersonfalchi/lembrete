@@ -6,10 +6,16 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import net.unesc.entidades.Regra;
 import net.unesc.log.TipoLog;
+import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaRegra extends TelaPadrao {
- 
+    private RetornoSimples<Regra> retornoSimples;
+
+    public void setRetornoSimples(RetornoSimples<Regra> retornoSimples) {
+        this.retornoSimples = retornoSimples;
+    }
+    
     public TelaRegra() {
         initComponents();
         LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Regra do Evento");
@@ -69,6 +75,7 @@ public class TelaRegra extends TelaPadrao {
 
         jLabel15.setText("Descrição");
 
+        jCkSituacao.setSelected(true);
         jCkSituacao.setText("Ativo");
 
         jLabel16.setText("Inicio Vigência");
@@ -386,6 +393,9 @@ public class TelaRegra extends TelaPadrao {
             regra.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             
             regra.salvar();
+            
+            if (retornoSimples != null)
+                retornoSimples.retorno(regra);
         }
         catch(Exception e)
         {

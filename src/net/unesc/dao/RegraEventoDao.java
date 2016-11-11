@@ -32,17 +32,17 @@ public class RegraEventoDao{
             ps.setString(6, DiaHora.formatarData(regra.getFimVigencia(),"yyyy-MM-dd HH:mm:ss"));
             ps.setString(7, regra.getSituacao());
             ps.setString(8, regra.getTipoHorario());
-            ps.setString(9, regra.getHora());
-            ps.setString(10, regra.getMinuto());
-            ps.setString(11, regra.getSegundo());
-            ps.setString(12, regra.getMilesimos());
-            ps.setString(13, null);
-            ps.setString(14, null);
-            ps.setString(15, null);
-            ps.setString(16, null);
-            ps.setString(17, null);
-            ps.setString(18, null);
-            ps.setString(19, null);
+            ps.setInt(9, regra.getHora());
+            ps.setInt(10, regra.getMinuto());
+            ps.setInt(11, regra.getSegundo());
+            ps.setInt(12, regra.getMilesimos());
+            ps.setBoolean(13, regra.getDiaSemana(0));
+            ps.setBoolean(14, regra.getDiaSemana(1));
+            ps.setBoolean(15, regra.getDiaSemana(2));
+            ps.setBoolean(16, regra.getDiaSemana(3));
+            ps.setBoolean(17, regra.getDiaSemana(4));
+            ps.setBoolean(18, regra.getDiaSemana(5));
+            ps.setBoolean(19, regra.getDiaSemana(6));
             
             ps.execute();
             conn.commit();

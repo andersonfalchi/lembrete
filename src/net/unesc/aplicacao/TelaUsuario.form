@@ -152,6 +152,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCBSituacao">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Ativo"/>
           </Properties>
         </Component>
@@ -159,7 +160,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="jbExcluir">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Excluir"/>
+        <Property name="text" type="java.lang.String" value="Limpar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbExcluirActionPerformed"/>

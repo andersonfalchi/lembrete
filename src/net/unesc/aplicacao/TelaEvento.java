@@ -20,12 +20,13 @@ import net.unesc.exceptions.FormaAlertaException;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.CorUtil;
 import net.unesc.utilidades.JavaMailApp;
+import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.SmsSender;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaEvento extends TelaPadrao {
 
-    private Regra regra = null;
+    private Regra regra = null;    
     
     public TelaEvento() {
         initComponents();
@@ -256,6 +257,18 @@ public class TelaEvento extends TelaPadrao {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         Evento evento = new Evento();  
         try{
+            if (this.jCkEmail.isSelected()) {
+                evento.addFormaAlerta(FormaAlerta.EMAIL);
+            }
+            if (this.jCkPopUp.isSelected()) {
+                evento.addFormaAlerta(FormaAlerta.POPUP);
+            }
+            if (this.jCkNotificacao.isSelected()) {
+                evento.addFormaAlerta(FormaAlerta.NOTIFICACAO);
+            }if (this.jCkSms.isSelected()) {
+                evento.addFormaAlerta(FormaAlerta.SMS);
+            }
+            
             evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
             evento.setDescricao(jTxtDescricao.getText());
             evento.setUsuario(Aplicacao.sessao.usuario());
@@ -263,16 +276,30 @@ public class TelaEvento extends TelaPadrao {
             evento.setDdd(jTxtDdd.getText());
             evento.setCelular(jTxtNumero.getText());
             evento.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
-            //evento.setRegra(regra);
+            evento.setRegra(regra);
             evento.setTipoEvento((TipoEvento) this.jbTipoEvento.getSelectedItem());
+            
             evento.salvar();
+            
+            JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso!","Cadastro de Evento",JOptionPane.INFORMATION_MESSAGE);
+        
+            this.jTxtDescricao.setText("");
+            this.jTxtEmail.setText("");
+            this.jTxtDdd.setText("");
+            this.jTxtNumero.setText("");
+            this.jCkEmail.setSelected(false);
+            this.jCkPopUp.setSelected(false);
+            this.jCkNotificacao.setSelected(false);
+            this.jCkSms.setSelected(false);
+            
         }catch(Exception e){
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        LogSistema.inserir(TipoLog.EXCLUSAO,"Excluiu um Cadastro de eventos");
+        
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jTxtCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCorActionPerformed
@@ -286,14 +313,21 @@ public class TelaEvento extends TelaPadrao {
     }//GEN-LAST:event_jbColorActionPerformed
 
     private void jbRegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegraActionPerformed
-        JInternalFrame regra = (JInternalFrame) new TelaRegra();
-        TelaMenuPrincipal.jdPane.add(regra);
+        TelaRegra telaRegra = new TelaRegra();
+        telaRegra.setRetornoSimples(new RetornoSimples<Regra>() {
+            @Override
+            public void retorno(Regra t) {
+                regra = t;
+                jbRegra.setText(regra.getNome());
+            }
+        });
+        TelaMenuPrincipal.jdPane.add((JInternalFrame)telaRegra);
         int lDesk = TelaMenuPrincipal.jdPane.getWidth();
         int aDesk = TelaMenuPrincipal.jdPane.getHeight();
-        int lIFrame = regra.getWidth();
-        int aIFrame = regra.getHeight();
-        regra.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
-        regra.show();
+        int lIFrame = telaRegra.getWidth();
+        int aIFrame = telaRegra.getHeight();
+        telaRegra.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        telaRegra.show();
     }//GEN-LAST:event_jbRegraActionPerformed
 
     private void jTxtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDescricaoActionPerformed
