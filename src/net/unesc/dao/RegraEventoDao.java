@@ -10,7 +10,7 @@ import net.unesc.exceptions.BancoException;
 import net.unesc.utilidades.DiaHora;
 
 public class RegraEventoDao{
-    public static void insert(Regra regra) throws BancoException {
+    public static void inserir(Regra regra) throws BancoException {
         Connection conn = null;
         PreparedStatement ps = null;
         

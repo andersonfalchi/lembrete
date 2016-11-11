@@ -166,7 +166,7 @@ public class Regra {
     }
     
     public void salvar() throws BancoException {
-        RegraEventoDao.insert(this);
+        RegraEventoDao.inserir(this);
         LogSistema.inserir(TipoLog.INCLUSAO, "Gravou uma nova Regra do Evento");
     }
     

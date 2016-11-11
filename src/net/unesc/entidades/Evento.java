@@ -118,12 +118,12 @@ public class Evento {
     
     
     public void salvar() throws BancoException,FormaAlertaException {
-//        if (this.formasAlerta.size() < 1)
-//        { 
-//            throw new FormaAlertaException("Selecione ao menos uma forma de alerta");
-//        }
+        if (this.formasAlerta.size() < 1)
+        { 
+            throw new FormaAlertaException("Selecione ao menos uma forma de alerta");
+        };
         
-        EventoDao.insert(this);
+        EventoDao.inserir(this);
         LogSistema.inserir(TipoLog.INCLUSAO,"Gravou um novo Cadastro de eventos");
     }
     

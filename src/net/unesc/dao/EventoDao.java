@@ -12,7 +12,7 @@ import net.unesc.exceptions.BancoException;
 import net.unesc.utilidades.*;
 
 public class EventoDao {
-    public static void insert(Evento evento) throws BancoException {
+    public static void inserir(Evento evento) throws BancoException {
         Connection conn = null;
         PreparedStatement ps = null;
         
