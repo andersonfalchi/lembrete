@@ -31,9 +31,7 @@ public class Usuario implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    
-    
+   
     public void setLogin(String login) {
         if (login == null || login.trim().isEmpty())
             throw new IllegalArgumentException("O login não pode ser vazio");

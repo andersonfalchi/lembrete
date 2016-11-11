@@ -8,6 +8,8 @@ import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.LoginException;
 import java.io.File;
 import java.io.FileReader;
+import net.unesc.dao.SessaoDao;
+import net.unesc.exceptions.BancoException;
 import net.unesc.log.TipoLog;
 
 public class Sessao {
@@ -52,18 +54,24 @@ public class Sessao {
         return usuarioLogado;
     }
     
-    public void entrar(String login, String senha) throws LoginException {
-        this.usuarioLogado = new Usuario(login, senha);
+    public void entrar(String login, String senha) throws LoginException, BancoException {
+        
+        Usuario usuario = new Usuario(login, senha);
+        
+        if(!SessaoDao.logar(usuario)){
+            throw new LoginException("Usuário/senha inválidos");
+        }
+        
         //salva log de usuário
         try{
             FileWriter arq = new FileWriter(arquivo);
-            arq.write(login.trim().toUpperCase());
+            arq.write(usuario.getLogin().toUpperCase());
             arq.close();
         }catch(IOException e){
             e.printStackTrace();
         }
         
-        this.usuarioLogado = new Usuario(login, senha);
+        this.usuarioLogado = usuario;
         LogSistema.inserir(TipoLog.LOGIN, "Logou no sistema");        
     }
 }
