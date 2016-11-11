@@ -10,7 +10,7 @@ import net.unesc.exceptions.BancoException;
 
 public class UsuarioDao {
     
-    public static void insert(Usuario usuario) throws BancoException {
+    public static void inserir(Usuario usuario) throws BancoException {
         Connection conn = null;
         PreparedStatement ps = null;
         try {

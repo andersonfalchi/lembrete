@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 
 public class CriaBanco {
         
-    public void CriaTabelas(){
+    public void criaTabelas(){
         String tabela[] = null;
         
         //Usuário

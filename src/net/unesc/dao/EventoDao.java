@@ -12,13 +12,13 @@ import net.unesc.exceptions.BancoException;
 import net.unesc.utilidades.*;
 
 public class EventoDao {
-    public static void insert(Evento evento) throws BancoException {
+    public static void inserir(Evento evento) throws BancoException {
         Connection conn = null;
         PreparedStatement ps = null;
         
         try {
             conn = Conexao.getConnection();
-            Integer proxSequencia = Funcoes.ObterSequencia("evento");   
+            Integer proxSequencia = Funcoes.obterSequencia("evento");   
               
             String sql = "insert into evento (nr_sequencia, nm_usuario, dt_inclusao, "
                     + "ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, "

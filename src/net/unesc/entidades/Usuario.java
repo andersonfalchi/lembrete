@@ -57,7 +57,7 @@ public class Usuario implements Serializable {
     }
 
     public void salvar() throws BancoException {
-        UsuarioDao.insert(this);
+        UsuarioDao.inserir(this);
         LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de usuário");
     }
 

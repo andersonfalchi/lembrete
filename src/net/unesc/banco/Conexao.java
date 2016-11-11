@@ -11,7 +11,6 @@ public class Conexao {
         Connection conn = null;
         try {
             Class.forName("org.hsqldb.jdbcDriver");
-            //conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/bancodb", "sa", "");
             conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/agendadb", "sa", "");
         } catch (SQLException e) {
             throw new BancoException("Problemas ao conectar no banco de dados");
