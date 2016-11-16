@@ -93,7 +93,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
 
         jlLogo.setBackground(new java.awt.Color(255, 255, 255));
         jlLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/unesc/resources/logoUnesc.png"))); // NOI18N
+        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/unesc/resources/background.png"))); // NOI18N
         jdPane.add(jlLogo);
         jlLogo.setBounds(350, 80, 570, 440);
 
