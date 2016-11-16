@@ -271,7 +271,7 @@ public class TelaEvento extends TelaPadrao {
             
             evento.setCor(CorUtil.colorParaHexadecimal(jTxtCor.getBackground()));
             evento.setDescricao(jTxtDescricao.getText());
-            evento.setUsuario(Aplicacao.sessao.usuario());
+            evento.setUsuario(Aplicacao.SESSAO.usuario());
             evento.setEmail(jTxtEmail.getText());  
             evento.setDdd(jTxtDdd.getText());
             evento.setCelular(jTxtNumero.getText());

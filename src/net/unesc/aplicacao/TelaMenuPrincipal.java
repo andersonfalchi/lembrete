@@ -7,6 +7,7 @@ package net.unesc.aplicacao;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import net.unesc.log.LogSistema;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -27,7 +28,7 @@ import net.unesc.utilidades.Tela;
  * @author TI
  */
 public class TelaMenuPrincipal extends javax.swing.JFrame {
-
+    public static final Notificacao NOTIFICACAO = new Notificacao();
     /**
      * Creates new form Menu
      */
@@ -36,24 +37,28 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         configuraIcone();
         
         addWindowListener(new WindowAdapter() {
-          
             public void windowClosing(WindowEvent evt)throws NullPointerException{
-                if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){
-                    
-                    try{
-                        if(!Aplicacao.sessao.usuarioLogado.getLogin().trim().isEmpty())
-                            LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
-                
-                    }catch(NullPointerException e){
-                        throw new NullPointerException("Não existe usuário logado!");
-                    }finally{
-                        System.exit(0);
-                    }
-                    
-                }
+                setVisible(false);
+                NOTIFICACAO.ICON.displayMessage("Aplicação rodando em segundo plano", 
+                    "Para sair clique com o botão direito nesse ícone e clique em 'Sair'",
+                    TrayIcon.MessageType.INFO);
             }
         });
         
+    }
+    
+    public static void sair() {
+        if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){       
+            try{
+                if(!Aplicacao.SESSAO.usuarioLogado.getLogin().trim().isEmpty())
+                    LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
+
+            }catch(NullPointerException e){
+                throw new NullPointerException("Não existe usuário logado!");
+            }finally{
+                System.exit(0);
+            }
+        }
     }
     
     private void configuraIcone() {
@@ -167,8 +172,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         Tela.centralizar(jfRegra);
         jfEvento.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-    
-    Notificacao notificacao   = new Notificacao();
+   
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

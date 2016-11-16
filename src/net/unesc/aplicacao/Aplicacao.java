@@ -8,8 +8,14 @@ import net.unesc.exceptions.LoginException;
 import net.unesc.utilidades.*;
 
 public class Aplicacao {
-    public static Sessao sessao = new Sessao();
-
+    public static Sessao SESSAO = new Sessao();
+    public static TelaMenuPrincipal TELA_MENU_PRINCIPAL;
+    public static final Thread NOTIFICACOES__THREAD = new Thread() {
+        @Override
+        public void run() {
+                
+        }
+    };
     public static void main(String args[]){
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -27,17 +33,18 @@ public class Aplicacao {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaMenuPrincipal menu = new TelaMenuPrincipal();
+                NOTIFICACOES__THREAD.start();
+                TELA_MENU_PRINCIPAL = new TelaMenuPrincipal();
                 
-                menu.setVisible(true);
-                menu.setExtendedState(MAXIMIZED_BOTH);         
-                menu.jdPane.setBounds(menu.getBounds());
-                menu.jdPane.setPreferredSize(menu.getPreferredSize());
+                TELA_MENU_PRINCIPAL.setVisible(true);
+                TELA_MENU_PRINCIPAL.setExtendedState(MAXIMIZED_BOTH);         
+                TELA_MENU_PRINCIPAL.jdPane.setBounds(TELA_MENU_PRINCIPAL.getBounds());
+                TELA_MENU_PRINCIPAL.jdPane.setPreferredSize(TELA_MENU_PRINCIPAL.getPreferredSize());
                 JInternalFrame jfLogar = new TelaLogin();
-                menu.jdPane.add(jfLogar);
+                TELA_MENU_PRINCIPAL.jdPane.add(jfLogar);
                 Tela.centralizar(jfLogar);
                 jfLogar.show();
 

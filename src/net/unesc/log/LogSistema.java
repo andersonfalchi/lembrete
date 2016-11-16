@@ -14,7 +14,7 @@ public class LogSistema {
     private static File arquivo = new File(LOG_FILE);
     
     public static void inserir(TipoLog tipoLog, String descricao){
-        String usuario = Aplicacao.sessao.usuarioLogado.getLogin();
+        String usuario = Aplicacao.SESSAO.usuarioLogado.getLogin();
         Date data = new Date();
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String acao = PreencherVariavel.rpad(tipoLog.toString()," ",20);

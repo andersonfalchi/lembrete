@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 import net.unesc.aplicacao.Aplicacao;
+import net.unesc.aplicacao.TelaMenuPrincipal;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 
@@ -26,12 +27,16 @@ import net.unesc.log.TipoLog;
  * @author TI
  */
 public class Notificacao {
-
+    public TrayIcon ICON;
     public Notificacao() {
-        final TrayIcon trayIcon;
-        if (SystemTray.isSupported()) {
+        if (!SystemTray.isSupported())
+        {
+            System.out.println("IXIE");
+            return;   
+        }
         SystemTray tray = SystemTray.getSystemTray();
-        
+
+            System.out.println("okay");
         URL url = System.class.getResource("/net/unesc/resources/icon.png");
         Image image = Toolkit.getDefaultToolkit().getImage(url);
             MouseListener mouseListener = new MouseListener() {
@@ -59,15 +64,7 @@ public class Notificacao {
 
             ActionListener exitListener = new ActionListener() {
             public void actionPerformed(ActionEvent e)throws NullPointerException {
-                try{
-                    if(!Aplicacao.sessao.usuarioLogado.getLogin().trim().isEmpty())
-                        LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
-
-                }catch(NullPointerException f){
-                    throw new NullPointerException("Não existe usuário logado!");
-                }finally{
-                    System.exit(0);
-                }
+                TelaMenuPrincipal.sair();
             }
         };
 
@@ -76,28 +73,23 @@ public class Notificacao {
         defaultItem.addActionListener(exitListener);
         popup.add(defaultItem);
 
-        trayIcon = new TrayIcon(image, "Lembrete", popup);
+        ICON = new TrayIcon(image, "Lembrete", popup);
 
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                trayIcon.displayMessage("teste", 
-                    "teste",
-                    TrayIcon.MessageType.INFO);
+                Aplicacao.TELA_MENU_PRINCIPAL.setVisible(true);
             }
         };
 
-        trayIcon.setImageAutoSize(true);
-        trayIcon.addActionListener(actionListener);
-        trayIcon.addMouseListener(mouseListener);
+        ICON.setImageAutoSize(true);
+        ICON.addActionListener(actionListener);
+        ICON.addMouseListener(mouseListener);
 
         try {
-            tray.add(trayIcon);
+            tray.add(ICON);
         } catch (AWTException e) {
             System.err.println("TrayIcon could not be added.");
         }
-
     }
-        
- }
     
 }

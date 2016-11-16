@@ -375,7 +375,7 @@ public class TelaRegra extends TelaPadrao {
         {
             Regra regra = new Regra();
             regra.setNome(jTxtDescricao.getText());
-            regra.setUsuario(Aplicacao.sessao.usuario());
+            regra.setUsuario(Aplicacao.SESSAO.usuario());
             regra.setDiaSemana(0, this.jCkDomingo.isSelected());
             regra.setDiaSemana(1, this.jCkSegunda.isSelected());
             regra.setDiaSemana(2, this.jCkTerca.isSelected());

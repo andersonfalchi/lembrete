@@ -20,7 +20,7 @@ public class TelaLogin extends TelaPadrao {
     public TelaLogin() {
         
         initComponents();
-        jTxtUsuario.setText(Aplicacao.sessao.getUltimoLogin().trim());
+        jTxtUsuario.setText(Aplicacao.SESSAO.getUltimoLogin().trim());
         
     }
     
@@ -122,7 +122,7 @@ public class TelaLogin extends TelaPadrao {
     private void jbLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogarActionPerformed
         try
         {
-            Aplicacao.sessao.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
+            Aplicacao.SESSAO.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
             net.unesc.aplicacao.TelaMenuPrincipal.jMenu1.setEnabled(true);
             this.dispose();
         }
