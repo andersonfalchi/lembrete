@@ -4,14 +4,16 @@ import net.unesc.log.LogSistema;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import net.unesc.dao.RegraEventoDao;
 import net.unesc.entidades.Regra;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaRegra extends TelaPadrao {
+    private RegraEventoDao regraEventoDao = new RegraEventoDao();
+    
     private RetornoSimples<Regra> retornoSimples;
-
     public void setRetornoSimples(RetornoSimples<Regra> retornoSimples) {
         this.retornoSimples = retornoSimples;
     }
@@ -392,7 +394,7 @@ public class TelaRegra extends TelaPadrao {
             regra.setTipoHorario(jRadioCadaHora.isSelected() ? "CH" : "HF");
             regra.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             
-            regra.salvar();
+            regraEventoDao.inserir(regra);
             
             if (retornoSimples != null)
                 retornoSimples.retorno(regra);

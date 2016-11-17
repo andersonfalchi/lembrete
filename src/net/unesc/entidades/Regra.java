@@ -13,6 +13,7 @@ import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 
 public class Regra {
+    private Integer codigo;
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
     private String nome;
     private Integer minuto;
@@ -25,6 +26,16 @@ public class Regra {
     private String tipoHorario;
     private String situacao;
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    
+    
     public String getSituacao() {
         return situacao;
     }
@@ -208,10 +219,12 @@ public class Regra {
             throw new NumberFormatException("Milésimo inválido");
         }
     }
-    
-    public void salvar() throws BancoException {
-        RegraEventoDao.inserir(this);
-        LogSistema.inserir(TipoLog.INCLUSAO, "Gravou uma nova Regra do Evento");
+
+    @Override
+    public String toString() {
+        return codigo + " - " + nome;
     }
+    
+    
     
 }

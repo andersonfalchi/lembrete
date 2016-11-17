@@ -56,11 +56,6 @@ public class Usuario implements Serializable {
         this.situacao = situacao;
     }
 
-    public void salvar() throws BancoException {
-        UsuarioDao.inserir(this);
-        LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de usuário");
-    }
-
     @Override
     public String toString() {
         return "Usuario{" + "login=" + login + ", senha=" + senha + '}';

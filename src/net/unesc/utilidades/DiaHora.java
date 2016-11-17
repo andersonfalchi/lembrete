@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class DiaHora {
     
-    public static String ObterDiaHora(String formato){
+    public static String obterDiaHora(String formato){
         /*
             dd/MM/yyyy HH:mm:ss - 01/01/2016 00:00:00
             dd/MM/yyyy HH:mm    - 01/01/2016 00:00

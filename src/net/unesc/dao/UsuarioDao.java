@@ -7,10 +7,12 @@ import javax.swing.JOptionPane;
 import net.unesc.banco.Conexao;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.BancoException;
+import net.unesc.log.LogSistema;
+import net.unesc.log.TipoLog;
 
-public class UsuarioDao {
+public class UsuarioDao extends DaoPadrao {
     
-    public static void inserir(Usuario usuario) throws BancoException {
+    public void inserir(Usuario usuario) throws BancoException {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -24,35 +26,12 @@ public class UsuarioDao {
             ps.setString(4, usuario.getSituacao());
             ps.execute();
             conn.commit();
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!","Cadastro de usuário",JOptionPane.INFORMATION_MESSAGE);
+            LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de usuário");
+        }catch(SQLException e){
+            erro(conn, "Erro ao obter usuario", e);
             
-        } catch(SQLException e) {
-
-            JOptionPane.showMessageDialog(null, e.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
-                    
-            if(conn != null){
-                try {
-                    conn.rollback();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
         } finally {
-            if( ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            if(conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(),"Erro ao Cadastrar usuário",JOptionPane.ERROR_MESSAGE);
-                }
-            }
+            finaliza(conn, ps);
         }
     }
     

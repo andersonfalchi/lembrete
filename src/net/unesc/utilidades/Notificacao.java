@@ -31,12 +31,10 @@ public class Notificacao {
     public Notificacao() {
         if (!SystemTray.isSupported())
         {
-            System.out.println("IXIE");
             return;   
         }
         SystemTray tray = SystemTray.getSystemTray();
 
-            System.out.println("okay");
         URL url = System.class.getResource("/net/unesc/resources/icon.png");
         Image image = Toolkit.getDefaultToolkit().getImage(url);
             MouseListener mouseListener = new MouseListener() {

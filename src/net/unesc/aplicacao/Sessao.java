@@ -13,6 +13,7 @@ import net.unesc.exceptions.BancoException;
 import net.unesc.log.TipoLog;
 
 public class Sessao {
+    private SessaoDao sessaoDao = new SessaoDao();
     private static final String ROOT_FOLDER = "./build";
     private static final String LOG_FILE = ROOT_FOLDER+"/log_sessao.txt";
     private String ultimoLogin = "";
@@ -58,7 +59,7 @@ public class Sessao {
         
         Usuario usuario = new Usuario(login, senha);
         
-        if(!SessaoDao.logar(usuario)){
+        if(!sessaoDao.logar(usuario)){
             throw new LoginException("Usuário/senha inválidos");
         }
         

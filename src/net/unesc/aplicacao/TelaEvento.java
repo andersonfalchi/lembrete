@@ -12,6 +12,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import net.unesc.dao.EventoDao;
 import net.unesc.entidades.Evento;
 import net.unesc.entidades.FormaAlerta;
 import net.unesc.entidades.Regra;
@@ -22,17 +23,16 @@ import net.unesc.utilidades.CorUtil;
 import net.unesc.utilidades.JavaMailApp;
 import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.SmsSender;
+import net.unesc.utilidades.Tela;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaEvento extends TelaPadrao {
-
+    private EventoDao eventoDao = new EventoDao();
     private Regra regra = null;    
     
     public TelaEvento() {
         initComponents();
         LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Cadastro de eventos");
-//        this.jbTipoEvento.setModel(new DefaultComboBoxModel<>(TipoEvento.valores()));
-//        JComboBox<Mood> comboBox = new JComboBox<>();
         jbTipoEvento.setModel(new DefaultComboBoxModel(TipoEvento.values()));
     }
 
@@ -106,7 +106,7 @@ public class TelaEvento extends TelaPadrao {
             }
         });
 
-        jbRegra.setText("Adicionar Regra");
+        jbRegra.setText("Vincular Regra");
         jbRegra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegraActionPerformed(evt);
@@ -278,26 +278,26 @@ public class TelaEvento extends TelaPadrao {
             evento.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             evento.setRegra(regra);
             evento.setTipoEvento((TipoEvento) this.jbTipoEvento.getSelectedItem());
-            
-            evento.salvar();
-            
+            eventoDao.inserir(evento);
             JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso!","Cadastro de Evento",JOptionPane.INFORMATION_MESSAGE);
-        
-            this.jTxtDescricao.setText("");
-            this.jTxtEmail.setText("");
-            this.jTxtDdd.setText("");
-            this.jTxtNumero.setText("");
-            this.jCkEmail.setSelected(false);
-            this.jCkPopUp.setSelected(false);
-            this.jCkNotificacao.setSelected(false);
-            this.jCkSms.setSelected(false);
-            
+            limpar();
         }catch(Exception e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jbGravarActionPerformed
-
+    
+    private void limpar() {
+        this.jTxtDescricao.setText("");
+        this.jTxtEmail.setText("");
+        this.jTxtDdd.setText("");
+        this.jTxtNumero.setText("");
+        this.jCkEmail.setSelected(false);
+        this.jCkPopUp.setSelected(false);
+        this.jCkNotificacao.setSelected(false);
+        this.jCkSms.setSelected(false);
+    }
+    
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
         
     }//GEN-LAST:event_jbExcluirActionPerformed
@@ -313,7 +313,7 @@ public class TelaEvento extends TelaPadrao {
     }//GEN-LAST:event_jbColorActionPerformed
 
     private void jbRegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegraActionPerformed
-        TelaRegra telaRegra = new TelaRegra();
+        TelaListaRegras telaRegra = new TelaListaRegras();
         telaRegra.setRetornoSimples(new RetornoSimples<Regra>() {
             @Override
             public void retorno(Regra t) {
@@ -322,11 +322,7 @@ public class TelaEvento extends TelaPadrao {
             }
         });
         TelaMenuPrincipal.jdPane.add((JInternalFrame)telaRegra);
-        int lDesk = TelaMenuPrincipal.jdPane.getWidth();
-        int aDesk = TelaMenuPrincipal.jdPane.getHeight();
-        int lIFrame = telaRegra.getWidth();
-        int aIFrame = telaRegra.getHeight();
-        telaRegra.setLocation( lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2 );
+        Tela.centralizar(telaRegra);
         telaRegra.show();
     }//GEN-LAST:event_jbRegraActionPerformed
 

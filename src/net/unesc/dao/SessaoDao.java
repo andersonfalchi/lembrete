@@ -8,13 +8,13 @@ import net.unesc.banco.Conexao;
 import net.unesc.exceptions.BancoException;
 import net.unesc.entidades.Usuario;
 
-public class SessaoDao {
+public class SessaoDao extends DaoPadrao {
     
-    public static boolean logar(Usuario usuario) throws BancoException{
-        
+    public boolean logar(Usuario usuario) throws BancoException {
+        Connection conn = null;
+        PreparedStatement ps = null;
         try{
-            Connection conn = null;
-            PreparedStatement ps = null;
+            
             String sql="select count(*) from usuario where ie_situacao = 'A'"+
                     " and upper(ds_login)='"+usuario.getLogin().toUpperCase().trim()+"'"+
                     " and upper(ds_senha) = '"+usuario.getSenha().toUpperCase().trim()+"'";
@@ -28,15 +28,12 @@ public class SessaoDao {
             if(rs.getInt(1) == 1){
                 return true;
             }
-            
-            return false;
-            
         }catch(SQLException e){
-            throw new BancoException("Erro ao obter usuario");      
+            erro(conn, "Erro ao obter usuario", e);
             
-        }catch(BancoException f){
-            throw f; 
+        } finally {
+            finaliza(conn, ps);
         }
-        
+        return false;
     } 
 }
