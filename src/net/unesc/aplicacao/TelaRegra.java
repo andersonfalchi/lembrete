@@ -12,10 +12,15 @@ import net.unesc.utilidades.TelaPadrao;
 
 public class TelaRegra extends TelaPadrao {
     private RegraEventoDao regraEventoDao = new RegraEventoDao();
-    
     private RetornoSimples<Regra> retornoSimples;
+
     public void setRetornoSimples(RetornoSimples<Regra> retornoSimples) {
         this.retornoSimples = retornoSimples;
+    }
+    
+    public TelaRegra(Regra regra) {
+        this();
+        preenche(regra);
     }
     
     public TelaRegra() {
@@ -32,6 +37,13 @@ public class TelaRegra extends TelaPadrao {
      
         dataMaskInicio.install(jTxtInicioVigencia);
         dataMaskFim.install(jTxtFimVigencia);
+    }
+    
+    private void preenche(Regra regra) {
+        if (regra != null)
+        {
+//        jTxtInicioVigencia.setText(regra.getInicioVigencia());
+        }
     }
 
     @SuppressWarnings("unchecked")
