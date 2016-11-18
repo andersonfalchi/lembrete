@@ -22,7 +22,7 @@ public class CriaBanco {
                 + " cor varchar(15), ie_situacao char(1), primary key(nr_sequencia))";
         
         //Regra do Evento
-        tabela[2]="create table regra_evento (nr_sequencia integer, nm_usuario varchar(50), "
+        tabela[2]="create table regra_evento (nr_sequencia integer, nr_seq_evento integer, nm_usuario varchar(50), "
                 + "dt_inclusao timestamp, ds_regra varchar(255), dt_inicio_vigencia timestamp,"
                 +"dt_fim_vigencia timestamp, ie_situacao char(1),ie_tipo_horario char(1),"
                 +"qt_hh integer, qt_mm integer, qt_ss integer, qt_ml integer, dia_dom bit, dia_seg bit,"

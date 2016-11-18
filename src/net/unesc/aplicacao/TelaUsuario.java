@@ -1,21 +1,42 @@
 package net.unesc.aplicacao;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.unesc.dao.UsuarioDao;
 import net.unesc.entidades.Usuario;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
-import net.unesc.utilidades.TelaPadrao;
+import net.unesc.utilidades.RetornoSimples;
+import net.unesc.utilidades.*;
 
 public class TelaUsuario extends TelaPadrao {
     private UsuarioDao usuarioDao = new UsuarioDao();
+    private RetornoSimples<Usuario> retornoSimples;
+    private Usuario usuario = null;    
 
+    
+    public void setRetornoSimples(RetornoSimples<Usuario> retornoSimples) {
+        this.retornoSimples = retornoSimples;
+    }
+    
+    public TelaUsuario(Usuario usuario) {
+        this();
+        preenche(usuario);
+    }
+    
     public TelaUsuario() {
         initComponents();
         LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Cadastro de usuários");
         this.jCBSituacao.setSelected(true);
     }
 
+    private void preenche(Usuario usuario) {
+        if (usuario != null)
+        {
+//        jTxtInicioVigencia.setText(regra.getInicioVigencia());
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,6 +51,7 @@ public class TelaUsuario extends TelaPadrao {
         jCBSituacao = new javax.swing.JCheckBox();
         jbExcluir = new javax.swing.JButton();
         jbGravar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -70,7 +92,7 @@ public class TelaUsuario extends TelaPadrao {
                                 .addGap(18, 18, 18)
                                 .addComponent(jCBSituacao))
                             .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 41, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -89,10 +111,10 @@ public class TelaUsuario extends TelaPadrao {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jbExcluir.setText("Limpar");
+        jbExcluir.setText("Excluir");
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbExcluirActionPerformed(evt);
@@ -106,31 +128,43 @@ public class TelaUsuario extends TelaPadrao {
             }
         });
 
+        jButton1.setText("Consultar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 38, Short.MAX_VALUE)
+                        .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGravar)
-                    .addComponent(jbExcluir))
-                .addContainerGap())
+                    .addComponent(jbExcluir)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,8 +197,23 @@ public class TelaUsuario extends TelaPadrao {
         LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu um Cadastro de usuário");
     }//GEN-LAST:event_jbExcluirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TelaListaUsuarios telaListaUsuarios = new TelaListaUsuarios();
+
+        telaListaUsuarios.setRetornoSimples(new RetornoSimples<Usuario>() {
+            @Override
+            public void retorno(Usuario t) {
+                usuario = t;
+            }
+        });
+        TelaMenuPrincipal.jdPane.add((JInternalFrame)telaListaUsuarios);
+        Tela.centralizar(telaListaUsuarios);
+        telaListaUsuarios.show();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCBSituacao;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
