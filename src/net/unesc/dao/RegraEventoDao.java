@@ -53,6 +53,8 @@ public class RegraEventoDao extends DaoPadrao {
             
             ps.execute();
             conn.commit();
+            
+            regra.setCodigo(proxSequencia);
             LogSistema.inserir(TipoLog.INCLUSAO, "Gravou uma nova Regra do Evento");
         } catch(SQLException e) {
             erro(conn, "Erro ao cadastrar a regra", e);

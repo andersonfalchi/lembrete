@@ -45,6 +45,25 @@ public class TelaRegra extends TelaPadrao {
 //        jTxtInicioVigencia.setText(regra.getInicioVigencia());
         }
     }
+    
+    private void limpar() {
+        this.jTxtDescricao.setText("");
+        this.jTxtInicioVigencia.setText("");
+        this.jTxtFimVigencia.setText("");
+        this.jTxtHoras.setText("");
+        this.jTxtMinutos.setText("");
+        this.jTxtSegundos.setText("");
+        this.jTxtMilesimos.setText("");
+        
+        this.jCkDomingo.setEnabled(true);
+        this.jCkSegunda.setEnabled(true);
+        this.jCkTerca.setEnabled(true);
+        this.jCkQuarta.setEnabled(true);
+        this.jCkQuinta.setEnabled(true);
+        this.jCkSexta.setEnabled(true);
+        this.jCkSabado.setEnabled(true);
+        this.jCkTodos.setEnabled(true);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -410,6 +429,8 @@ public class TelaRegra extends TelaPadrao {
             
             if (retornoSimples != null)
                 retornoSimples.retorno(regra);
+            limpar();
+            setVisible(false);
         }
         catch(Exception e)
         {

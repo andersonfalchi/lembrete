@@ -1,6 +1,8 @@
 package net.unesc.aplicacao;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import static net.unesc.aplicacao.TelaMenuPrincipal.jlLogo;
 import net.unesc.entidades.Usuario;
@@ -13,7 +15,14 @@ public class Aplicacao {
     public static final Thread NOTIFICACOES__THREAD = new Thread() {
         @Override
         public void run() {
+            try {
+                Thread.sleep(1000);
                 
+                
+                
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
     };
     public static void main(String args[]){
