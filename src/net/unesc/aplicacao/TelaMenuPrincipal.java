@@ -35,6 +35,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     public TelaMenuPrincipal() {
         initComponents();
         configuraIcone();
+        Tela.centralizar(TelaMenuPrincipal.jlLogo);
         
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt)throws NullPointerException{
@@ -103,7 +104,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jlLogo.setBounds(350, 80, 570, 440);
 
         jMenu1.setText("Funções");
-        jMenu1.setEnabled(false);
 
         jMenu3.setText("Cadastros");
 

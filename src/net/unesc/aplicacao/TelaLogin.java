@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.unesc.banco.Conexao;
 import net.unesc.banco.CriaBanco;
@@ -15,7 +16,7 @@ import net.unesc.exceptions.LoginException;
 import net.unesc.utilidades.DiaHora;
 import net.unesc.utilidades.TelaPadrao;
 
-public class TelaLogin extends TelaPadrao {
+public class TelaLogin extends JFrame {
 
     public TelaLogin() {
         
@@ -123,11 +124,17 @@ public class TelaLogin extends TelaPadrao {
         try
         {
             Aplicacao.SESSAO.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
-            net.unesc.aplicacao.TelaMenuPrincipal.jMenu1.setEnabled(true);
-            this.dispose();
+            setVisible(false);
+                
+            Aplicacao.TELA_MENU_PRINCIPAL = new TelaMenuPrincipal();
+            Aplicacao.TELA_MENU_PRINCIPAL.setVisible(true);
+            Aplicacao.TELA_MENU_PRINCIPAL.setExtendedState(MAXIMIZED_BOTH);         
+            Aplicacao.TELA_MENU_PRINCIPAL.jdPane.setBounds(Aplicacao.TELA_MENU_PRINCIPAL.getBounds());
+            Aplicacao.TELA_MENU_PRINCIPAL.jdPane.setPreferredSize(Aplicacao.TELA_MENU_PRINCIPAL.getPreferredSize());
         }
         catch(Exception e)
         {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
             
             if(jTxtUsuario.getText().trim().isEmpty()){

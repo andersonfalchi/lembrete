@@ -6,6 +6,8 @@
 package net.unesc.utilidades;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
@@ -19,4 +21,9 @@ public class Tela {
         Dimension d = fr.getDesktopPane().getSize();  
         fr.setLocation((d.width - fr.getSize().width) / 2, (d.height - fr.getSize().height) / 2);     
     }  
+    
+    public static void centralizar(JFrame fr){  
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        fr.setLocation((d.width - fr.getSize().width) / 2, (d.height - fr.getSize().height) / 2);     
+    } 
 }
