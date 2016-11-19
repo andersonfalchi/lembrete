@@ -1,31 +1,20 @@
+/*C2*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C3*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C5*/SET SCHEMA PUBLIC
+CONNECT USER SA
+/*C6*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
+/*C7*/SET SCHEMA PUBLIC
+CONNECT USER SA
+DISCONNECT
 /*C8*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C9*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C10*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C11*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C12*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C13*/SET SCHEMA PUBLIC
-CONNECT USER SA
-/*C14*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C15*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C13*/drop table regra_evento
-create table regra_evento (nr_sequencia integer, nr_seq_evento integer, nm_usuario varchar(50), \u000a                dt_inclusao timestamp, ds_regra varchar(255), dt_inicio_vigencia timestamp,\u000a                dt_fim_vigencia timestamp, ie_situacao char(1),ie_tipo_horario char(1),\u000a                qt_hh integer, qt_mm integer, qt_ss integer, qt_ml integer, dia_dom bit, dia_seg bit,\u000a                dia_ter bit, dia_qua bit, dia_qui bit, dia_sex bit, dia_sab bit, primary key(nr_sequencia))
-/*C16*/SET SCHEMA PUBLIC
-CONNECT USER SA
-DISCONNECT
-/*C17*/SET SCHEMA PUBLIC
 CONNECT USER SA
 DISCONNECT

@@ -4,12 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import net.unesc.banco.Conexao;
 import net.unesc.banco.Funcoes;
 import net.unesc.entidades.Evento;
 import net.unesc.entidades.FormaAlerta;
+import net.unesc.entidades.Regra;
 import net.unesc.exceptions.BancoException;
+import net.unesc.exceptions.CampoObrigatorioException;
+import net.unesc.exceptions.DataException;
 import net.unesc.exceptions.FormaAlertaException;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
@@ -57,5 +62,31 @@ public class EventoDao extends DaoPadrao {
         } finally {
             finaliza(conn, ps);
         }
+    }
+    
+    public List<Evento> getAtivos() throws BancoException {
+        List<Evento> lista = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Conexao.getConnection();
+            String sql = 
+                " select * " +
+                " from evento " +
+                " where evento.ie_situacao = 'A'";
+            ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Evento p = new Evento();
+                                
+                lista.add(p);
+            }
+        } catch(SQLException e) {
+            erro(conn, "Erro ao buscar os eventos", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+        return lista;
     }
 }
