@@ -78,14 +78,13 @@ public class UsuarioDao extends DaoPadrao {
             String sql = 
                 " select * "+
                 " from usuario"+
-                " where 1=1 "+
-                " and (upper(ds_login) = ? or ? ='')"+    
-                " and (upper(nm_usuario)= ? or ? ='')";        
+                " where (upper(ds_login) like ? or ? ='')"+    
+                " and (upper(nm_usuario) like ? or ? ='')";        
 
             ps = conn.prepareStatement(sql);
-            ps.setString(1, login.trim().toUpperCase());
+            ps.setString(1, "%"+login.trim().toUpperCase()+"%");
             ps.setString(2, login.trim().toUpperCase());
-            ps.setString(3, nome.trim().toUpperCase());
+            ps.setString(3, "%"+nome.trim().toUpperCase()+"%");
             ps.setString(4, nome.trim().toUpperCase());
             ResultSet rs = ps.executeQuery();
             

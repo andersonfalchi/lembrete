@@ -37,9 +37,9 @@ public class TelaLogin extends JFrame {
         jbLimpar = new javax.swing.JButton();
         jbLogar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setForeground(java.awt.Color.white);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setForeground(java.awt.Color.white);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 

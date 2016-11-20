@@ -142,7 +142,7 @@ public class TelaUsuario extends TelaPadrao {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jbExcluir.setText("Excluir");
@@ -263,9 +263,7 @@ public class TelaUsuario extends TelaPadrao {
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
-        
-        
-        try{
+          try{
             TelaListaUsuarios telaListaUsuarios = new TelaListaUsuarios();
             TelaMenuPrincipal.jdPane.add((JInternalFrame)telaListaUsuarios);
             Tela.centralizar(telaListaUsuarios);
@@ -274,12 +272,13 @@ public class TelaUsuario extends TelaPadrao {
             telaListaUsuarios.setRetornoSimples(new RetornoSimples<Usuario>() {
                 @Override
                 public void retorno(Usuario t) {
+                    ativaDesativaCampos("A");
                     usuario = t;
                     jTxtNome.setText(t.getNome());
                     jTxtUsuario.setText(t.getLogin());
                     jTxtSenha.setText(t.getSenha());
-
-                    if(t.getSituacao()=="A"){
+                    
+                    if(t.getSituacao().equals("A")){
                         jCBSituacao.setSelected(true);
                     }else{
                         jCBSituacao.setSelected(false);
@@ -287,7 +286,7 @@ public class TelaUsuario extends TelaPadrao {
                     
                     jbExcluir.setEnabled(true);
                     jbGravar.setEnabled(true);
-                    ativaDesativaCampos("A");
+                    
                 }
             });
         
@@ -299,9 +298,11 @@ public class TelaUsuario extends TelaPadrao {
     }//GEN-LAST:event_jBConsultarActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
-        limpar();
         ativaDesativaCampos("A");
         jbGravar.setEnabled(true);
+        jbExcluir.setEnabled(false);
+        limpar();
+        usuario = new Usuario();
     }//GEN-LAST:event_jBNovoActionPerformed
 
 
