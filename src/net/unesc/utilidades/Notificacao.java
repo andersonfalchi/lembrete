@@ -40,23 +40,23 @@ public class Notificacao {
             MouseListener mouseListener = new MouseListener() {
 
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Tray Icon - Mouse clicked!");                 
+                //System.out.println("Tray Icon - Mouse clicked!");                 
             }
 
             public void mouseEntered(MouseEvent e) {
-                System.out.println("Tray Icon - Mouse entered!");                 
+                //System.out.println("Tray Icon - Mouse entered!");                 
             }
 
             public void mouseExited(MouseEvent e) {
-                System.out.println("Tray Icon - Mouse exited!");                 
+                //System.out.println("Tray Icon - Mouse exited!");                 
             }
 
             public void mousePressed(MouseEvent e) {
-                System.out.println("Tray Icon - Mouse pressed!");                 
+                //System.out.println("Tray Icon - Mouse pressed!");                 
             }
 
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Tray Icon - Mouse released!");                 
+                //System.out.println("Tray Icon - Mouse released!");                 
             }
         };
 
@@ -86,7 +86,7 @@ public class Notificacao {
         try {
             tray.add(ICON);
         } catch (AWTException e) {
-            System.err.println("TrayIcon could not be added.");
+            //System.err.println("TrayIcon could not be added.");
         }
     }
     

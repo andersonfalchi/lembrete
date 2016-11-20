@@ -24,7 +24,6 @@ public class SessaoDao extends DaoPadrao {
                         
             ResultSet rs = ps.executeQuery();
             rs.next();
-            System.out.println(sql);
             if(rs.getInt(1) == 1){
                 return true;
             }

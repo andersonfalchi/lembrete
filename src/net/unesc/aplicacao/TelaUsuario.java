@@ -4,6 +4,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import net.unesc.dao.UsuarioDao;
 import net.unesc.entidades.Usuario;
+import net.unesc.exceptions.BancoException;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.RetornoSimples;
@@ -21,7 +22,7 @@ public class TelaUsuario extends TelaPadrao {
     
     public TelaUsuario(Usuario usuario) {
         this();
-        preenche(usuario);
+        //preenche(usuario);
     }
     
     public TelaUsuario() {
@@ -30,12 +31,34 @@ public class TelaUsuario extends TelaPadrao {
         this.jCBSituacao.setSelected(true);
     }
 
-    private void preenche(Usuario usuario) {
-        if (usuario != null)
-        {
-//        jTxtInicioVigencia.setText(regra.getInicioVigencia());
-        }
+    public void ativaDesativaCampos(String opcao){
+        if(opcao == "A"){
+            jTxtNome.setEnabled(true);
+            jTxtUsuario.setEnabled(true);
+            jTxtSenha.setEnabled(true);
+            jCBSituacao.setEnabled(true);
+           // jBConsultar.setEnabled(true);
+            //jBNovo.setEnabled(true);
+            //jbExcluir.setEnabled(true);
+            //jbGravar.setEnabled(true);
+        }else{
+            jTxtNome.setEnabled(false);
+            jTxtUsuario.setEnabled(false);
+            jTxtSenha.setEnabled(false);
+            jCBSituacao.setEnabled(false);
+            //jBConsultar.setEnabled(false);
+            //jBNovo.setEnabled(false);
+            //jbExcluir.setEnabled(false);
+            //jbGravar.setEnabled(false);
+        }      
     }
+    
+//    private void preenche(Usuario usuario) {
+//        if (usuario != null)
+//        {
+////        jTxtInicioVigencia.setText(regra.getInicioVigencia());
+//        }
+//    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,7 +74,8 @@ public class TelaUsuario extends TelaPadrao {
         jCBSituacao = new javax.swing.JCheckBox();
         jbExcluir = new javax.swing.JButton();
         jbGravar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBConsultar = new javax.swing.JButton();
+        jBNovo = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -59,14 +83,21 @@ public class TelaUsuario extends TelaPadrao {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jTxtUsuario.setEnabled(false);
+
         jLabel14.setText("Usuário");
 
         jLabel12.setText("Senha");
 
+        jTxtSenha.setEnabled(false);
+
         jLabel15.setText("Nome");
+
+        jTxtNome.setEnabled(false);
 
         jCBSituacao.setSelected(true);
         jCBSituacao.setText("Ativo");
+        jCBSituacao.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,6 +146,7 @@ public class TelaUsuario extends TelaPadrao {
         );
 
         jbExcluir.setText("Excluir");
+        jbExcluir.setEnabled(false);
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbExcluirActionPerformed(evt);
@@ -122,16 +154,24 @@ public class TelaUsuario extends TelaPadrao {
         });
 
         jbGravar.setText("Gravar");
+        jbGravar.setEnabled(false);
         jbGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbGravarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBConsultarActionPerformed(evt);
+            }
+        });
+
+        jBNovo.setText("Novo");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
             }
         });
 
@@ -142,17 +182,16 @@ public class TelaUsuario extends TelaPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 38, Short.MAX_VALUE)
-                        .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jBConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))))
+                        .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +202,8 @@ public class TelaUsuario extends TelaPadrao {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGravar)
                     .addComponent(jbExcluir)
-                    .addComponent(jButton1))
+                    .addComponent(jBConsultar)
+                    .addComponent(jBNovo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -171,49 +211,103 @@ public class TelaUsuario extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
+        
         try{
             Usuario usuario = new Usuario();
             usuario.setLogin(this.jTxtUsuario.getText());
             usuario.setSenha(this.jTxtSenha.getText());
             usuario.setNome(this.jTxtNome.getText());
             usuario.setSituacao(this.jCBSituacao.isSelected()? "A" : "I");
-
-            usuarioDao.inserir(usuario);
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!","Cadastro de usuário",JOptionPane.INFORMATION_MESSAGE);
+            
+            if(!jbExcluir.isEnabled()){
+                usuarioDao.inserir(usuario);
+                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!",
+                        "Cadastro de usuário",JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                usuarioDao.alteraUsuario(usuario);
+                JOptionPane.showMessageDialog(null, "Usuário alterado com sucesso!",
+                        "Cadastro de usuário",JOptionPane.INFORMATION_MESSAGE);
+            }
+            
             limpar();
+            jbGravar.setEnabled(false);
+            jbExcluir.setEnabled(false);
+            ativaDesativaCampos("D");
         }catch(Exception e)
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }
+        }   
     }//GEN-LAST:event_jbGravarActionPerformed
     
     public void limpar(){
-        this.jTxtNome.setText("");
-        this.jTxtUsuario.setText("");
-        this.jTxtSenha.setText("");
+        jTxtNome.setText("");
+        jTxtUsuario.setText("");
+        jTxtSenha.setText("");
+        jCBSituacao.setSelected(true);
+        jTxtNome.grabFocus();
+        usuario = null;
     }
     
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu um Cadastro de usuário");
+        try{
+            if(JOptionPane.showConfirmDialog( null,"Deseja realmente excluir o registro?\n"+
+                    "Usuário: "+usuario.getLogin().toUpperCase(),
+                    "Exclusão de registros",JOptionPane.YES_NO_OPTION)==0){
+                usuarioDao.excluirUsuario(usuario.getLogin());
+                limpar();
+                ativaDesativaCampos("D");
+            }
+        }catch(BancoException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());  
+        }
     }//GEN-LAST:event_jbExcluirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        TelaListaUsuarios telaListaUsuarios = new TelaListaUsuarios();
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        
+        
+        try{
+            TelaListaUsuarios telaListaUsuarios = new TelaListaUsuarios();
+            TelaMenuPrincipal.jdPane.add((JInternalFrame)telaListaUsuarios);
+            Tela.centralizar(telaListaUsuarios);
+            telaListaUsuarios.show();
+            
+            telaListaUsuarios.setRetornoSimples(new RetornoSimples<Usuario>() {
+                @Override
+                public void retorno(Usuario t) {
+                    usuario = t;
+                    jTxtNome.setText(t.getNome());
+                    jTxtUsuario.setText(t.getLogin());
+                    jTxtSenha.setText(t.getSenha());
 
-        telaListaUsuarios.setRetornoSimples(new RetornoSimples<Usuario>() {
-            @Override
-            public void retorno(Usuario t) {
-                usuario = t;
-            }
-        });
-        TelaMenuPrincipal.jdPane.add((JInternalFrame)telaListaUsuarios);
-        Tela.centralizar(telaListaUsuarios);
-        telaListaUsuarios.show();
-    }//GEN-LAST:event_jButton1ActionPerformed
+                    if(t.getSituacao()=="A"){
+                        jCBSituacao.setSelected(true);
+                    }else{
+                        jCBSituacao.setSelected(false);
+                    }
+                    
+                    jbExcluir.setEnabled(true);
+                    jbGravar.setEnabled(true);
+                    ativaDesativaCampos("A");
+                }
+            });
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        limpar();
+        ativaDesativaCampos("A");
+        jbGravar.setEnabled(true);
+    }//GEN-LAST:event_jBNovoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBConsultar;
+    private javax.swing.JButton jBNovo;
     private javax.swing.JCheckBox jCBSituacao;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;

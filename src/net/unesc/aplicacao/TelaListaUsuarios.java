@@ -1,11 +1,17 @@
 package net.unesc.aplicacao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import net.unesc.log.LogSistema;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import net.unesc.dao.RegraEventoDao;
 import net.unesc.dao.UsuarioDao;
@@ -20,81 +26,93 @@ import net.unesc.utilidades.TelaPadrao;
 public class TelaListaUsuarios extends TelaPadrao {
     private UsuarioDao usuarioDao = new UsuarioDao();
     private RetornoSimples<Usuario> retornoSimples;
-    private Usuario usuarioSelecionado;
- 
+    private ArrayList<Usuario> usuarios;
+    DefaultTableModel model = new DefaultTableModel();
+    
     public void setRetornoSimples(RetornoSimples<Usuario> retornoSimples) {
         this.retornoSimples = retornoSimples;
     }
     
-    public TelaListaUsuarios() {
+    public TelaListaUsuarios() throws BancoException {
         initComponents();
-        atualizarListaUsuarios();
+        montaGrid();
+        usuarios = usuarioDao.getAll();
+        atualizarListaUsuarios(usuarios);
     }
     
-    private void atualizarListaUsuarios() {
+    private void atualizarListaUsuarios(ArrayList<Usuario> usuarios){
         try
         {
-            List<Usuario> usuarios = usuarioDao.getAll();
-            jListUsuarios.setListData(new Vector(usuarios));
+            Integer linha=0;
+  
+            for(Usuario t : usuarios){
+                    adicionaLinha();
+                    jTableUsuarios.setValueAt(t.getNome(), linha, 0);
+                    jTableUsuarios.setValueAt(t.getLogin(), linha, 1);
+                    jTableUsuarios.setValueAt(t.getSituacao(), linha, 2);
+                    linha++;
+            }
+    
         }
-        catch(BancoException e) {
+        catch(Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     
-    private void telaUsuario(Usuario usuario) {
-        TelaUsuario telaUsuario = new TelaUsuario(usuario);
-
-        telaUsuario.setRetornoSimples(new RetornoSimples<Usuario>() {
-            @Override
-            public void retorno(Usuario t) {
-                retornoSimples.retorno(t);
-                setVisible(false);
-            }
-        });
-        TelaMenuPrincipal.jdPane.add((JInternalFrame)telaUsuario);
-        Tela.centralizar(telaUsuario);
-        telaUsuario.show();
+    private void montaGrid(){
+        model.addColumn("Nome");
+        model.addColumn("Usuário");
+        model.addColumn("Situação");
     }
-
+    
+    private void adicionaLinha(){
+         model.insertRow(jTableUsuarios.getRowCount(), new Object[] {});
+    }
+    
+    private void limpaGrid(){
+        while(model.getRowCount() > 0)
+        {
+            model.removeRow(0);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        srcContatos = new javax.swing.JScrollPane();
-        jListUsuarios = new javax.swing.JList();
-        jTxtPesquisar = new javax.swing.JTextField();
-        jBtNovo = new javax.swing.JButton();
+        jTxtFiltroLogin = new javax.swing.JTextField();
         jBtSelecionar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableUsuarios = new javax.swing.JTable(model);
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTxtFiltroNome = new javax.swing.JTextField();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
         setTitle("Regras");
 
-        jListUsuarios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jListUsuariosValueChanged(evt);
-            }
-        });
-        srcContatos.setViewportView(jListUsuarios);
-
-        jBtNovo.setText("Novo Cadastro");
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
         jBtSelecionar.setText("Selecionar");
-        jBtSelecionar.setEnabled(false);
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Pesquisar");
+        jLabel1.setText("Nome");
+
+        jTableUsuarios.setModel(model);
+        jScrollPane2.setViewportView(jTableUsuarios);
+
+        jButton1.setText("Pesquisar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Login");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,67 +120,85 @@ public class TelaListaUsuarios extends TelaPadrao {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(srcContatos, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
                         .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtPesquisar)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTxtFiltroLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jTxtFiltroLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srcContatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtSelecionar)
-                    .addComponent(jBtNovo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jBtSelecionar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jListUsuariosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListUsuariosValueChanged
-        Usuario usuario = (Usuario) jListUsuarios.getSelectedValue();
-        if (usuario != null) {
-            this.usuarioSelecionado = usuario;
-            jBtSelecionar.setEnabled(true);
-        }
-        else {
-            jBtSelecionar.setEnabled(false);
-        }
-    }//GEN-LAST:event_jListUsuariosValueChanged
-
-    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        telaUsuario(null);
-    }//GEN-LAST:event_jBtNovoActionPerformed
-
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
-        retornoSimples.retorno(usuarioSelecionado);
-        setVisible(false);
-        dispose();
+        
+        try{
+            if(jTableUsuarios.getSelectedRow() <0)
+                throw new IllegalArgumentException("Nenhum usuário selecionado!");
+            
+            Usuario usuario = (Usuario)usuarios.get(jTableUsuarios.getSelectedRow());
+            retornoSimples.retorno(usuario);
+            setVisible(false);
+            dispose();
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(this, e.getMessage());
+        }   
     }//GEN-LAST:event_jBtSelecionarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String login, nome;
+        login = jTxtFiltroLogin.getText();
+        nome = jTxtFiltroNome.getText();
+        
+        limpaGrid();
+        
+        try {
+            usuarios = usuarioDao.getUsuarios(login, nome);
+            atualizarListaUsuarios(usuarios);
+        } catch (BancoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+                
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtSelecionar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jListUsuarios;
-    private javax.swing.JTextField jTxtPesquisar;
-    private javax.swing.JScrollPane srcContatos;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableUsuarios;
+    private javax.swing.JTextField jTxtFiltroLogin;
+    private javax.swing.JTextField jTxtFiltroNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
         setLogin(login);
         setSenha(senha);
     }
-
+    
     public String getLogin() {
         return login;
     }
