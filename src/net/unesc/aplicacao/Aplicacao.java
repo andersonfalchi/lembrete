@@ -6,12 +6,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import static net.unesc.aplicacao.TelaMenuPrincipal.jlLogo;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.LoginException;
+import net.unesc.log.LogSistema;
+import net.unesc.log.TipoLog;
 import net.unesc.utilidades.*;
 
 public class Aplicacao {
+    public static Server server = new Server();
     public static Sessao SESSAO = new Sessao();
     public static TelaMenuPrincipal TELA_MENU_PRINCIPAL;
     public static final Thread NOTIFICACOES__THREAD = new Thread() {
@@ -27,6 +31,24 @@ public class Aplicacao {
             }
         }
     };
+    
+    public static void sair(){
+                if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){       
+            try{
+                if(!Aplicacao.SESSAO.usuarioLogado.getLogin().trim().isEmpty())
+                    LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
+                    
+                    
+            }catch(NullPointerException e){
+                throw new NullPointerException("Não existe usuário logado!");
+            }finally{
+                System.out.println("asufhasuifa");
+                server.fechaBanco();
+                System.exit(0);
+            }
+        }
+    }
+    
     public static void main(String args[]){
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -48,8 +70,7 @@ public class Aplicacao {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Server sv = new Server();
-                    sv.server();
+                    server.abreBanco();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

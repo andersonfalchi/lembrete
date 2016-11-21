@@ -62,7 +62,7 @@ public class Notificacao {
 
             ActionListener exitListener = new ActionListener() {
             public void actionPerformed(ActionEvent e)throws NullPointerException {
-                TelaMenuPrincipal.sair();
+                Aplicacao.sair();
             }
         };
 
