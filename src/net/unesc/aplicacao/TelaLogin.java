@@ -1,11 +1,14 @@
 package net.unesc.aplicacao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.unesc.banco.Conexao;
@@ -14,6 +17,7 @@ import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.LoginException;
 import net.unesc.utilidades.DiaHora;
+import net.unesc.utilidades.Server;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaLogin extends JFrame {
@@ -123,6 +127,8 @@ public class TelaLogin extends JFrame {
     private void jbLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogarActionPerformed
         try
         {
+            Server sv = new Server();
+            sv.server();
             Aplicacao.SESSAO.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
             setVisible(false);
                 
@@ -149,7 +155,7 @@ public class TelaLogin extends JFrame {
     private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
         this.jTxtSenha.setText("");
         this.jTxtUsuario.setText("");
-        this.jTxtUsuario.requestFocus();
+        this.jTxtUsuario.requestFocus();     
     }//GEN-LAST:event_jbLimparActionPerformed
 
 
