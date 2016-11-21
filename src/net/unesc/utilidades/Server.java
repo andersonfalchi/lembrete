@@ -9,12 +9,13 @@ public class Server {
         if(System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
             processo = Runtime.getRuntime().exec("cmd /c start rundb.bat");
         }else{
-            processo = Runtime.getRuntime().exec("sh rundb.sh");
+            processo = Runtime.getRuntime().exec("xterm -e sh rundb.sh");
         }
     }   
    
     public void fechaBanco(){
-        processo.destroy(); 
+        if (processo != null)
+            processo.destroy(); 
     }
     
 }
