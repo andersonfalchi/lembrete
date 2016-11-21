@@ -127,8 +127,6 @@ public class TelaLogin extends JFrame {
     private void jbLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogarActionPerformed
         try
         {
-            Server sv = new Server();
-            sv.server();
             Aplicacao.SESSAO.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
             setVisible(false);
                 

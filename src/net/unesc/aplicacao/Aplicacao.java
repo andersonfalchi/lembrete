@@ -1,6 +1,7 @@
 package net.unesc.aplicacao;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -46,11 +47,16 @@ public class Aplicacao {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    Server sv = new Server();
+                    sv.server();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 NOTIFICACOES__THREAD.start();
                 JFrame jfLogar = new TelaLogin();
                 Tela.centralizar(jfLogar);
                 jfLogar.setVisible(true);
-
             }
         });
     }
