@@ -34,7 +34,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
      */
     public TelaMenuPrincipal() {
         initComponents();
-        configuraIcone();
+        Tela.configuraIcone(this);
         Tela.centralizar(TelaMenuPrincipal.jlLogo);
         
         addWindowListener(new WindowAdapter() {
@@ -59,15 +59,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
             }finally{
                 System.exit(0);
             }
-        }
-    }
-    
-    private void configuraIcone() {
-        try {
-            Image i = ImageIO.read(getClass().getResource("/net/unesc/resources/icon.png"));
-            setIconImage(i);
-        } catch (IOException ex) {
-            Logger.getLogger(TelaMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

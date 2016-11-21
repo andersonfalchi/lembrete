@@ -1,32 +1,18 @@
 package net.unesc.aplicacao;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import net.unesc.banco.Conexao;
-import net.unesc.banco.CriaBanco;
-import net.unesc.entidades.Usuario;
-import net.unesc.exceptions.BancoException;
-import net.unesc.exceptions.LoginException;
-import net.unesc.utilidades.DiaHora;
-import net.unesc.utilidades.Server;
-import net.unesc.utilidades.TelaPadrao;
+import net.unesc.listeners.TelaLoginListener;
+import net.unesc.utilidades.Tela;
+
 
 public class TelaLogin extends JFrame {
-
     public TelaLogin() {
-        
         initComponents();
+        Tela.configuraIcone(this);
+        TelaLoginListener telaLoginListener = new TelaLoginListener(this, jTxtUsuario, jTxtSenha);
+        jbLogar.addActionListener(telaLoginListener);
+        jbLimpar.addActionListener(telaLoginListener);
         jTxtUsuario.setText(Aplicacao.SESSAO.getUltimoLogin().trim());
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -52,18 +38,8 @@ public class TelaLogin extends JFrame {
         jLabel12.setText("Senha");
 
         jbLimpar.setText("Limpar");
-        jbLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbLimparActionPerformed(evt);
-            }
-        });
 
         jbLogar.setText("Logar");
-        jbLogar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbLogarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,38 +100,6 @@ public class TelaLogin extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jbLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogarActionPerformed
-        try
-        {
-            Aplicacao.SESSAO.entrar(this.jTxtUsuario.getText(), this.jTxtSenha.getText());
-            setVisible(false);
-                
-            Aplicacao.TELA_MENU_PRINCIPAL = new TelaMenuPrincipal();
-            Aplicacao.TELA_MENU_PRINCIPAL.setVisible(true);
-            Aplicacao.TELA_MENU_PRINCIPAL.setExtendedState(MAXIMIZED_BOTH);         
-            Aplicacao.TELA_MENU_PRINCIPAL.jdPane.setBounds(Aplicacao.TELA_MENU_PRINCIPAL.getBounds());
-            Aplicacao.TELA_MENU_PRINCIPAL.jdPane.setPreferredSize(Aplicacao.TELA_MENU_PRINCIPAL.getPreferredSize());
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
-            
-            if(jTxtUsuario.getText().trim().isEmpty()){
-                jTxtUsuario.requestFocus();
-            }else{    
-                if(jTxtSenha.getText().trim().isEmpty())
-                    jTxtSenha.requestFocus();
-            }
-        }
-    }//GEN-LAST:event_jbLogarActionPerformed
-
-    private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
-        this.jTxtSenha.setText("");
-        this.jTxtUsuario.setText("");
-        this.jTxtUsuario.requestFocus();     
-    }//GEN-LAST:event_jbLimparActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel12;
