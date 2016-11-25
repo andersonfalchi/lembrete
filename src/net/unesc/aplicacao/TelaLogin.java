@@ -1,6 +1,10 @@
 package net.unesc.aplicacao;
 
+import java.awt.TrayIcon;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import static net.unesc.aplicacao.TelaMenuPrincipal.NOTIFICACAO;
 import net.unesc.listeners.TelaLoginListener;
 import net.unesc.utilidades.Tela;
 
@@ -13,6 +17,12 @@ public class TelaLogin extends JFrame {
         jbLogar.addActionListener(telaLoginListener);
         jbLimpar.addActionListener(telaLoginListener);
         jTxtUsuario.setText(Aplicacao.SESSAO.getUltimoLogin().trim());
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt)throws NullPointerException{
+                Aplicacao.sair();
+            }
+        });
     }
     
     @SuppressWarnings("unchecked")
