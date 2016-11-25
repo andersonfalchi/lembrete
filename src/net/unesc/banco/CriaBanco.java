@@ -19,7 +19,7 @@ public class CriaBanco {
                 + "ds_evento varchar(255), ie_email char(1), ie_sms char(1),"
                 + " ie_popup char(1), ie_notificacao char(1), ds_email varchar(255),"
                 + " nr_ddd_celular char(3), nr_celular varchar(9), ie_tipo_evento char(3),"
-                + " cor varchar(15), ie_situacao char(1), primary key(nr_sequencia))";
+                + " cor varchar(15), ie_situacao char(1), dt_ultima_execucao timestamp, primary key(nr_sequencia))";
         
         //Regra do Evento
         tabela[2]="create table regra_evento (nr_sequencia integer, nr_seq_evento integer, nm_usuario varchar(50), "

@@ -37,12 +37,10 @@ public class Aplicacao {
             try{
                 if(!Aplicacao.SESSAO.usuarioLogado.getLogin().trim().isEmpty())
                     LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
-                    
-                    
+                                        
             }catch(NullPointerException e){
                 throw new NullPointerException("Não existe usuário logado!");
             }finally{
-                System.out.println("asufhasuifa");
                 server.fechaBanco();
                 System.exit(0);
             }

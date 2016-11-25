@@ -14,7 +14,9 @@ public class Server {
     }   
    
     public void fechaBanco(){
-        processo.destroy(); 
+        System.out.println("antes: "+processo);
+        processo.destroy();
+        System.out.println("depois: "+processo);
     }
     
 }

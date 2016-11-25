@@ -1,3 +1,4 @@
 /*C2*/SET SCHEMA PUBLIC
 CONNECT USER SA
-DISCONNECT
+drop table evento
+create table evento (nr_sequencia integer not null, \u000a                nm_usuario varchar(50), dt_inclusao timestamp, \u000a                ds_evento varchar(255), ie_email char(1), ie_sms char(1),\u000a                 ie_popup char(1), ie_notificacao char(1), ds_email varchar(255),\u000a                 nr_ddd_celular char(3), nr_celular varchar(9), ie_tipo_evento char(3),\u000a                cor varchar(15), ie_situacao char(1), dt_ultima_execucao timestamp, primary key(nr_sequencia))
