@@ -63,7 +63,7 @@ public class EventoDao extends DaoPadrao {
             String sql = "insert into evento (nr_sequencia, nm_usuario, dt_inclusao, "
                     + "ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, "
                     + "ds_email, nr_ddd_celular, nr_celular, ie_tipo_evento, cor, ie_situacao, NR_SEQ_REGRA)"
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             ps = conn.prepareStatement(sql);
             ps.setInt(1, proxSequencia);

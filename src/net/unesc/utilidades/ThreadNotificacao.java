@@ -58,16 +58,19 @@ public class ThreadNotificacao extends Thread {
         
         try
         {
-            Date ultimaOcorrencia = DiaHora.adiciona(evento.getUltimaOcorrencia(), Calendar.MILLISECOND, 0);
-
-            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MILLISECOND, regra.getMilesimos());
-            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.SECOND, regra.getSegundo());
-            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MINUTE, regra.getMinuto());
-            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, regra.getHora());
-            
-            if (ultimaOcorrencia.after(dataAtual))
+            if (evento.getUltimaOcorrencia() != null)
             {
-                return;
+                Date ultimaOcorrencia = DiaHora.adiciona(evento.getUltimaOcorrencia(), Calendar.MILLISECOND, 0);
+
+                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MILLISECOND, regra.getMilesimos());
+                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.SECOND, regra.getSegundo());
+                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MINUTE, regra.getMinuto());
+                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, regra.getHora());
+
+                if (ultimaOcorrencia.after(dataAtual))
+                {
+                    return;
+                }
             }
             
             if (DiaHora.beforeSemHorario(dataAtual, regra.getInicioVigencia()))
