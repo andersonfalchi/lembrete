@@ -12,6 +12,8 @@ import net.unesc.banco.Funcoes;
 import net.unesc.entidades.Evento;
 import net.unesc.entidades.FormaAlerta;
 import net.unesc.entidades.Regra;
+import net.unesc.entidades.TipoEvento;
+import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.CampoObrigatorioException;
 import net.unesc.exceptions.DataException;
@@ -21,6 +23,35 @@ import net.unesc.log.TipoLog;
 import net.unesc.utilidades.*;
 
 public class EventoDao extends DaoPadrao {
+    
+    public void atualiza(Evento evento) throws BancoException, FormaAlertaException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        
+        try {
+            conn = Conexao.getConnection();
+            Integer proxSequencia = Funcoes.obterSequencia("evento");   
+              
+            String sql = "update evento set (nr_sequencia, nm_usuario, dt_inclusao, "
+                    + "ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, "
+                    + "ds_email, nr_ddd_celular, nr_celular, ie_tipo_evento, cor, ie_situacao, NR_SEQ_REGRA)"
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, proxSequencia);
+            ps.setString(14, evento.getSituacao());    
+            ps.setInt(15, evento.getRegra().getCodigo());
+            System.out.println(ps);
+            ps.execute();
+            conn.commit();
+            LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de eventos");
+        } catch(SQLException e) {  
+            erro(conn, "Erro ao cadastar evento", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+    }
+    
     public void inserir(Evento evento) throws BancoException, FormaAlertaException {
         if (evento.getFormasAlerta().size() < 1) { 
             throw new FormaAlertaException("Selecione ao menos uma forma de alerta");
@@ -35,7 +66,7 @@ public class EventoDao extends DaoPadrao {
               
             String sql = "insert into evento (nr_sequencia, nm_usuario, dt_inclusao, "
                     + "ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, "
-                    + "ds_email, nr_ddd_celular, nr_celular, ie_tipo_evento, cor, ie_situacao)"
+                    + "ds_email, nr_ddd_celular, nr_celular, ie_tipo_evento, cor, ie_situacao, NR_SEQ_REGRA)"
                     + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             ps = conn.prepareStatement(sql);
@@ -52,7 +83,8 @@ public class EventoDao extends DaoPadrao {
             ps.setString(11, evento.getCelular());
             ps.setString(12, evento.getTipoEvento().toString());
             ps.setString(13, evento.getCor());
-            ps.setString(14, evento.getSituacao());
+            ps.setString(14, evento.getSituacao());    
+            ps.setInt(15, evento.getRegra().getCodigo());
             System.out.println(ps);
             ps.execute();
             conn.commit();
@@ -64,25 +96,50 @@ public class EventoDao extends DaoPadrao {
         }
     }
     
-    public List<Evento> getAtivos() throws BancoException {
+    public List<Evento> getAtivosERegra() throws BancoException {
         List<Evento> lista = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = Conexao.getConnection();
             String sql = 
-                " select * " +
-                " from evento " +
-                " where evento.ie_situacao = 'A'";
+                " select distinct nr_sequencia, nm_usuario, dt_inclusao, " +
+                " ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, " +
+                " ds_email, nr_ddd_celular, nr_celular, ie_tipo_evento, cor, ie_situacao, dt_ultima_execucao, NR_SEQ_REGRA " +
+                " dt_inclusao, " +
+                " ds_regra," +
+                " dt_inicio_vigencia," +
+                " dt_fim_vigencia," +
+                " ie_situacao," +
+                " ie_tipo_horario," +
+                " qt_hh," +
+                " qt_mm," +
+                " qt_ss," +
+                " qt_ml," +
+                " dia_dom," +
+                " dia_seg," +
+                " dia_ter," +
+                " dia_qua," +
+                " dia_qui," +
+                " dia_sex," +
+                " dia_sab" +
+                " from evento, regra_evento " +
+                " where evento.ie_situacao = 'A'" +
+                " and regra_evento.nr_sequencia = evento.nr_seq_regra ";
             ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                Evento p = new Evento();
-                                
-                lista.add(p);
+                Evento e = new Evento();
+                e.fromResultSet(rs);
+                
+                Regra p = new Regra();
+                p.fromResultSet(rs);
+                e.setRegra(p);  
+                
+                lista.add(e);
             }
-        } catch(SQLException e) {
+        } catch(SQLException|CampoObrigatorioException e) {
             erro(conn, "Erro ao buscar os eventos", e);
         } finally {
             finaliza(conn, ps);

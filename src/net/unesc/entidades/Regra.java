@@ -1,5 +1,7 @@
 package net.unesc.entidades;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -225,6 +227,34 @@ public class Regra {
         return codigo + " - " + nome;
     }
     
-    
+    public void fromResultSet(ResultSet rs)
+    {
+        try
+        {
+//            this.setCodigo(rs.getInt(""));
+            this.setNome(rs.getString("ds_regra"));
+            this.setInicioVigencia(rs.getDate("dt_inicio_vigencia"));
+            this.setFimVigencia(rs.getDate("dt_fim_vigencia"));
+            this.setSituacao(rs.getString("ie_situacao"));
+            this.setTipoHorario(rs.getString("ie_tipo_horario"));
+
+            this.setHora(rs.getInt("qt_hh"));
+            this.setMinuto(rs.getInt("qt_mm"));
+            this.setSegundo(rs.getInt("qt_ss"));
+            this.setMilesimos(rs.getInt("qt_ml"));
+            
+            this.setDiaSemana(0, rs.getBoolean("dia_dom"));
+            this.setDiaSemana(1, rs.getBoolean("dia_seg"));
+            this.setDiaSemana(2, rs.getBoolean("dia_ter"));
+            this.setDiaSemana(3, rs.getBoolean("dia_qua"));
+            this.setDiaSemana(4, rs.getBoolean("dia_qui"));
+            this.setDiaSemana(5, rs.getBoolean("dia_sex"));
+            this.setDiaSemana(6, rs.getBoolean("dia_sab"));
+            
+        }
+        catch(CampoObrigatorioException|DataException|SQLException e){
+            e.printStackTrace();
+        }
+    }
     
 }

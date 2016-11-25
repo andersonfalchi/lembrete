@@ -17,7 +17,7 @@ public class Sessao {
     private static final String ROOT_FOLDER = "./build";
     private static final String LOG_FILE = ROOT_FOLDER+"/log_sessao.txt";
     private String ultimoLogin = "";
-    public Usuario usuarioLogado;
+    private Usuario usuarioLogado;
     
     private File arquivo = new File(LOG_FILE);
     

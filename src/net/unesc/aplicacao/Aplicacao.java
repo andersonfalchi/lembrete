@@ -18,27 +18,14 @@ public class Aplicacao {
     public static Server server = new Server();
     public static Sessao SESSAO = new Sessao();
     public static TelaMenuPrincipal TELA_MENU_PRINCIPAL;
-    public static final Thread NOTIFICACOES__THREAD = new Thread() {
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1000);
-                
-                
-                
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        }
-    };
-    
+    public static final ThreadNotificacao NOTIFICACOES__THREAD = new ThreadNotificacao();
+
     public static void sair(){
-                if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){       
+        if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){       
             try{
-                if(!Aplicacao.SESSAO.usuarioLogado.getLogin().trim().isEmpty())
-                    LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");
-                                        
-            }catch(NullPointerException e){
+                if(!Aplicacao.SESSAO.usuario().getLogin().trim().isEmpty())
+                    LogSistema.inserir(TipoLog.LOGOFF, "Logoff no sistema");               
+            }catch(NullPointerException|LoginException e){
                 throw new NullPointerException("Não existe usuário logado!");
             }finally{
                 server.fechaBanco();

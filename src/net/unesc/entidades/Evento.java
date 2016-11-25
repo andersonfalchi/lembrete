@@ -1,6 +1,9 @@
 package net.unesc.entidades;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import net.unesc.dao.EventoDao;
 import net.unesc.exceptions.BancoException;
@@ -10,6 +13,7 @@ import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 
 public class Evento {
+    private Integer codigo;
     private String descricao;
     private String cor;
     private List<FormaAlerta> formasAlerta = new ArrayList<>();
@@ -20,6 +24,17 @@ public class Evento {
     private String ddd;
     private String celular;
     private String situacao;
+    private Date ultimaOcorrencia;
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+    
+    
     
     public String getEnviar(FormaAlerta formaAlertaChecar) {
         return isEnviar(formaAlertaChecar) ? "S" : "N";
@@ -67,6 +82,13 @@ public class Evento {
 
     public void setFormasAlerta(List<FormaAlerta> formasAlerta) {
         this.formasAlerta = formasAlerta;
+    }
+    
+    public void addFormaAlerta(FormaAlerta formaAlerta, String ehAdd) {
+        if (this.formasAlerta == null)
+            this.formasAlerta = new ArrayList<>();
+        if (ehAdd != null && "S".equals(ehAdd.toUpperCase()))
+            this.formasAlerta.add(formaAlerta);
     }
     
     public void addFormaAlerta(FormaAlerta formaAlerta) {
@@ -138,4 +160,44 @@ public class Evento {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }    
+
+    public Date getUltimaOcorrencia() {
+        return ultimaOcorrencia;
+    }
+
+    public void setUltimaOcorrencia(Date ultimaOcorrencia) {
+        this.ultimaOcorrencia = ultimaOcorrencia;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return codigo + " - " + descricao;
+    }
+    
+    public void fromResultSet(ResultSet rs) {
+        try
+        {
+            this.setCodigo(rs.getInt("nr_sequencia"));
+            this.setUsuario(new Usuario(rs.getString("nm_usuario")));
+            this.setDescricao(rs.getString("ds_evento"));
+            this.addFormaAlerta(FormaAlerta.EMAIL, rs.getString("ie_email"));
+            this.addFormaAlerta(FormaAlerta.SMS, rs.getString("ie_sms"));
+            this.addFormaAlerta(FormaAlerta.POPUP, rs.getString("ie_popup"));
+            this.addFormaAlerta(FormaAlerta.NOTIFICACAO, rs.getString("ie_notificacao"));
+            this.setEmail(rs.getString("ds_email"));
+            this.setDdd(rs.getString("nr_ddd_celular"));
+            this.setCelular(rs.getString("nr_celular"));
+            this.setTipoEvento(TipoEvento.valueOf(rs.getString("ie_tipo_evento").toUpperCase()));
+            this.setCor(rs.getString("cor"));
+            this.setSituacao(rs.getString("ie_situacao"));
+            this.setUltimaOcorrencia(rs.getDate("dt_ultima_execucao"));
+        }
+        catch(CampoObrigatorioException|SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
 }

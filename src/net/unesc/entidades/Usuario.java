@@ -14,6 +14,10 @@ public class Usuario implements Serializable {
 
     public Usuario() {
     }
+   
+    public Usuario(String login) {
+        setLogin(login);
+    }
     
     public Usuario(String login, String senha) {
         setLogin(login);
