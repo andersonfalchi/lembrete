@@ -1,6 +1,7 @@
 package net.unesc.utilidades;
 
 import java.awt.TrayIcon;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import net.unesc.entidades.FormaAlerta;
 import net.unesc.entidades.Regra;
 import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.BancoException;
+import net.unesc.exceptions.FormaAlertaException;
 import net.unesc.exceptions.LoginException;
 
 public class ThreadNotificacao extends Thread {
@@ -25,7 +27,6 @@ public class ThreadNotificacao extends Thread {
         try {
             while(true)
             {
-                System.out.println("COMEÇAR");
                 Thread.sleep(1000);
                 List<Evento> eventos = eventoDao.getAtivosERegra();
                 for(Evento evento : eventos) {
@@ -39,22 +40,43 @@ public class ThreadNotificacao extends Thread {
         }
     }
     
+    static class EventoInativoException extends Exception {
+        
+    }
+    
     private void checaDispararEvento(Evento evento) {
-        System.out.println("evento = " + evento);
-        System.out.println("evento = " + evento.isEnviar(FormaAlerta.EMAIL));
-        System.out.println("evento = " + evento.isEnviar(FormaAlerta.NOTIFICACAO));
-        System.out.println("evento = " + evento.getUltimaOcorrencia());
         Regra regra = evento.getRegra();
         Date dataAtual = new Date();
-        if (DiaHora.beforeSemHorario(dataAtual, regra.getInicioVigencia()))
-            return;
-        if (DiaHora.afterSemHorario(dataAtual, regra.getFimVigencia()))
-            return;
-        if (!regra.getDiaSemana(DiaHora.pegaDiaSemana(dataAtual)))
-            return;
         try
         {
             Usuario usuario = Aplicacao.SESSAO.usuario();
+        }
+        catch(LoginException e)
+        {
+            return;
+        }
+        
+        try
+        {
+            Date ultimaOcorrencia = DiaHora.adiciona(evento.getUltimaOcorrencia(), Calendar.MILLISECOND, 0);
+
+            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MILLISECOND, regra.getMilesimos());
+            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.SECOND, regra.getSegundo());
+            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MINUTE, regra.getMinuto());
+            ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, regra.getHora());
+            
+            if (ultimaOcorrencia.after(dataAtual))
+            {
+                return;
+            }
+            
+            if (DiaHora.beforeSemHorario(dataAtual, regra.getInicioVigencia()))
+                throw new EventoInativoException();
+            if (DiaHora.afterSemHorario(dataAtual, regra.getFimVigencia()))
+                throw new EventoInativoException();
+            if (!regra.getDiaSemana(DiaHora.pegaDiaSemana(dataAtual)))
+                throw new EventoInativoException();
+
             if (evento.isEnviar(FormaAlerta.NOTIFICACAO) && NOTIFICACAO != null)
             {
                 NOTIFICACAO.ICON.displayMessage("Notificação de evento", 
@@ -65,9 +87,23 @@ public class ThreadNotificacao extends Thread {
             {
                 JOptionPane.showMessageDialog(null, evento.getDescricao(), "Popup de evento", JOptionPane.INFORMATION_MESSAGE);
             }
+            
+            evento.setUltimaOcorrencia(dataAtual);
+            try {
+                eventoDao.atualiza(evento);
+            } catch (BancoException|FormaAlertaException ex) {
+                ex.printStackTrace();
+            }
         }
-        catch(LoginException e){
-            e.printStackTrace();
+        catch(EventoInativoException e)
+        {
+            System.out.println("Evento inativo");
+            evento.setSituacao("I");
+            try {
+                eventoDao.atualiza(evento);
+            } catch (BancoException|FormaAlertaException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     

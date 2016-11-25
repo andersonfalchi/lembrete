@@ -106,8 +106,6 @@ public class Evento {
     }
 
     public void setEmail(String email) throws CampoObrigatorioException {
-        System.out.println("email = " + isEnviar(FormaAlerta.EMAIL));
-        System.out.println("email = " + email);
         if (isEnviar(FormaAlerta.EMAIL) && (email == null || email.trim().isEmpty())) {
             throw new CampoObrigatorioException("O e-mail é obrigatório");
         }
@@ -192,7 +190,7 @@ public class Evento {
             this.setTipoEvento(TipoEvento.valueOf(rs.getString("ie_tipo_evento").toUpperCase()));
             this.setCor(rs.getString("cor"));
             this.setSituacao(rs.getString("ie_situacao"));
-            this.setUltimaOcorrencia(rs.getDate("dt_ultima_execucao"));
+            this.setUltimaOcorrencia(rs.getTimestamp("dt_ultima_execucao"));
         }
         catch(CampoObrigatorioException|SQLException e)
         {

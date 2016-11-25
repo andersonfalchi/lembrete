@@ -35,7 +35,6 @@ public class LogSistema {
         }
         catch(LoginException e)
         {
-            e.printStackTrace();
         }
                 
     }

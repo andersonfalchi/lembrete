@@ -1,9 +1,11 @@
 package net.unesc.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,23 +32,17 @@ public class EventoDao extends DaoPadrao {
         
         try {
             conn = Conexao.getConnection();
-            Integer proxSequencia = Funcoes.obterSequencia("evento");   
-              
-            String sql = "update evento set (nr_sequencia, nm_usuario, dt_inclusao, "
-                    + "ds_evento, ie_email, ie_sms, ie_popup, ie_notificacao, "
-                    + "ds_email, nr_ddd_celular, nr_celular, ie_tipo_evento, cor, ie_situacao, NR_SEQ_REGRA)"
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "update evento set ie_situacao = ?, dt_ultima_execucao = ? where nr_sequencia = ?";
             
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, proxSequencia);
-            ps.setString(14, evento.getSituacao());    
-            ps.setInt(15, evento.getRegra().getCodigo());
-            System.out.println(ps);
+            ps.setString(1, evento.getSituacao());
+            ps.setTimestamp(2, new Timestamp(evento.getUltimaOcorrencia().getTime()));    
+            ps.setInt(3, evento.getCodigo());
             ps.execute();
             conn.commit();
-            LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de eventos");
+            LogSistema.inserir(TipoLog.INCLUSAO, "Atualizou o evento: "+evento.getCodigo());
         } catch(SQLException e) {  
-            erro(conn, "Erro ao cadastar evento", e);
+            erro(conn, "Erro ao atualizar evento", e);
         } finally {
             finaliza(conn, ps);
         }

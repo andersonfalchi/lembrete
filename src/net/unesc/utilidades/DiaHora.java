@@ -29,7 +29,13 @@ public class DiaHora {
         return formatador.format(data);
     }
     
-    //desconsidera o horario na comparacao da data
+    public static Date adiciona(Date date1, int type, int qtd) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+        c1.add(type, qtd);
+        return c1.getTime();
+    }
+    
     public static int pegaDiaSemana(Date date1) {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(date1);
@@ -44,6 +50,25 @@ public class DiaHora {
             if ( c1.get(Calendar.YEAR) < c2.get(Calendar.YEAR ) && 
                      c1.get(Calendar.MONTH) < c2.get(Calendar.MONTH ) &&
                      c1.get(Calendar.DAY_OF_YEAR) < c2.get(Calendar.DAY_OF_YEAR )
+                     )
+                    return true;
+
+            return false;
+    }
+    
+    public static boolean before(Date date1, Date date2) {
+            Calendar c1 = Calendar.getInstance();
+            c1.setTime(date1);
+            Calendar c2 = Calendar.getInstance();
+            c2.setTime(date2);
+
+            if ( c1.get(Calendar.YEAR) < c2.get(Calendar.YEAR ) && 
+                    c1.get(Calendar.MONTH) < c2.get(Calendar.MONTH ) &&
+                    c1.get(Calendar.DAY_OF_YEAR) < c2.get(Calendar.DAY_OF_YEAR ) &&
+                    c1.get(Calendar.HOUR) < c2.get(Calendar.HOUR ) &&
+                    c1.get(Calendar.MINUTE) < c2.get(Calendar.MINUTE ) &&
+                    c1.get(Calendar.SECOND) < c2.get(Calendar.SECOND ) &&
+                    c1.get(Calendar.MILLISECOND) < c2.get(Calendar.MILLISECOND)
                      )
                     return true;
 

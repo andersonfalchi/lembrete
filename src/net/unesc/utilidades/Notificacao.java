@@ -75,7 +75,8 @@ public class Notificacao {
 
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Aplicacao.TELA_MENU_PRINCIPAL.setVisible(true);
+                if (Aplicacao.TELA_MENU_PRINCIPAL != null)
+                    Aplicacao.TELA_MENU_PRINCIPAL.setVisible(true);
             }
         };
 
@@ -86,7 +87,7 @@ public class Notificacao {
         try {
             tray.add(ICON);
         } catch (AWTException e) {
-            //System.err.println("TrayIcon could not be added.");
+            System.err.println("TrayIcon could not be added.");
         }
     }
     

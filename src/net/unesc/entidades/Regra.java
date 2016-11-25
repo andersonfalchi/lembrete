@@ -151,7 +151,7 @@ public class Regra {
     }
 
     public Integer getMinuto() {
-        return minuto;
+        return minuto == null ? 0 : minuto;
     }
 
     public void setMinuto(Integer minuto) {
@@ -159,7 +159,7 @@ public class Regra {
     }
 
     public Integer getHora() {
-        return hora;
+        return hora == null ? 0 : hora;
     }
 
     public void setHora(Integer hora) {
@@ -167,7 +167,7 @@ public class Regra {
     }
 
     public Integer getSegundo() {
-        return segundo;
+        return segundo == null ? 0 : segundo;
     }
 
     public void setSegundo(Integer segundo) {
@@ -175,7 +175,7 @@ public class Regra {
     }
 
     public Integer getMilesimos() {
-        return milesimos;
+        return milesimos == null ? 0 : milesimos;
     }
 
     public void setMilesimos(Integer milesimos) {
