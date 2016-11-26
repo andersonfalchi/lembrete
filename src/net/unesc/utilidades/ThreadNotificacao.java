@@ -22,6 +22,7 @@ public class ThreadNotificacao extends Thread {
 
     EventoDao eventoDao = new EventoDao();
     JavaMailApp email = new JavaMailApp();
+    SmsSender sms = new SmsSender();
     
     @Override
     public void run() {
@@ -107,10 +108,12 @@ public class ThreadNotificacao extends Thread {
                         evento.getDescricao(),
                         TrayIcon.MessageType.INFO);
             }
+            
             if (evento.isEnviar(FormaAlerta.POPUP))
             {
                 JOptionPane.showMessageDialog(null, evento.getDescricao(), "Popup de evento", JOptionPane.INFORMATION_MESSAGE);
             }
+            
             if (evento.isEnviar(FormaAlerta.EMAIL))
             {
                 try
@@ -122,6 +125,12 @@ public class ThreadNotificacao extends Thread {
                     e.printStackTrace(System.out);
                 }
             }
+            
+            if (evento.isEnviar(FormaAlerta.SMS))
+            {
+                sms.SmsSender(evento);
+            }
+            
             evento.setUltimaOcorrencia(dataAtual);
            
             try {

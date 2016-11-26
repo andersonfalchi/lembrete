@@ -5,6 +5,7 @@
  */
 package net.unesc.utilidades;
 
+import net.unesc.entidades.Evento;
 import no.vianett.sms.SmsEventListener;
 import no.vianett.sms.Sms;
 import no.vianett.sms.SmsEvent;
@@ -19,10 +20,7 @@ public class SmsSender {
 
     private SmsTransceiver transceiver = SmsTransceiver.getInstance(); // Get the transceiver object.  
     private int counter = 0;
-    private String tipoEvento;
-    private int ddd;
-    private int numeroCelular;
-
+    
     public SmsTransceiver getTransceiver() {
         return transceiver;
     }
@@ -38,43 +36,19 @@ public class SmsSender {
     public void setCounter(int counter) {
         this.counter = counter;
     }
-
-    public String getTipoEvento() {
-        return tipoEvento;
-    }
-
-    public void setTipoEvento(String tipoEvento) {
-        this.tipoEvento = tipoEvento;
-    }
-
-    public int getDdd() {
-        return ddd;
-    }
-
-    public void setDdd(int ddd) {
-        this.ddd = ddd;
-    }
-
-    public int getNumeroCelular() {
-        return numeroCelular;
-    }
-    
-    public void setNumeroCelular(int numeroCelular) {
-        this.numeroCelular = numeroCelular;
-    }
-           
-    public void SmsSender()
+          
+    public void SmsSender(Evento evento)
     {   
-        String mensagem = "Ola,\n\n" +
-        "Esta mensagem foi enviada para lembra-lo(a) da confirmacao de evento.\n\n" +
-        "Tipo de Evento: "+getTipoEvento()+"\n\n"+
-        "Esta mensagem foi enviada por um sistema automatico, por favor nao responda!";
+        String mensagem = "Lembrete de evento.\n\n"+
+            "Evento: "+evento.getDescricao()+".\n\n";
        
         // Initialize transceiver.
         String smsHost = "cpa.vianett.no";
         String smsPort = "31337";
-        String smsUsername = "rafael.sds@live.com";
-        String smsPassword = "90gww";
+        String smsUsername = "rafadasilvasantos@hotmail.com";
+                //"rafael.sds@live.com";
+        String smsPassword = "43zdh";
+                //"90gww";
         this.transceiver.initialize( smsHost, Integer.parseInt( smsPort ), smsUsername, smsPassword, new SmsScreenLogger() );
         
         this.transceiver.addSmsEventListener( new SmsEventListener() {
@@ -90,7 +64,7 @@ public class SmsSender {
         sms.setReplyPath( 100 );
         sms.setSender( "1963" ); // Set the sender number.
         sms.setMessage(mensagem);
-        sms.setRecipient( "55"+getDdd()+getNumeroCelular()); // The recipients phone number.
+        sms.setRecipient( "55"+evento.getDdd()+evento.getCelular()); // The recipients phone number.
  
         this.transceiver.send( sms );
     } 

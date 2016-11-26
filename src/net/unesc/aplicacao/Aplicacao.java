@@ -18,7 +18,6 @@ public class Aplicacao {
     public static Server server = new Server();
     public static Sessao SESSAO = new Sessao();
     public static TelaMenuPrincipal TELA_MENU_PRINCIPAL;
-//    public static final ThreadNotificacao NOTIFICACOES__THREAD = new ThreadNotificacao();
 
     public static void sair(){
         if (JOptionPane.showConfirmDialog(null,"Deseja sair?","Sistema Lembrete",JOptionPane.YES_NO_OPTION)==JOptionPane.OK_OPTION){       
@@ -59,7 +58,6 @@ public class Aplicacao {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-//                NOTIFICACOES__THREAD.start();
                 JFrame jfLogar = new TelaLogin();
                 Tela.centralizar(jfLogar);
                 jfLogar.setVisible(true);

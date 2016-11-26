@@ -32,7 +32,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     public TelaMenuPrincipal() {
         initComponents();
         Tela.configuraIcone(this);
-        Tela.centralizar(TelaMenuPrincipal.jlLogo);
+        Tela.centralizar(jlLogo);
         
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt)throws NullPointerException{
@@ -70,7 +70,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         jlLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/unesc/resources/background.png"))); // NOI18N
         jdPane.add(jlLogo);
-        jlLogo.setBounds(350, 80, 570, 440);
+        jlLogo.setBounds(50, 110, 230, 160);
 
         jMenu1.setText("Funções");
 

@@ -18,9 +18,9 @@ import javax.swing.JLabel;
 import net.unesc.aplicacao.TelaMenuPrincipal;
 
 public class Tela {
-    public static void centralizar(JLabel jLabel){
-        Dimension dimension = jLabel.getParent().getSize();  
-        jLabel.setLocation((dimension.width - jLabel.getSize().width) / 2, (dimension.height - jLabel.getSize().height) / 2);   
+    public static void centralizar(JLabel fr){
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        fr.setLocation((d.width - fr.getSize().width) / 2, (d.height - fr.getSize().height) / 2);  
     }
     
     public static void centralizar(JInternalFrame fr){  
