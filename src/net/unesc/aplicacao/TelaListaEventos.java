@@ -2,6 +2,8 @@ package net.unesc.aplicacao;
 
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.unesc.dao.EventoDao;
@@ -10,10 +12,12 @@ import net.unesc.entidades.Evento;
 
 import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.CampoObrigatorioException;
+import net.unesc.exceptions.DataException;
+import net.unesc.exceptions.FormatoDataException;
 import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.TelaPadrao;
 
-public class TelaListaEventos extends TelaPadrao {
+public class TelaListaEventos extends TelaPadrao   {
     private EventoDao eventoDao = new EventoDao();
     private RetornoSimples<Evento> retornoSimples;
     private ArrayList<Evento> eventos;
@@ -23,7 +27,7 @@ public class TelaListaEventos extends TelaPadrao {
         this.retornoSimples = retornoSimples;
     }
     
-    public TelaListaEventos() throws BancoException, CampoObrigatorioException {
+    public TelaListaEventos() throws BancoException, CampoObrigatorioException, DataException, FormatoDataException {
         initComponents();
         montaGrid();
         eventos = eventoDao.getAll();
@@ -79,7 +83,7 @@ public class TelaListaEventos extends TelaPadrao {
 
         setClosable(true);
         setForeground(java.awt.Color.white);
-        setTitle("Regras");
+        setTitle("Eventos");
 
         jBtSelecionar.setText("Selecionar");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +117,7 @@ public class TelaListaEventos extends TelaPadrao {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(193, 193, 193)
                         .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 226, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -132,7 +136,7 @@ public class TelaListaEventos extends TelaPadrao {
                     .addComponent(jTxtFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jBtSelecionar)
                 .addContainerGap())
         );
@@ -161,12 +165,18 @@ public class TelaListaEventos extends TelaPadrao {
         
         limpaGrid();
         
-//        try {
-//            usuarios = usuarioDao.getUsuarios(login, nome);
-//            atualizarListaUsuarios(usuarios);
-//        } catch (BancoException ex) {
-//            JOptionPane.showMessageDialog(this, ex.getMessage());
-//        }
+        try {
+            eventos = eventoDao.getEventos(descricao);
+            atualizarListaEventos(eventos);
+        } catch (BancoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (CampoObrigatorioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (DataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (FormatoDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
                 
     }//GEN-LAST:event_jButton1ActionPerformed
 

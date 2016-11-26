@@ -20,11 +20,15 @@ import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.CampoObrigatorioException;
 import net.unesc.exceptions.DataException;
 import net.unesc.exceptions.FormaAlertaException;
+import net.unesc.exceptions.FormatoDataException;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.*;
 
 public class EventoDao extends DaoPadrao {
+    
+    private RegraEventoDao regraEventoDao = new RegraEventoDao();
+    private ArrayList<Regra> regras;
     
     public void atualiza(Evento evento) throws BancoException, FormaAlertaException {
         Connection conn = null;
@@ -81,7 +85,7 @@ public class EventoDao extends DaoPadrao {
             ps.setString(13, evento.getCor());
             ps.setString(14, evento.getSituacao());    
             ps.setInt(15, evento.getRegra().getCodigo());
-            System.out.println(ps);
+    
             ps.execute();
             conn.commit();
             LogSistema.inserir(TipoLog.INCLUSAO, "Gravou um novo Cadastro de eventos");
@@ -162,7 +166,7 @@ public class EventoDao extends DaoPadrao {
         }
     }
     
-    public ArrayList<Evento> getAll() throws BancoException, CampoObrigatorioException {
+    public ArrayList<Evento> getAll() throws BancoException, CampoObrigatorioException, DataException,FormatoDataException {
         ArrayList<Evento> lista = new ArrayList<Evento>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -206,6 +210,9 @@ public class EventoDao extends DaoPadrao {
                     p.setTipoEvento((TipoEvento.ALMOCO));
                 }
                 
+                regras = regraEventoDao.getRegras(rs.getInt(16));
+
+                p.setRegra(regras.get(0));
                 p.setCor(rs.getString(13));
                 p.setSituacao(rs.getString(14));
                 
@@ -218,5 +225,113 @@ public class EventoDao extends DaoPadrao {
         }
         return lista;
     }
+ 
+    public ArrayList<Evento> getEventos(String descricao)throws BancoException, CampoObrigatorioException, DataException, FormatoDataException{
+        ArrayList<Evento> lista = new ArrayList<Evento>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Conexao.getConnection();
+            String sql = 
+                " select * "+
+                " from evento "+
+                " where upper(ds_evento) like ? or ? =''";     
+            
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%"+descricao.toUpperCase().trim()+"%");
+            ps.setString(2, "%"+descricao.toUpperCase().trim()+"%");
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                Evento p = new Evento();
+                p.setCodigo(rs.getInt(1));
+                p.setDescricao(rs.getString(4));
+                
+                if(rs.getString(5).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.EMAIL);
+                }
+                
+                if(rs.getString(6).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.SMS);
+                }
+                
+                if(rs.getString(7).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.POPUP);
+                }
+                
+                if(rs.getString(8).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.NOTIFICACAO);
+                }
+                
+                p.setEmail(rs.getString(9));
+                p.setDdd(rs.getString(10));
+                p.setCelular(rs.getString(11));
+                
+                if(rs.getString(12).toUpperCase().equals("GASOLINA")){    
+                    p.setTipoEvento((TipoEvento.GASOLINA));
+                }else
+                {
+                    p.setTipoEvento((TipoEvento.ALMOCO));
+                }
+                
+                regras = regraEventoDao.getRegras(rs.getInt(16));
+
+                p.setRegra(regras.get(0));
+                p.setCor(rs.getString(13));
+                p.setSituacao(rs.getString(14));
+                
+                lista.add(p);
+            }
+        } catch(SQLException e) {
+            erro(conn, "Erro ao buscar as regras", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+        return lista;
+    }
     
+    public void alteraEvento(Evento evento) throws BancoException{
+        Connection conn = null;
+        PreparedStatement ps = null;
+ 
+        try {
+            conn = Conexao.getConnection();
+            String sql = "update evento set "+
+                    " ds_evento = ? ,"+
+                    " ie_email = ? ,"+
+                    " ie_sms = ? ,"+
+                    " ie_popup = ? ,"+
+                    " ie_notificacao = ? ,"+
+                    " ds_email = ? ,"+
+                    " nr_ddd_celular = ? ,"+
+                    " nr_celular = ? ,"+
+                    " ie_tipo_evento = ? ,"+
+                    " cor = ? ,"+
+                    " ie_situacao = ? ,"+
+                    " NR_SEQ_REGRA = ? "+
+                    " where nr_sequencia = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, evento.getDescricao());
+            ps.setString(2, evento.getEnviar(FormaAlerta.EMAIL));
+            ps.setString(3, evento.getEnviar(FormaAlerta.SMS));
+            ps.setString(4, evento.getEnviar(FormaAlerta.POPUP));
+            ps.setString(5, evento.getEnviar(FormaAlerta.NOTIFICACAO));
+            ps.setString(6, evento.getEmail());
+            ps.setString(7, evento.getDdd());
+            ps.setString(8, evento.getCelular());
+            ps.setString(9, evento.getTipoEvento().toString());
+            ps.setString(10, evento.getCor());
+            ps.setString(11, evento.getSituacao());    
+            ps.setInt(12, evento.getRegra().getCodigo());
+            ps.setInt(13, evento.getCodigo());
+            ps.execute();
+
+            conn.commit();
+        } catch(SQLException e) {
+            erro(conn, "Erro ao alterar o evento", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+    }
 }

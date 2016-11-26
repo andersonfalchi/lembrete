@@ -338,11 +338,12 @@ public class TelaEvento extends TelaPadrao {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGravar)
-                    .addComponent(jbExcluir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBConsultar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbGravar)
+                        .addComponent(jbExcluir)
+                        .addComponent(jBConsultar)))
                 .addContainerGap())
         );
 
@@ -350,7 +351,7 @@ public class TelaEvento extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-        Evento evento = new Evento();  
+//        Evento evento = new Evento();  
         try{
             if (this.jCkEmail.isSelected()) {
                 evento.addFormaAlerta(FormaAlerta.EMAIL);
@@ -373,8 +374,17 @@ public class TelaEvento extends TelaPadrao {
             evento.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             evento.setRegra(regra);
             evento.setTipoEvento((TipoEvento) this.jbTipoEvento.getSelectedItem());
-            eventoDao.inserir(evento);
-            JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso!","Cadastro de Evento",JOptionPane.INFORMATION_MESSAGE);
+            
+            if(!jbExcluir.isEnabled()){
+                eventoDao.inserir(evento);
+                JOptionPane.showMessageDialog(null, "Evento cadastrado com sucesso!",
+                        "Cadastro de Eventos",JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                eventoDao.alteraEvento(evento);
+                JOptionPane.showMessageDialog(null, "Evento alterado com sucesso!",
+                        "Cadastro de Eventos",JOptionPane.INFORMATION_MESSAGE);
+            }
+            
             limpar();
         }catch(Exception e){
             e.printStackTrace();
@@ -460,13 +470,14 @@ public class TelaEvento extends TelaPadrao {
                 public void retorno(Evento t) {
                     ativaDesativaCampos("A");
                     evento = t;
-
+                    regra = t.getRegra();
+                    
                     jTxtDescricao.setText(t.getDescricao());
                     jTxtEmail.setText(t.getEmail());
                     jTxtDdd.setText(t.getDdd());
                     jTxtNumero.setText(t.getCelular());
+                    jLblRegraVinculada.setText("Regra vinculada: " +t.getRegra().toString());
                     
-                                      
                     if(t.getTipoEvento().equals("Gasolina")){
                         jbTipoEvento.setToolTipText("Gasolina");
                     }else
@@ -480,19 +491,19 @@ public class TelaEvento extends TelaPadrao {
                         jCkSms.setSelected(false);
                     }
                     
-                    if(t.getFormasAlerta().equals("E-mail")){
+                    if(t.getEnviar(FormaAlerta.EMAIL).equals("S")){
                         jCkEmail.setSelected(true);
                     }else{
                         jCkEmail.setSelected(false);
                     }
                     
-                    if(t.getFormasAlerta().equals("Pop-up")){
+                    if(t.getEnviar(FormaAlerta.POPUP).equals("S")){
                         jCkPopUp.setSelected(true);
                     }else{
                         jCkPopUp.setSelected(false);
                     }
                     
-                    if(t.getFormasAlerta().equals("Notificação")){
+                    if(t.getEnviar(FormaAlerta.NOTIFICACAO).equals("S")){
                         jCkNotificacao.setSelected(true);
                     }else{
                         jCkNotificacao.setSelected(false);
@@ -502,11 +513,11 @@ public class TelaEvento extends TelaPadrao {
                         jCkSituacao.setSelected(true);
                     }else{
                         jCkSituacao.setSelected(false);
-                    }                    
+                    }
                     
                     jbExcluir.setEnabled(true);
                     jbGravar.setEnabled(true);
-                    
+ 
                 }
             });
         
@@ -514,7 +525,6 @@ public class TelaEvento extends TelaPadrao {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jBConsultarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBConsultar;

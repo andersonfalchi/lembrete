@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import net.unesc.banco.*;
@@ -12,6 +13,7 @@ import net.unesc.entidades.*;
 import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.CampoObrigatorioException;
 import net.unesc.exceptions.DataException;
+import net.unesc.exceptions.FormatoDataException;
 import net.unesc.log.LogSistema;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.DiaHora;
@@ -116,4 +118,43 @@ public class RegraEventoDao extends DaoPadrao {
         }
         return lista;
     }
+    
+    public ArrayList<Regra> getRegras(Integer codigo)throws BancoException, CampoObrigatorioException, DataException, FormatoDataException{
+        ArrayList<Regra> lista = new ArrayList<Regra>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Conexao.getConnection();
+            String sql = 
+                " select * "+
+                " from regra_evento "+
+                " where nr_sequencia = ? ";       
+            
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                Regra p = new Regra();
+                p.setCodigo(rs.getInt(1));
+                p.setNome(rs.getString(4));
+                p.setInicioVigencia(rs.getDate(5));
+                p.setFimVigencia(rs.getDate(6));
+                p.setSituacao(rs.getString(7));
+                p.setTipoHorario(rs.getString(8));
+                p.setHora(rs.getString(9));
+                p.setMinuto(rs.getString(10));
+                p.setSegundo(rs.getString(11));
+                p.setMilesimos(rs.getString(12));
+                lista.add(p);
+            }
+        } catch(SQLException e) {
+            erro(conn, "Erro ao buscar as regras", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+        return lista;
+    }
+    
 }
