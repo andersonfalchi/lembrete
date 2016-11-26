@@ -21,6 +21,7 @@ import net.unesc.exceptions.LoginException;
 public class ThreadNotificacao extends Thread {
 
     EventoDao eventoDao = new EventoDao();
+    JavaMailApp email = new JavaMailApp();
     
     @Override
     public void run() {
@@ -110,7 +111,17 @@ public class ThreadNotificacao extends Thread {
             {
                 JOptionPane.showMessageDialog(null, evento.getDescricao(), "Popup de evento", JOptionPane.INFORMATION_MESSAGE);
             }
-            
+            if (evento.isEnviar(FormaAlerta.EMAIL))
+            {
+                try
+                {
+                    email.EnviarEmail(evento);
+                }
+                catch(Exception e )
+                {
+                    e.printStackTrace(System.out);
+                }
+            }
             evento.setUltimaOcorrencia(dataAtual);
            
             try {

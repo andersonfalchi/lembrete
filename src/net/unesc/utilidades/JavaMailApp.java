@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.unesc.utilidades;
-
 import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.Message;
@@ -14,36 +8,17 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import net.unesc.entidades.Evento;
 
 public class JavaMailApp
 {   
-    private String emailDestino, tipoEvento;
- 
-    public void setEmailDestino(String emailDestino){
-        this.emailDestino = emailDestino;
-    }
-    
-    public String getEmailDestino(){
-        return emailDestino;
-    }
-
-    public String getTipoEvento() {
-        return tipoEvento;
-    }
-
-    public void setTipoEvento(String tipoEvento) {
-        this.tipoEvento = tipoEvento;
-    }
-     
-    
-    
-    public void EnviarEmail(){
+    public void EnviarEmail(Evento evento){
           
           String textoEmail;
           Properties props = new Properties();
 
-          textoEmail="Olá,\n\nEsta mensagem foi enviada para lembrá-lo(a) da confirmação de evento.\n\n"+
-            "Tipo de evento: "+getTipoEvento()+".\n\n"+
+          textoEmail="Lembrete de evento.\n\n"+
+            "Evento: "+evento.getDescricao()+".\n\n"+      
             "Esta mensagem foi enviada por um sistema automatico, por favor não responda!";
           
           /** Parâmetros de conexão com servidor Gmail */
@@ -62,7 +37,7 @@ public class JavaMailApp
                       });
 
           /** Ativa Debug para sessão */
-          session.setDebug(true);
+          //session.setDebug(true);
 
           try {
 
@@ -70,7 +45,7 @@ public class JavaMailApp
                 message.setFrom(new InternetAddress("rafael.unesc.teste@gmail.com")); //Remetente
 
                 Address[] toUser = InternetAddress //Destinatário(s)
-                           .parse(getEmailDestino());  
+                           .parse(evento.getEmail());  
 
                 message.setRecipients(Message.RecipientType.TO, toUser);
                 message.setSubject("Lembrete de evento");//Assunto
