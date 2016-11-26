@@ -17,6 +17,7 @@ import net.unesc.entidades.Evento;
 import net.unesc.entidades.FormaAlerta;
 import net.unesc.entidades.Regra;
 import net.unesc.entidades.TipoEvento;
+import net.unesc.exceptions.BancoException;
 import net.unesc.exceptions.FormaAlertaException;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.CorUtil;
@@ -28,6 +29,7 @@ import net.unesc.utilidades.TelaPadrao;
 
 public class TelaEvento extends TelaPadrao {
     private EventoDao eventoDao = new EventoDao();
+    private Evento evento = new Evento();
     private Regra regra = null;    
     
     public TelaEvento() {
@@ -35,7 +37,43 @@ public class TelaEvento extends TelaPadrao {
         LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Cadastro de eventos");
         jbTipoEvento.setModel(new DefaultComboBoxModel(TipoEvento.values()));
     }
+    
+    public void ativaDesativaCampos(String opcao){
+        if(opcao == "A")
+        {
+            jTxtDescricao.setEnabled(true);
+            jCkSms.setEnabled(true);
+            jCkSituacao.setEnabled(true);
+            jCkPopUp.setEnabled(true);
+            jCkNotificacao.setEnabled(true);
+            jCkEmail.setEnabled(true);
+            jTxtCor.setEnabled(true);
+            jTxtDdd.setEnabled(true);
+            jTxtEmail.setEnabled(true);
+            jTxtNumero.setEnabled(true);
+            jbColor.setEnabled(true);
+            jbRegra.setEnabled(true);
+            jbTipoEvento.setEnabled(true);
+        }
+        else
+        {
+            jTxtDescricao.setEnabled(false);
+            jCkSms.setEnabled(false);
+            jCkSituacao.setEnabled(false);
+            jCkPopUp.setEnabled(false);
+            jCkNotificacao.setEnabled(false);
+            jCkEmail.setEnabled(false);
+            jTxtCor.setEnabled(false);
+            jTxtDdd.setEnabled(false);
+            jTxtEmail.setEnabled(false);
+            jTxtNumero.setEnabled(false);
+            jbColor.setEnabled(false);
+            jbRegra.setEnabled(false);
+            jbTipoEvento.setEnabled(false);
+        }
+    }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -64,6 +102,8 @@ public class TelaEvento extends TelaPadrao {
         jLblRegraVinculada = new javax.swing.JLabel();
         jbExcluir = new javax.swing.JButton();
         jbGravar = new javax.swing.JButton();
+        jBNovo = new javax.swing.JButton();
+        jBConsultar = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -73,18 +113,22 @@ public class TelaEvento extends TelaPadrao {
 
         jLabel15.setText("Descrição:");
 
+        jTxtDescricao.setEnabled(false);
         jTxtDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTxtDescricaoActionPerformed(evt);
             }
         });
 
+        jCkSituacao.setSelected(true);
         jCkSituacao.setText("Ativo");
+        jCkSituacao.setEnabled(false);
 
         jLabel16.setText("Forma de Alerta:");
 
         jLabel17.setText("Tipo Evento:");
 
+        jbTipoEvento.setEnabled(false);
         jbTipoEvento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbTipoEventoActionPerformed(evt);
@@ -102,6 +146,7 @@ public class TelaEvento extends TelaPadrao {
         });
 
         jbColor.setText("...");
+        jbColor.setEnabled(false);
         jbColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbColorActionPerformed(evt);
@@ -109,6 +154,7 @@ public class TelaEvento extends TelaPadrao {
         });
 
         jbRegra.setText("Vincular Regra");
+        jbRegra.setEnabled(false);
         jbRegra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegraActionPerformed(evt);
@@ -116,16 +162,26 @@ public class TelaEvento extends TelaPadrao {
         });
 
         jCkEmail.setText("E-mail");
+        jCkEmail.setEnabled(false);
 
         jCkPopUp.setText("POPUP");
+        jCkPopUp.setEnabled(false);
 
         jCkNotificacao.setText("Notificação");
+        jCkNotificacao.setEnabled(false);
 
         jCkSms.setText("SMS");
+        jCkSms.setEnabled(false);
 
         jLabel19.setText("E-mail");
 
+        jTxtEmail.setEnabled(false);
+
         jLabel20.setText("Celular");
+
+        jTxtDdd.setEnabled(false);
+
+        jTxtNumero.setEnabled(false);
 
         jLabel21.setText("Regra");
 
@@ -202,7 +258,7 @@ public class TelaEvento extends TelaPadrao {
                     .addComponent(jCkPopUp)
                     .addComponent(jCkNotificacao)
                     .addComponent(jCkSms))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbRegra, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
@@ -228,6 +284,7 @@ public class TelaEvento extends TelaPadrao {
         );
 
         jbExcluir.setText("Excluir");
+        jbExcluir.setEnabled(false);
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbExcluirActionPerformed(evt);
@@ -235,9 +292,24 @@ public class TelaEvento extends TelaPadrao {
         });
 
         jbGravar.setText("Gravar");
+        jbGravar.setEnabled(false);
         jbGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbGravarActionPerformed(evt);
+            }
+        });
+
+        jBNovo.setText("Novo");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
+            }
+        });
+
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarActionPerformed(evt);
             }
         });
 
@@ -250,11 +322,15 @@ public class TelaEvento extends TelaPadrao {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(165, 165, 165)
+                .addGap(91, 91, 91)
+                .addComponent(jBNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBConsultar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +340,9 @@ public class TelaEvento extends TelaPadrao {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGravar)
-                    .addComponent(jbExcluir))
+                    .addComponent(jbExcluir)
+                    .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBConsultar))
                 .addContainerGap())
         );
 
@@ -313,10 +391,21 @@ public class TelaEvento extends TelaPadrao {
         this.jCkPopUp.setSelected(false);
         this.jCkNotificacao.setSelected(false);
         this.jCkSms.setSelected(false);
+        this.jLblRegraVinculada.setText("");
     }
     
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        
+        try{
+            if(JOptionPane.showConfirmDialog( null,"Deseja realmente excluir o registro?\n"+
+                    evento.getCodigo()+" - "+evento.getDescricao(),
+                    "Exclusão de registros",JOptionPane.YES_NO_OPTION)==0){
+                eventoDao.excluirEvento(evento);
+                limpar();
+                ativaDesativaCampos("D");
+            }
+        }catch(BancoException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());  
+        }        
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jTxtCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCorActionPerformed
@@ -351,8 +440,85 @@ public class TelaEvento extends TelaPadrao {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbTipoEventoActionPerformed
 
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        ativaDesativaCampos("A");
+        jbGravar.setEnabled(true);
+        jbExcluir.setEnabled(false);
+        limpar();
+        evento = new Evento();
+    }//GEN-LAST:event_jBNovoActionPerformed
+
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        try{
+            TelaListaEventos telaListaEventos = new TelaListaEventos();
+            TelaMenuPrincipal.jdPane.add((JInternalFrame)telaListaEventos);
+            Tela.centralizar(telaListaEventos);
+            telaListaEventos.show();
+            
+            telaListaEventos.setRetornoSimples(new RetornoSimples<Evento>() {
+                @Override
+                public void retorno(Evento t) {
+                    ativaDesativaCampos("A");
+                    evento = t;
+
+                    jTxtDescricao.setText(t.getDescricao());
+                    jTxtEmail.setText(t.getEmail());
+                    jTxtDdd.setText(t.getDdd());
+                    jTxtNumero.setText(t.getCelular());
+                    
+                                      
+                    if(t.getTipoEvento().equals("Gasolina")){
+                        jbTipoEvento.setToolTipText("Gasolina");
+                    }else
+                    {
+                        jbTipoEvento.setToolTipText("Almoço");
+                    }
+                    
+                    if(t.getFormasAlerta().equals("SMS")){
+                        jCkSms.setSelected(true);
+                    }else{
+                        jCkSms.setSelected(false);
+                    }
+                    
+                    if(t.getFormasAlerta().equals("E-mail")){
+                        jCkEmail.setSelected(true);
+                    }else{
+                        jCkEmail.setSelected(false);
+                    }
+                    
+                    if(t.getFormasAlerta().equals("Pop-up")){
+                        jCkPopUp.setSelected(true);
+                    }else{
+                        jCkPopUp.setSelected(false);
+                    }
+                    
+                    if(t.getFormasAlerta().equals("Notificação")){
+                        jCkNotificacao.setSelected(true);
+                    }else{
+                        jCkNotificacao.setSelected(false);
+                    }
+                    
+                    if(t.getSituacao().equals("A")){
+                        jCkSituacao.setSelected(true);
+                    }else{
+                        jCkSituacao.setSelected(false);
+                    }                    
+                    
+                    jbExcluir.setEnabled(true);
+                    jbGravar.setEnabled(true);
+                    
+                }
+            });
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBConsultar;
+    private javax.swing.JButton jBNovo;
     private javax.swing.JCheckBox jCkEmail;
     private javax.swing.JCheckBox jCkNotificacao;
     private javax.swing.JCheckBox jCkPopUp;

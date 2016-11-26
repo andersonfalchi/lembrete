@@ -143,4 +143,80 @@ public class EventoDao extends DaoPadrao {
         }
         return lista;
     }
+    
+    public void excluirEvento(Evento evento) throws BancoException{
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Conexao.getConnection();
+            String sql = "delete from evento where nr_sequencia = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, evento.getCodigo());
+            ps.execute();
+            conn.commit();
+            LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu um Cadastro de evento");
+        } catch(SQLException e) {
+            erro(conn, "Erro ao excluir evento", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+    }
+    
+    public ArrayList<Evento> getAll() throws BancoException, CampoObrigatorioException {
+        ArrayList<Evento> lista = new ArrayList<Evento>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Conexao.getConnection();
+            String sql = 
+                " select * "+
+                " from evento";
+            ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Evento p = new Evento();
+                p.setCodigo(rs.getInt(1));
+                p.setDescricao(rs.getString(4));
+                
+                if(rs.getString(5).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.EMAIL);
+                }
+                
+                if(rs.getString(6).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.SMS);
+                }
+                
+                if(rs.getString(7).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.POPUP);
+                }
+                
+                if(rs.getString(8).equals("S")){
+                    p.addFormaAlerta(FormaAlerta.NOTIFICACAO);
+                }
+                
+                p.setEmail(rs.getString(9));
+                p.setDdd(rs.getString(10));
+                p.setCelular(rs.getString(11));
+                
+                if(rs.getString(12).toUpperCase().equals("GASOLINA")){    
+                    p.setTipoEvento((TipoEvento.GASOLINA));
+                }else
+                {
+                    p.setTipoEvento((TipoEvento.ALMOCO));
+                }
+                
+                p.setCor(rs.getString(13));
+                p.setSituacao(rs.getString(14));
+                
+                lista.add(p);
+            }
+        } catch(SQLException e) {
+            erro(conn, "Erro ao buscar os eventos", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+        return lista;
+    }
+    
 }
