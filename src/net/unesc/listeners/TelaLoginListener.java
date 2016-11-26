@@ -13,13 +13,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import net.unesc.aplicacao.Aplicacao;
 import net.unesc.aplicacao.TelaMenuPrincipal;
+import net.unesc.utilidades.ThreadNotificacao;
 
 public class TelaLoginListener implements ActionListener {
 
     private JFrame tela;
     private JTextField txtLogin;   
     private JTextField txtSenha;
-
+    public static final ThreadNotificacao NOTIFICACOES__THREAD = new ThreadNotificacao();
+    
     public TelaLoginListener(JFrame tela, JTextField txtLogin, JTextField txtSenha) {
         this.tela = tela;
         this.txtLogin = txtLogin;
@@ -34,7 +36,9 @@ public class TelaLoginListener implements ActionListener {
                 {
                     Aplicacao.SESSAO.entrar(this.txtLogin.getText(), this.txtSenha.getText());
                     tela.setVisible(false);
-
+                    
+                    NOTIFICACOES__THREAD.start();
+                    
                     Aplicacao.TELA_MENU_PRINCIPAL = new TelaMenuPrincipal();
                     Aplicacao.TELA_MENU_PRINCIPAL.setVisible(true);
                     Aplicacao.TELA_MENU_PRINCIPAL.setExtendedState(MAXIMIZED_BOTH);         

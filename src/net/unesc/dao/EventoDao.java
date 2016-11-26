@@ -121,6 +121,7 @@ public class EventoDao extends DaoPadrao {
                 " dia_sab" +
                 " from evento, regra_evento " +
                 " where evento.ie_situacao = 'A'" +
+                " and regra_evento.ie_situacao = 'A'"+    
                 " and regra_evento.nr_sequencia = evento.nr_seq_regra ";
             ps = conn.prepareStatement(sql);
 
@@ -132,7 +133,7 @@ public class EventoDao extends DaoPadrao {
                 Regra p = new Regra();
                 p.fromResultSet(rs);
                 e.setRegra(p);  
-                
+               // System.out.println(e.toString());
                 lista.add(e);
             }
         } catch(SQLException|CampoObrigatorioException e) {

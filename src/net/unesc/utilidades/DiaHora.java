@@ -39,8 +39,33 @@ public class DiaHora {
     public static int pegaDiaSemana(Date date1) {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(date1);
-        return c1.get(Calendar.DAY_OF_WEEK);
+        return c1.get(Calendar.DAY_OF_WEEK)-1;
     }
+    
+    public static int pegaHora(Date date1){
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+        return c1.get(Calendar.HOUR_OF_DAY);
+    }
+    
+    public static int pegaMinuto(Date date1){
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+        return c1.get(Calendar.MINUTE);
+    }
+    
+    public static int pegaSegundo(Date date1){
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+        return c1.get(Calendar.SECOND);
+    }
+    
+    public static int pegaMilesimo(Date date1){
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+        return c1.get(Calendar.MILLISECOND);
+    }
+    
     public static boolean beforeSemHorario(Date date1, Date date2) {
             Calendar c1 = Calendar.getInstance();
             c1.setTime(date1);

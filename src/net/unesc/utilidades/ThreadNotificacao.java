@@ -46,6 +46,7 @@ public class ThreadNotificacao extends Thread {
     
     private void checaDispararEvento(Evento evento) {
         Regra regra = evento.getRegra();
+        
         Date dataAtual = new Date();
         try
         {
@@ -57,29 +58,48 @@ public class ThreadNotificacao extends Thread {
         }
         
         try
-        {
+        {  
             if (evento.getUltimaOcorrencia() != null)
             {
                 Date ultimaOcorrencia = DiaHora.adiciona(evento.getUltimaOcorrencia(), Calendar.MILLISECOND, 0);
-
-                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MILLISECOND, regra.getMilesimos());
-                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.SECOND, regra.getSegundo());
-                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MINUTE, regra.getMinuto());
-                ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, regra.getHora());
-
+                
+                if(regra.getTipoHorario().equals("CH"))
+                {
+                    ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MILLISECOND, regra.getMilesimos());               
+                    ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.SECOND, regra.getSegundo());
+                    ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MINUTE, regra.getMinuto());
+                    ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, regra.getHora());
+                    
+                }else{
+                    
+                    ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, 24);  
+                    
+                }
+                
                 if (ultimaOcorrencia.after(dataAtual))
                 {
-                    return;
+                   return;
                 }
             }
             
             if (DiaHora.beforeSemHorario(dataAtual, regra.getInicioVigencia()))
-                throw new EventoInativoException();
+                throw new EventoInativoException();           
+            
             if (DiaHora.afterSemHorario(dataAtual, regra.getFimVigencia()))
                 throw new EventoInativoException();
-            if (!regra.getDiaSemana(DiaHora.pegaDiaSemana(dataAtual)))
-                throw new EventoInativoException();
-
+            
+            if(regra.getTipoHorario().equals("HF")){
+                if (!regra.getDiaSemana(DiaHora.pegaDiaSemana(dataAtual)))
+                    throw new EventoInativoException();
+                
+                if(DiaHora.pegaHora(dataAtual)!=regra.getHora()||
+                        DiaHora.pegaMinuto(dataAtual)!=regra.getMinuto()||
+                        DiaHora.pegaSegundo(dataAtual)!=regra.getSegundo()){
+                   
+                    return;
+                }
+            }   
+            
             if (evento.isEnviar(FormaAlerta.NOTIFICACAO) && NOTIFICACAO != null)
             {
                 NOTIFICACAO.ICON.displayMessage("Notificação de evento", 
@@ -92,6 +112,7 @@ public class ThreadNotificacao extends Thread {
             }
             
             evento.setUltimaOcorrencia(dataAtual);
+           
             try {
                 eventoDao.atualiza(evento);
             } catch (BancoException|FormaAlertaException ex) {
