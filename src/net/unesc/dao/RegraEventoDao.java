@@ -109,6 +109,48 @@ public class RegraEventoDao extends DaoPadrao {
                 p.setSegundo(rs.getInt(11));
                 p.setMilesimos(rs.getInt(12));
                 
+                if(rs.getInt(13) == 0){
+                    p.setDiaSemana(0, true);
+                }else{
+                    p.setDiaSemana(0, false);
+                }
+                
+                if(rs.getInt(14) == 0){
+                    p.setDiaSemana(1, true);
+                }else{
+                    p.setDiaSemana(1, false);
+                }
+                
+                if(rs.getInt(15) == 0){
+                    p.setDiaSemana(2, true);
+                }else{
+                    p.setDiaSemana(2, false);
+                }
+                
+                if(rs.getInt(16) == 0){
+                    p.setDiaSemana(3, true);
+                }else{
+                    p.setDiaSemana(3, false);
+                }
+                
+                if(rs.getInt(17) == 0){
+                    p.setDiaSemana(4, true);
+                }else{
+                    p.setDiaSemana(4, false);
+                }
+                
+                if(rs.getInt(18) == 0){
+                    p.setDiaSemana(5, true);
+                }else{
+                    p.setDiaSemana(5, false);
+                }
+                
+                if(rs.getInt(19) == 0){
+                    p.setDiaSemana(6, true);
+                }else{
+                    p.setDiaSemana(6, false);
+                }
+                
                 lista.add(p);
             }
         } catch(SQLException|CampoObrigatorioException|DataException e) {
@@ -155,6 +197,24 @@ public class RegraEventoDao extends DaoPadrao {
             finaliza(conn, ps);
         }
         return lista;
+    }
+    
+    public void excluirRegra(Regra regra) throws BancoException{
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = Conexao.getConnection();
+            String sql = "delete from regra_evento where nr_sequencia = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, regra.getCodigo());
+            ps.execute();
+            conn.commit();
+            LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu um Cadastro de Regra");
+        } catch(SQLException e) {
+            erro(conn, "Erro ao excluir Regra", e);
+        } finally {
+            finaliza(conn, ps);
+        }
     }
     
 }

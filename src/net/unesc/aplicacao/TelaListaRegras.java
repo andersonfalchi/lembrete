@@ -64,6 +64,7 @@ public class TelaListaRegras extends TelaPadrao {
         jBtNovo = new javax.swing.JButton();
         jBtSelecionar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jBtAlterar = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -93,6 +94,14 @@ public class TelaListaRegras extends TelaPadrao {
 
         jLabel1.setText("Pesquisar");
 
+        jBtAlterar.setText("Alterar");
+        jBtAlterar.setEnabled(false);
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,11 +111,13 @@ public class TelaListaRegras extends TelaPadrao {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(srcContatos, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(72, 72, 72)
                         .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(80, 80, 80))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -125,8 +136,9 @@ public class TelaListaRegras extends TelaPadrao {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSelecionar)
-                    .addComponent(jBtNovo))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAlterar))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,9 +149,11 @@ public class TelaListaRegras extends TelaPadrao {
         if (regra != null) {
             this.regraSelecionada = regra;
             jBtSelecionar.setEnabled(true);
+            jBtAlterar.setEnabled(true);
         }
         else {
             jBtSelecionar.setEnabled(false);
+            jBtAlterar.setEnabled(false);
         }
     }//GEN-LAST:event_jListRegrasValueChanged
 
@@ -153,8 +167,14 @@ public class TelaListaRegras extends TelaPadrao {
         dispose();
     }//GEN-LAST:event_jBtSelecionarActionPerformed
 
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        retornoSimples.retorno(regraSelecionada);
+        telaRegra(regraSelecionada);
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtSelecionar;
     private javax.swing.JLabel jLabel1;

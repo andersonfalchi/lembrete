@@ -2,18 +2,25 @@ package net.unesc.aplicacao;
 
 import net.unesc.log.LogSistema;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import net.unesc.dao.RegraEventoDao;
+import net.unesc.entidades.FormaAlerta;
 import net.unesc.entidades.Regra;
+import net.unesc.exceptions.BancoException;
 import net.unesc.log.TipoLog;
+import net.unesc.utilidades.DiaHora;
 import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.TelaPadrao;
 
 public class TelaRegra extends TelaPadrao {
     private RegraEventoDao regraEventoDao = new RegraEventoDao();
     private RetornoSimples<Regra> retornoSimples;
-
+    DiaHora diaHora = new DiaHora();
+    
+    Regra regra = new Regra();
+    
     public void setRetornoSimples(RetornoSimples<Regra> retornoSimples) {
         this.retornoSimples = retornoSimples;
     }
@@ -39,10 +46,77 @@ public class TelaRegra extends TelaPadrao {
         dataMaskFim.install(jTxtFimVigencia);
     }
     
-    private void preenche(Regra regra) {
+    private void preenche(Regra regra)  {
         if (regra != null)
         {
-//        jTxtInicioVigencia.setText(regra.getInicioVigencia());
+            jTxtDescricao.setText(regra.getNome());
+            jTxtInicioVigencia.setText(diaHora.formatarData(regra.getInicioVigencia(),"dd/MM/yyyy"));
+            jTxtFimVigencia.setText(diaHora.formatarData(regra.getFimVigencia(),"dd/MM/yyyy"));
+            jTxtHoras.setText(regra.getHora().toString());
+            jTxtMinutos.setText(regra.getMinuto().toString());
+            jTxtSegundos.setText(regra.getSegundo().toString());
+            jTxtMilesimos.setText(regra.getMilesimos().toString());
+            
+          
+            
+            if(regra.getSituacao().equals("A")){
+                jCkSituacao.setSelected(true);
+            }else{
+                jCkSituacao.setSelected(false);
+            }
+            
+            if(regra.getTipoHorario().equals("CH")){
+                this.jRadioCadaHora.setSelected(true);
+                this.jRadioHoraFixo.setSelected(false);
+            }else{
+                this.jRadioCadaHora.setSelected(false);
+                this.jRadioHoraFixo.setSelected(true);
+            }
+            
+            System.out.println(regra.getDiaSemana(0));
+            
+            if(regra.getDiaSemana(0)){
+                jCkDomingo.setSelected(true);
+            }else{
+                jCkDomingo.setSelected(false);
+            }
+            
+            if(regra.getDiaSemana(1)){
+                jCkSegunda.setSelected(true);
+            }else{
+                jCkSegunda.setSelected(false);
+            }
+            
+            if(regra.getDiaSemana(2)){
+                jCkTerca.setSelected(true);
+            }else{
+                jCkTerca.setSelected(false);
+            }
+            
+            if(regra.getDiaSemana(3)){
+                jCkQuarta.setSelected(true);
+            }else{
+                jCkQuarta.setSelected(false);
+            }
+            
+            if(regra.getDiaSemana(4)){
+                jCkQuinta.setSelected(true);
+            }else{
+                jCkQuinta.setSelected(false);
+            }
+            
+            if(regra.getDiaSemana(5)){
+                jCkSexta.setSelected(true);
+            }else{
+                jCkSexta.setSelected(false);
+            }
+            
+            if(regra.getDiaSemana(6)){
+                jCkSabado.setSelected(true);
+            }else{
+                jCkSabado.setSelected(false);
+            }
+            
         }
     }
     
@@ -406,7 +480,7 @@ public class TelaRegra extends TelaPadrao {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try
         {
-            Regra regra = new Regra();
+            //Regra regra = new Regra();
             regra.setNome(jTxtDescricao.getText());
             regra.setUsuario(Aplicacao.SESSAO.usuario());
             regra.setDiaSemana(0, this.jCkDomingo.isSelected());
@@ -440,7 +514,22 @@ public class TelaRegra extends TelaPadrao {
     }//GEN-LAST:event_jbGravarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        LogSistema.inserir(TipoLog.EXCLUSAO, "Excluiu uma Regra do Evento");
+        try{
+            if(JOptionPane.showConfirmDialog( null,"Deseja realmente excluir o registro?\n"+
+                    "Regra: "+regra.getCodigo()+" - "+regra.getNome(),
+                    "Exclusão de registros",JOptionPane.YES_NO_OPTION)==0){
+                regraEventoDao.excluirRegra(regra);
+                limpar();
+                //ativaDesativaCampos("D");
+                
+                if (retornoSimples != null)
+                    retornoSimples.retorno(regra);
+                limpar();
+                setVisible(false);
+            }
+        }catch(BancoException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());  
+        }
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jRadioHoraFixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioHoraFixoActionPerformed
