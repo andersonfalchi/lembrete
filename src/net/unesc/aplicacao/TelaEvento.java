@@ -351,11 +351,13 @@ public class TelaEvento extends TelaPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
-//        Evento evento = new Evento();  
+        Integer codigo = evento.getCodigo();
+        Evento evento = new Evento();  
         try{
             if (this.jCkEmail.isSelected()) {
                 evento.addFormaAlerta(FormaAlerta.EMAIL);
             }
+            
             if (this.jCkPopUp.isSelected()) {
                 evento.addFormaAlerta(FormaAlerta.POPUP);
             }
@@ -374,6 +376,7 @@ public class TelaEvento extends TelaPadrao {
             evento.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             evento.setRegra(regra);
             evento.setTipoEvento((TipoEvento) this.jbTipoEvento.getSelectedItem());
+            evento.setCodigo(codigo);
             
             if(!jbExcluir.isEnabled()){
                 eventoDao.inserir(evento);
@@ -433,8 +436,16 @@ public class TelaEvento extends TelaPadrao {
         telaRegra.setRetornoSimples(new RetornoSimples<Regra>() {
             @Override
             public void retorno(Regra t) {
+                String regraVinc;
                 regra = t;
-                jLblRegraVinculada.setText("Regra vinculada: " + regra.toString());
+                if(regra.toString().length() >= 30){
+                    regraVinc = regra.toString().substring(1, 30)+"...";
+                    
+                }else{
+                    regraVinc = regra.toString();
+                }
+                
+                jLblRegraVinculada.setText("Regra vinculada: " + regraVinc);
             }
         });
         TelaMenuPrincipal.jdPane.add((JInternalFrame)telaRegra);
@@ -468,6 +479,7 @@ public class TelaEvento extends TelaPadrao {
             telaListaEventos.setRetornoSimples(new RetornoSimples<Evento>() {
                 @Override
                 public void retorno(Evento t) {
+                    String regraVinc;
                     ativaDesativaCampos("A");
                     evento = t;
                     regra = t.getRegra();
@@ -476,7 +488,15 @@ public class TelaEvento extends TelaPadrao {
                     jTxtEmail.setText(t.getEmail());
                     jTxtDdd.setText(t.getDdd());
                     jTxtNumero.setText(t.getCelular());
-                    jLblRegraVinculada.setText("Regra vinculada: " +t.getRegra().toString());
+            
+                    if(t.getRegra().toString().length() >= 30){
+                        regraVinc = regra.toString().substring(1, 30)+"...";
+                    
+                    }else{
+                        regraVinc = regra.toString();
+                    }
+                
+                    jLblRegraVinculada.setText("Regra vinculada: " + regraVinc);
                     
                     if(t.getTipoEvento().equals("Gasolina")){
                         jbTipoEvento.setToolTipText("Gasolina");

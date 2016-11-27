@@ -71,7 +71,6 @@ public class ThreadNotificacao extends Thread {
                     ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.SECOND, regra.getSegundo());
                     ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.MINUTE, regra.getMinuto());
                     ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, regra.getHora());
-                    
                 }else{
                     
                     ultimaOcorrencia = DiaHora.adiciona(ultimaOcorrencia, Calendar.HOUR, 24);  
@@ -103,7 +102,7 @@ public class ThreadNotificacao extends Thread {
             }   
             
             if (evento.isEnviar(FormaAlerta.NOTIFICACAO) && NOTIFICACAO != null)
-            {
+            {   
                 NOTIFICACAO.ICON.displayMessage("Notificação de evento", 
                         evento.getDescricao(),
                         TrayIcon.MessageType.INFO);
