@@ -28,6 +28,15 @@ public class TelaRegra extends TelaPadrao {
         this.retornoSimples = retornoSimples;
     }
     
+    public TelaRegra(boolean botaoSelecionarAtivo)
+    {
+        this();
+        if (botaoSelecionarAtivo)
+        {
+           jbSelecionar.setVisible(true);
+        }
+    }
+    
     public TelaRegra(Regra regra) {
         this();
         preenche(regra);
@@ -36,6 +45,8 @@ public class TelaRegra extends TelaPadrao {
     
     public TelaRegra() {
         initComponents();
+        jbSelecionar.setVisible(false);
+        ativaDesativaCampos(false);
         LogSistema.inserir(TipoLog.FUNCAO, "Abriu a função Regra do Evento");
         MaskFormatter dataMaskInicio = new MaskFormatter();
         MaskFormatter dataMaskFim = new MaskFormatter();
@@ -57,6 +68,7 @@ public class TelaRegra extends TelaPadrao {
     private void preenche(Regra regra)  {
         if (regra != null)
         {
+            jTxtCodigo.setText(regra.getCodigo().toString());
             jTxtDescricao.setText(regra.getNome());
             jTxtInicioVigencia.setText(diaHora.formatarData(regra.getInicioVigencia(),"dd/MM/yyyy"));
             jTxtFimVigencia.setText(diaHora.formatarData(regra.getFimVigencia(),"dd/MM/yyyy"));
@@ -74,13 +86,13 @@ public class TelaRegra extends TelaPadrao {
             if(regra.getTipoHorario().equals("CH")){
                 this.jRadioCadaHora.setSelected(true);
                 this.jRadioHoraFixo.setSelected(false);
-                desativaAtivaDias("D");
+                desativaAtivaDias(false);
                 limpaDias();
                 
             }else{
                 this.jRadioCadaHora.setSelected(false);
                 this.jRadioHoraFixo.setSelected(true);
-                desativaAtivaDias("A");
+                desativaAtivaDias(true);
                 
                 if(!regra.getDiaSemana(0)){
                     jCkDomingo.setSelected(true);
@@ -146,29 +158,19 @@ public class TelaRegra extends TelaPadrao {
         this.jCkTodos.setSelected(false);
     }
     
-    private void desativaAtivaDias(String opcao){
-        if(opcao.equals("A")){
-            this.jCkDomingo.setEnabled(true);
-            this.jCkSegunda.setEnabled(true);
-            this.jCkTerca.setEnabled(true);
-            this.jCkQuarta.setEnabled(true);
-            this.jCkQuinta.setEnabled(true);
-            this.jCkSexta.setEnabled(true);
-            this.jCkSabado.setEnabled(true);
-            this.jCkTodos.setEnabled(true);
-        }else{
-            this.jCkDomingo.setEnabled(false);
-            this.jCkSegunda.setEnabled(false);
-            this.jCkTerca.setEnabled(false);
-            this.jCkQuarta.setEnabled(false);
-            this.jCkQuinta.setEnabled(false);
-            this.jCkSexta.setEnabled(false);
-            this.jCkSabado.setEnabled(false);
-            this.jCkTodos.setEnabled(false);
-        }
+    private void desativaAtivaDias(boolean ativa){
+        this.jCkDomingo.setEnabled(ativa);
+        this.jCkSegunda.setEnabled(ativa);
+        this.jCkTerca.setEnabled(ativa);
+        this.jCkQuarta.setEnabled(ativa);
+        this.jCkQuinta.setEnabled(ativa);
+        this.jCkSexta.setEnabled(ativa);
+        this.jCkSabado.setEnabled(ativa);
+        this.jCkTodos.setEnabled(ativa);
     }
     
     private void limpar() {
+        this.jTxtCodigo.setText("");
         this.jTxtDescricao.setText("");
         this.jTxtInicioVigencia.setText("");
         this.jTxtFimVigencia.setText("");
@@ -177,7 +179,7 @@ public class TelaRegra extends TelaPadrao {
         this.jTxtSegundos.setText("");
         this.jTxtMilesimos.setText("");
         
-        desativaAtivaDias("A");
+        desativaAtivaDias(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -192,6 +194,8 @@ public class TelaRegra extends TelaPadrao {
         jLabel17 = new javax.swing.JLabel();
         jTxtFimVigencia = new javax.swing.JFormattedTextField();
         jTxtInicioVigencia = new javax.swing.JFormattedTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jTxtCodigo = new javax.swing.JFormattedTextField();
         jbExcluir = new javax.swing.JButton();
         jbGravar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -216,6 +220,7 @@ public class TelaRegra extends TelaPadrao {
         jTxtMilesimos = new javax.swing.JFormattedTextField();
         jBConsultar = new javax.swing.JButton();
         jBNovo = new javax.swing.JButton();
+        jbSelecionar = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -232,46 +237,59 @@ public class TelaRegra extends TelaPadrao {
 
         jLabel17.setText("Fim Vigência");
 
+        jLabel22.setText("Código");
+
+        jTxtCodigo.setEditable(false);
+        jTxtCodigo.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel22)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(31, 31, 31)
+                            .addComponent(jLabel15))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel16))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTxtInicioVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                        .addComponent(jTxtInicioVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtFimVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTxtFimVigencia))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCkSituacao))
                     .addComponent(jTxtDescricao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCkSituacao)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCkSituacao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCkSituacao))
+                    .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel17)
                     .addComponent(jTxtFimVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtInicioVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         jbExcluir.setText("Excluir");
@@ -283,6 +301,7 @@ public class TelaRegra extends TelaPadrao {
         });
 
         jbGravar.setText("Gravar");
+        jbGravar.setEnabled(false);
         jbGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbGravarActionPerformed(evt);
@@ -370,13 +389,13 @@ public class TelaRegra extends TelaPadrao {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jCkSabado)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCkTodos)
                     .addComponent(jCkQuarta)
                     .addComponent(jCkSexta)
                     .addComponent(jCkSegunda))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,7 +497,7 @@ public class TelaRegra extends TelaPadrao {
                     .addComponent(jTxtSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
                     .addComponent(jTxtMilesimos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBConsultar.setText("Consultar");
@@ -495,6 +514,14 @@ public class TelaRegra extends TelaPadrao {
             }
         });
 
+        jbSelecionar.setText("Selecionar");
+        jbSelecionar.setEnabled(false);
+        jbSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSelecionarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -502,19 +529,21 @@ public class TelaRegra extends TelaPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jbExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -522,17 +551,18 @@ public class TelaRegra extends TelaPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbExcluir)
-                    .addComponent(jbGravar)
+                    .addComponent(jbExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbSelecionar))
+                .addContainerGap())
         );
 
         pack();
@@ -541,6 +571,7 @@ public class TelaRegra extends TelaPadrao {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try
         {
+            regra.setCodigo(jTxtCodigo.getText());
             regra.setNome(jTxtDescricao.getText());
             regra.setUsuario(Aplicacao.SESSAO.usuario());
             regra.setDiaSemana(0, this.jCkDomingo.isSelected());
@@ -559,17 +590,24 @@ public class TelaRegra extends TelaPadrao {
             regra.setTipoHorario(jRadioCadaHora.isSelected() ? "CH" : "HF");
             regra.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             
-            if(!jbExcluir.isEnabled()){
+            if(regra.getCodigo() == null){
                 regraEventoDao.inserir(regra);
+                JOptionPane.showMessageDialog(null, "Regra cadastrada com sucesso!",
+                        "Cadastro de Eventos",JOptionPane.INFORMATION_MESSAGE);
             }else{
-                //regraEventoDao.alterar(regra);
+                regraEventoDao.atualizar(regra);
+                JOptionPane.showMessageDialog(null, "Regra alterada com sucesso!",
+                        "Cadastro de Eventos",JOptionPane.INFORMATION_MESSAGE);
             }
                         
             if (retornoSimples != null)
                 retornoSimples.retorno(regra);
             limpar();
             ativaDesativaCampos(false);
-//            setVisible(false);
+            
+            jbSelecionar.setEnabled(false);
+            jbExcluir.setEnabled(false);
+            jbGravar.setEnabled(false);
         }
         catch(Exception e)
         {
@@ -584,13 +622,15 @@ public class TelaRegra extends TelaPadrao {
                     "Regra: "+regra.getCodigo()+" - "+regra.getNome(),
                     "Exclusão de registros",JOptionPane.YES_NO_OPTION)==0){
                 regraEventoDao.excluirRegra(regra);
-                limpar();
-                //ativaDesativaCampos("D");
+                ativaDesativaCampos(false);
                 
                 if (retornoSimples != null)
                     retornoSimples.retorno(regra);
                 limpar();
-                setVisible(false);
+                
+                jbSelecionar.setEnabled(false);
+                jbExcluir.setEnabled(false);
+                jbGravar.setEnabled(false);
             }
         }catch(BancoException e){
             JOptionPane.showMessageDialog(this, e.getMessage());  
@@ -601,40 +641,14 @@ public class TelaRegra extends TelaPadrao {
         this.jRadioCadaHora.setSelected(false);
         this.jRadioHoraFixo.setSelected(true);
         
-        this.jCkDomingo.setEnabled(true);
-        this.jCkSegunda.setEnabled(true);
-        this.jCkTerca.setEnabled(true);
-        this.jCkQuarta.setEnabled(true);
-        this.jCkQuinta.setEnabled(true);
-        this.jCkSexta.setEnabled(true);
-        this.jCkSabado.setEnabled(true);
-        this.jCkTodos.setEnabled(true);
-        
+        desativaAtivaDias(true);
     }//GEN-LAST:event_jRadioHoraFixoActionPerformed
 
     private void jRadioCadaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioCadaHoraActionPerformed
         this.jRadioHoraFixo.setSelected(false);
         this.jRadioCadaHora.setSelected(true);
         
-        this.jCkDomingo.setSelected(false);
-        this.jCkSegunda.setSelected(false);
-        this.jCkTerca.setSelected(false);
-        this.jCkQuarta.setSelected(false);
-        this.jCkQuinta.setSelected(false);
-        this.jCkSexta.setSelected(false);
-        this.jCkSabado.setSelected(false);
-        this.jCkTodos.setSelected(false);
-        
-        this.jCkDomingo.setEnabled(false);
-        this.jCkSegunda.setEnabled(false);
-        this.jCkTerca.setEnabled(false);
-        this.jCkQuarta.setEnabled(false);
-        this.jCkQuinta.setEnabled(false);
-        this.jCkSexta.setEnabled(false);
-        this.jCkSabado.setEnabled(false);
-        this.jCkTodos.setEnabled(false);
-
-            
+       desativaAtivaDias(false);
     }//GEN-LAST:event_jRadioCadaHoraActionPerformed
 
     private void jCkTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCkTodosActionPerformed
@@ -772,9 +786,11 @@ public class TelaRegra extends TelaPadrao {
             telaListaRegras.setRetornoSimples(new RetornoSimples<Regra>() {
                 @Override
                 public void retorno(Regra t) {
+                    regra = t;
                     ativaDesativaCampos(true);
                     jbExcluir.setEnabled(true);
                     jbGravar.setEnabled(true);
+                    jbSelecionar.setEnabled(true);
                     preenche(t);
                 }
             });
@@ -793,17 +809,27 @@ public class TelaRegra extends TelaPadrao {
         regra = new Regra();
     }//GEN-LAST:event_jBNovoActionPerformed
 
+    private void jbSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelecionarActionPerformed
+        // TODO add your handling code here:
+        if (retornoSimples != null)
+            retornoSimples.retorno(regra);
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_jbSelecionarActionPerformed
+
     private void ativaDesativaCampos(boolean ativa) {
-        if (ativa)
-        {
-            
-        }
-        else
-        {
-            
-        }
+        jCkSituacao.setEnabled(ativa);
+        jTxtDescricao.setEnabled(ativa);
+        jTxtInicioVigencia.setEnabled(ativa);
+        jTxtFimVigencia.setEnabled(ativa);
+        jTxtHoras.setEnabled(ativa);
+        jTxtMinutos.setEnabled(ativa);
+        jTxtSegundos.setEnabled(ativa);
+        jTxtMilesimos.setEnabled(ativa);
+        jRadioCadaHora.setEnabled(ativa);
+        jRadioHoraFixo.setEnabled(ativa);
+        desativaAtivaDias(ativa);
     }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBConsultar;
@@ -824,11 +850,13 @@ public class TelaRegra extends TelaPadrao {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioCadaHora;
     private javax.swing.JRadioButton jRadioHoraFixo;
+    private javax.swing.JFormattedTextField jTxtCodigo;
     private javax.swing.JTextField jTxtDescricao;
     private javax.swing.JFormattedTextField jTxtFimVigencia;
     private javax.swing.JFormattedTextField jTxtHoras;
@@ -838,5 +866,6 @@ public class TelaRegra extends TelaPadrao {
     private javax.swing.JFormattedTextField jTxtSegundos;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbGravar;
+    private javax.swing.JButton jbSelecionar;
     // End of variables declaration//GEN-END:variables
 }

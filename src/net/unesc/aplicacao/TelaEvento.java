@@ -434,7 +434,7 @@ public class TelaEvento extends TelaPadrao {
     }//GEN-LAST:event_jbColorActionPerformed
 
     private void jbRegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegraActionPerformed
-        TelaListaRegras telaRegra = new TelaListaRegras();
+        TelaRegra telaRegra = new TelaRegra(true);
         telaRegra.setRetornoSimples(new RetornoSimples<Regra>() {
             @Override
             public void retorno(Regra t) {

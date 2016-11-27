@@ -35,6 +35,19 @@ public class Regra {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
+    
+    public void setCodigo(String codigo) {
+        if (codigo == null)
+            return;
+        try
+        {
+            this.codigo = Integer.parseInt(codigo);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     
     

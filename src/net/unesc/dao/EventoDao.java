@@ -35,12 +35,17 @@ public class EventoDao extends DaoPadrao {
         PreparedStatement ps = null;
         
         try {
+            Timestamp timestamp = new Timestamp(new java.util.Date().getTime());
+            if (evento.getUltimaOcorrencia() != null)
+            {
+                timestamp =  new Timestamp(evento.getUltimaOcorrencia().getTime());
+            }
             conn = Conexao.getConnection();
             String sql = "update evento set ie_situacao = ?, dt_ultima_execucao = ? where nr_sequencia = ?";
             
             ps = conn.prepareStatement(sql);
             ps.setString(1, evento.getSituacao());
-            ps.setTimestamp(2, new Timestamp(evento.getUltimaOcorrencia().getTime()));    
+            ps.setTimestamp(2, timestamp);    
             ps.setInt(3, evento.getCodigo());
             ps.execute();
             conn.commit();

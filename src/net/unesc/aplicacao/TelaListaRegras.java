@@ -61,10 +61,8 @@ public class TelaListaRegras extends TelaPadrao {
         srcContatos = new javax.swing.JScrollPane();
         jListRegras = new javax.swing.JList();
         jTxtPesquisar = new javax.swing.JTextField();
-        jBtNovo = new javax.swing.JButton();
         jBtSelecionar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jBtAlterar = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -77,13 +75,6 @@ public class TelaListaRegras extends TelaPadrao {
         });
         srcContatos.setViewportView(jListRegras);
 
-        jBtNovo.setText("Nova regra");
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
         jBtSelecionar.setText("Selecionar");
         jBtSelecionar.setEnabled(false);
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,14 +85,6 @@ public class TelaListaRegras extends TelaPadrao {
 
         jLabel1.setText("Pesquisar");
 
-        jBtAlterar.setText("Alterar");
-        jBtAlterar.setEnabled(false);
-        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,19 +92,14 @@ public class TelaListaRegras extends TelaPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(srcContatos, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80))
+                    .addComponent(srcContatos, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtPesquisar)))
+                        .addComponent(jTxtPesquisar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,12 +111,9 @@ public class TelaListaRegras extends TelaPadrao {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(srcContatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtSelecionar)
-                    .addComponent(jBtNovo)
-                    .addComponent(jBtAlterar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSelecionar)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,17 +124,11 @@ public class TelaListaRegras extends TelaPadrao {
         if (regra != null) {
             this.regraSelecionada = regra;
             jBtSelecionar.setEnabled(true);
-            jBtAlterar.setEnabled(true);
         }
         else {
             jBtSelecionar.setEnabled(false);
-            jBtAlterar.setEnabled(false);
         }
     }//GEN-LAST:event_jListRegrasValueChanged
-
-    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        telaRegra(null);
-    }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
         retornoSimples.retorno(regraSelecionada);
@@ -167,15 +136,8 @@ public class TelaListaRegras extends TelaPadrao {
         dispose();
     }//GEN-LAST:event_jBtSelecionarActionPerformed
 
-    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        retornoSimples.retorno(regraSelecionada);
-        telaRegra(regraSelecionada);
-    }//GEN-LAST:event_jBtAlterarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtAlterar;
-    private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtSelecionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jListRegras;

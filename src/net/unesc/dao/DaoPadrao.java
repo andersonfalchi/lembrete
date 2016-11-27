@@ -40,6 +40,8 @@ public class DaoPadrao {
             } catch (SQLException ex) {
             }
         }
-        throw new BancoException(mensagem+":"+e.getMessage());
+        if (e != null)
+            mensagem += ":"+e.getMessage();
+        throw new BancoException(mensagem);
     }
 }

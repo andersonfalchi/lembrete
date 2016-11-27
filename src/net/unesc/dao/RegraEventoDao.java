@@ -65,6 +65,53 @@ public class RegraEventoDao extends DaoPadrao {
         }
     }
     
+    public void atualizar(Regra regra) throws BancoException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        
+        if (regra == null || regra.getCodigo() == null)
+            erro(conn, "Erro ao cadastrar a regra", null);
+        
+        try {
+            conn = Conexao.getConnection();
+            Integer proxSequencia = Funcoes.obterSequencia("regra_evento");
+            
+            String sql = "update regra_evento set ds_regra = ? , dt_inicio_vigencia = ?, dt_fim_vigencia = ?, "
+                    + "ie_situacao = ?, ie_tipo_horario = ?, "
+                    + "qt_hh = ?, qt_mm = ?, qt_ss = ?, qt_ml = ?, dia_dom = ?, dia_seg = ?, "
+                    + "dia_ter = ?, dia_qua = ?, dia_qui = ?, dia_sex = ?, dia_sab = ? "
+                    + "where nr_sequencia = ?";
+            
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, regra.getNome());
+            ps.setString(2, DiaHora.formatarData(regra.getInicioVigencia(),"yyyy-MM-dd HH:mm:ss"));
+            ps.setString(3, DiaHora.formatarData(regra.getFimVigencia(),"yyyy-MM-dd HH:mm:ss"));
+            ps.setString(4, regra.getSituacao());
+            ps.setString(5, regra.getTipoHorario());
+            ps.setInt(6, regra.getHora());
+            ps.setInt(7, regra.getMinuto());
+            ps.setInt(8, regra.getSegundo());
+            ps.setInt(9, regra.getMilesimos());
+            ps.setBoolean(10, regra.getDiaSemana(0));
+            ps.setBoolean(11, regra.getDiaSemana(1));
+            ps.setBoolean(12, regra.getDiaSemana(2));
+            ps.setBoolean(13, regra.getDiaSemana(3));
+            ps.setBoolean(14, regra.getDiaSemana(4));
+            ps.setBoolean(15, regra.getDiaSemana(5));
+            ps.setBoolean(16, regra.getDiaSemana(6));
+            ps.setInt(17, regra.getCodigo());
+            ps.execute();
+            conn.commit();
+            
+            regra.setCodigo(proxSequencia);
+            LogSistema.inserir(TipoLog.INCLUSAO, "Atualizou a regra: "+regra.getCodigo());
+        } catch(SQLException e) {
+            erro(conn, "Erro ao cadastrar a regra", e);
+        } finally {
+            finaliza(conn, ps);
+        }
+    }
+    
     public List<Regra> getAll() throws BancoException {
         List<Regra> lista = new ArrayList<Regra>();
         Connection conn = null;
