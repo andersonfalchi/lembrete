@@ -3,16 +3,19 @@ package net.unesc.aplicacao;
 import net.unesc.log.LogSistema;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import net.unesc.dao.RegraEventoDao;
 import net.unesc.entidades.FormaAlerta;
 import net.unesc.entidades.Regra;
+import net.unesc.entidades.Usuario;
 import net.unesc.exceptions.BancoException;
 import net.unesc.log.TipoLog;
 import net.unesc.utilidades.DiaHora;
 import net.unesc.utilidades.RetornoSimples;
 import net.unesc.utilidades.TelaPadrao;
+import net.unesc.utilidades.Tela;
 
 public class TelaRegra extends TelaPadrao {
     private RegraEventoDao regraEventoDao = new RegraEventoDao();
@@ -173,6 +176,8 @@ public class TelaRegra extends TelaPadrao {
         jLabel21 = new javax.swing.JLabel();
         jTxtSegundos = new javax.swing.JFormattedTextField();
         jTxtMilesimos = new javax.swing.JFormattedTextField();
+        jBConsultar = new javax.swing.JButton();
+        jBNovo = new javax.swing.JButton();
 
         setClosable(true);
         setForeground(java.awt.Color.white);
@@ -437,26 +442,41 @@ public class TelaRegra extends TelaPadrao {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
+        jBConsultar.setText("Consultar");
+        jBConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConsultarActionPerformed(evt);
+            }
+        });
+
+        jBNovo.setText("Novo");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(jbGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jbGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,11 +487,13 @@ public class TelaRegra extends TelaPadrao {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbExcluir)
                     .addComponent(jbGravar)
-                    .addComponent(jbExcluir))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -504,7 +526,8 @@ public class TelaRegra extends TelaPadrao {
             if (retornoSimples != null)
                 retornoSimples.retorno(regra);
             limpar();
-            setVisible(false);
+            ativaDesativaCampos(false);
+//            setVisible(false);
         }
         catch(Exception e)
         {
@@ -697,8 +720,52 @@ public class TelaRegra extends TelaPadrao {
         }
     }//GEN-LAST:event_jCkSextaActionPerformed
 
+    private void jBConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConsultarActionPerformed
+        try{
+            TelaListaRegras telaListaRegras = new TelaListaRegras();
+            TelaMenuPrincipal.jdPane.add((JInternalFrame)telaListaRegras);
+            Tela.centralizar(telaListaRegras);
+            telaListaRegras.show();
 
+            telaListaRegras.setRetornoSimples(new RetornoSimples<Regra>() {
+                @Override
+                public void retorno(Regra t) {
+                    ativaDesativaCampos(true);
+                    jbExcluir.setEnabled(true);
+                    jbGravar.setEnabled(true);
+                    preenche(t);
+                }
+            });
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
+    }//GEN-LAST:event_jBConsultarActionPerformed
+
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        ativaDesativaCampos(true);
+        jbGravar.setEnabled(true);
+        jbExcluir.setEnabled(false);
+        limpar();
+        regra = new Regra();
+    }//GEN-LAST:event_jBNovoActionPerformed
+
+    private void ativaDesativaCampos(boolean ativa) {
+        if (ativa)
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBConsultar;
+    private javax.swing.JButton jBNovo;
     private javax.swing.JCheckBox jCkDomingo;
     private javax.swing.JCheckBox jCkQuarta;
     private javax.swing.JCheckBox jCkQuinta;

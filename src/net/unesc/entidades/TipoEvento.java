@@ -25,6 +25,18 @@ public enum TipoEvento {
         return names;
     }
     
+    public static TipoEvento porDescricao(String valor) {
+        if (valor == null)
+            return null;
+        for (int i = 0; i < 10; i++) {
+            if (valor.toLowerCase().equals(values()[i].toString().toLowerCase()))
+            {
+                return values()[i];
+            }
+        }
+        return null;
+    }
+    
     
     
 }

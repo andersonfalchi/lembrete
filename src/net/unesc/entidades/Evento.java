@@ -177,6 +177,7 @@ public class Evento {
     public void fromResultSet(ResultSet rs) {
         try
         {
+            System.out.println("Ok");
             this.setCodigo(rs.getInt("nr_sequencia"));
             this.setUsuario(new Usuario(rs.getString("nm_usuario")));
             this.setDescricao(rs.getString("ds_evento"));
@@ -187,7 +188,7 @@ public class Evento {
             this.setEmail(rs.getString("ds_email"));
             this.setDdd(rs.getString("nr_ddd_celular"));
             this.setCelular(rs.getString("nr_celular"));
-            this.setTipoEvento(TipoEvento.valueOf(rs.getString("ie_tipo_evento").toUpperCase()));
+            this.setTipoEvento(TipoEvento.porDescricao(rs.getString("ie_tipo_evento").toUpperCase()));
             this.setCor(rs.getString("cor"));
             this.setSituacao(rs.getString("ie_situacao"));
             this.setUltimaOcorrencia(rs.getTimestamp("dt_ultima_execucao"));
