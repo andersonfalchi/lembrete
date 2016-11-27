@@ -28,6 +28,7 @@ public class TelaRegra extends TelaPadrao {
     public TelaRegra(Regra regra) {
         this();
         preenche(regra);
+        ativaBotoes();
     }
     
     public TelaRegra() {
@@ -46,6 +47,10 @@ public class TelaRegra extends TelaPadrao {
         dataMaskFim.install(jTxtFimVigencia);
     }
     
+    public void ativaBotoes(){
+        jbExcluir.setEnabled(true);
+    }
+    
     private void preenche(Regra regra)  {
         if (regra != null)
         {
@@ -57,8 +62,6 @@ public class TelaRegra extends TelaPadrao {
             jTxtSegundos.setText(regra.getSegundo().toString());
             jTxtMilesimos.setText(regra.getMilesimos().toString());
             
-          
-            
             if(regra.getSituacao().equals("A")){
                 jCkSituacao.setSelected(true);
             }else{
@@ -68,55 +71,97 @@ public class TelaRegra extends TelaPadrao {
             if(regra.getTipoHorario().equals("CH")){
                 this.jRadioCadaHora.setSelected(true);
                 this.jRadioHoraFixo.setSelected(false);
+                desativaAtivaDias("D");
+                limpaDias();
+                
             }else{
                 this.jRadioCadaHora.setSelected(false);
                 this.jRadioHoraFixo.setSelected(true);
+                desativaAtivaDias("A");
+                
+                if(!regra.getDiaSemana(0)){
+                    jCkDomingo.setSelected(true);
+                }else{
+                    jCkDomingo.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+
+                if(!regra.getDiaSemana(1)){
+                    jCkSegunda.setSelected(true);
+                }else{
+                    jCkSegunda.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+
+                if(!regra.getDiaSemana(2)){
+                    jCkTerca.setSelected(true);
+                }else{
+                    jCkTerca.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+
+                if(!regra.getDiaSemana(3)){
+                    jCkQuarta.setSelected(true);
+                }else{
+                    jCkQuarta.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+
+                if(!regra.getDiaSemana(4)){
+                    jCkQuinta.setSelected(true);
+                }else{
+                    jCkQuinta.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+
+                if(!regra.getDiaSemana(5)){
+                    jCkSexta.setSelected(true);
+                }else{
+                    jCkSexta.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+
+                if(!regra.getDiaSemana(6)){
+                    jCkSabado.setSelected(true);
+                }else{
+                    jCkSabado.setSelected(false);
+                    jCkTodos.setSelected(false);
+                }
+                
             }
-            
-            System.out.println(regra.getDiaSemana(0));
-            
-            if(regra.getDiaSemana(0)){
-                jCkDomingo.setSelected(true);
-            }else{
-                jCkDomingo.setSelected(false);
-            }
-            
-            if(regra.getDiaSemana(1)){
-                jCkSegunda.setSelected(true);
-            }else{
-                jCkSegunda.setSelected(false);
-            }
-            
-            if(regra.getDiaSemana(2)){
-                jCkTerca.setSelected(true);
-            }else{
-                jCkTerca.setSelected(false);
-            }
-            
-            if(regra.getDiaSemana(3)){
-                jCkQuarta.setSelected(true);
-            }else{
-                jCkQuarta.setSelected(false);
-            }
-            
-            if(regra.getDiaSemana(4)){
-                jCkQuinta.setSelected(true);
-            }else{
-                jCkQuinta.setSelected(false);
-            }
-            
-            if(regra.getDiaSemana(5)){
-                jCkSexta.setSelected(true);
-            }else{
-                jCkSexta.setSelected(false);
-            }
-            
-            if(regra.getDiaSemana(6)){
-                jCkSabado.setSelected(true);
-            }else{
-                jCkSabado.setSelected(false);
-            }
-            
+        }
+    }
+    
+    public void limpaDias(){
+        this.jCkDomingo.setSelected(false);
+        this.jCkSegunda.setSelected(false);
+        this.jCkTerca.setSelected(false);
+        this.jCkQuarta.setSelected(false);
+        this.jCkQuinta.setSelected(false);
+        this.jCkSexta.setSelected(false);
+        this.jCkSabado.setSelected(false);
+        this.jCkTodos.setSelected(false);
+    }
+    
+    private void desativaAtivaDias(String opcao){
+        if(opcao.equals("A")){
+            this.jCkDomingo.setEnabled(true);
+            this.jCkSegunda.setEnabled(true);
+            this.jCkTerca.setEnabled(true);
+            this.jCkQuarta.setEnabled(true);
+            this.jCkQuinta.setEnabled(true);
+            this.jCkSexta.setEnabled(true);
+            this.jCkSabado.setEnabled(true);
+            this.jCkTodos.setEnabled(true);
+        }else{
+            this.jCkDomingo.setEnabled(false);
+            this.jCkSegunda.setEnabled(false);
+            this.jCkTerca.setEnabled(false);
+            this.jCkQuarta.setEnabled(false);
+            this.jCkQuinta.setEnabled(false);
+            this.jCkSexta.setEnabled(false);
+            this.jCkSabado.setEnabled(false);
+            this.jCkTodos.setEnabled(false);
         }
     }
     
@@ -129,14 +174,7 @@ public class TelaRegra extends TelaPadrao {
         this.jTxtSegundos.setText("");
         this.jTxtMilesimos.setText("");
         
-        this.jCkDomingo.setEnabled(true);
-        this.jCkSegunda.setEnabled(true);
-        this.jCkTerca.setEnabled(true);
-        this.jCkQuarta.setEnabled(true);
-        this.jCkQuinta.setEnabled(true);
-        this.jCkSexta.setEnabled(true);
-        this.jCkSabado.setEnabled(true);
-        this.jCkTodos.setEnabled(true);
+        desativaAtivaDias("A");
     }
 
     @SuppressWarnings("unchecked")
@@ -232,6 +270,7 @@ public class TelaRegra extends TelaPadrao {
         );
 
         jbExcluir.setText("Excluir");
+        jbExcluir.setEnabled(false);
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbExcluirActionPerformed(evt);
@@ -480,7 +519,6 @@ public class TelaRegra extends TelaPadrao {
     private void jbGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGravarActionPerformed
         try
         {
-            //Regra regra = new Regra();
             regra.setNome(jTxtDescricao.getText());
             regra.setUsuario(Aplicacao.SESSAO.usuario());
             regra.setDiaSemana(0, this.jCkDomingo.isSelected());
@@ -499,8 +537,12 @@ public class TelaRegra extends TelaPadrao {
             regra.setTipoHorario(jRadioCadaHora.isSelected() ? "CH" : "HF");
             regra.setSituacao(jCkSituacao.isSelected() ? "A" : "I");
             
-            regraEventoDao.inserir(regra);
-            
+            if(!jbExcluir.isEnabled()){
+                regraEventoDao.inserir(regra);
+            }else{
+                //regraEventoDao.alterar(regra);
+            }
+                        
             if (retornoSimples != null)
                 retornoSimples.retorno(regra);
             limpar();
